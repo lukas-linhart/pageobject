@@ -6,7 +6,7 @@ long_description = 'Page Object design pattern implementation' + \
 setup_args = {
     'name': 'pageobject',
     'packages': ['pageobject'],
-    'version': '0.0.2',
+    'version': '0.0.3',
     'description': 'Page Object implementation',
     'long_description': long_description,
     'url': 'https://github.com/lukas-linhart/pageobject',
@@ -27,7 +27,7 @@ setup_args = {
                     'Programming Language :: Python :: 3.5'],
     'keywords': 'pageobject browser automation',
     'packages': find_packages(exclude=['contrib', 'docs', 'tests*']),
-    'install_requires': ['selenium>=2']
+    'install_requires': ['selenium>=2.53.0']
 }
 
 setup(**setup_args)
