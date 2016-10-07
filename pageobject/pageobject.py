@@ -5,13 +5,14 @@ from . import useless_logger
 
 class PageObject(object):
 
-    def __init__(self, locator, parent, chain=True, webdriver=None, logger=useless_logger, name=None):
+    def __init__(self, locator, parent, chain=True, webdriver=None, logger=useless_logger, name=None, children_class=None):
         self._locator = locator
         self.parent = parent
         self._chain = chain
         self._webdriver = webdriver
         self._logger = logger
         self._name = name
+        self._children_class = children_class
 
         self.init_children()
 
@@ -63,17 +64,24 @@ class PageObject(object):
         if self._name:
             return self._name
         try:
+            if isinstance(self.parent.children, list):
+                return '{}[{}]'.format(self.parent.name, str(self.index))
             for child in self.parent.children:
                 if self.parent.__dict__[child] == self:
                     return child
         except AttributeError:
             return 'root'
+        except KeyError:
+            return 'page_object'
 
 
     @property
     def full_name(self):
         try:
-            return '{}.{}'.format(self.parent.full_name, self.name)
+            if isinstance(self.parent.children, set):
+                return '{}.{}'.format(self.parent.full_name, self.name)
+            else:
+                return '{}[{}]'.format(self.parent.full_name, str(self.index))
         except AttributeError:
             return self.name
 
@@ -87,6 +95,11 @@ class PageObject(object):
 
 
     @property
+    def new_children_class(self):
+        raise NotImplementedError
+
+
+    @property
     def _log_id_short(self):
         return 'page object "{}"'.format(self.name)
 
@@ -95,6 +108,13 @@ class PageObject(object):
     def _log_id_long(self):
         return 'full name path: "{}", element: "{}"'.format(
                 self.full_name, self.locator)
+
+
+    def __repr__(self):
+        my_class = self.__class__.__name__
+        base_class = self.__class__.__bases__[0].__name__
+        return '<{}({}) (locator="{}")>'.format(
+                my_class, base_class, self.locator)
 
 
     def find(self, log=True):

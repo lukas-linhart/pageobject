@@ -1,5 +1,6 @@
 from .pageobject import PageObject
+from .pageobjectlist import PageObjectList
 from .select import Select
 
-__version__ = '0.0.4'
+__version__ = '0.0.6'
 
