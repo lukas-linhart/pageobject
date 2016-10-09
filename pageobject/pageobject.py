@@ -188,6 +188,18 @@ class PageObject(object):
         return self
 
 
+    def wait_for_visible(self, timeout=60):
+        self.logger.info('waiting until {} is visible'.format(self._log_id_short))
+        self.logger.debug('waiting until page object is visible; {}'.format(self._log_id_long))
+        WebDriverWait(self.webdriver, timeout).until(
+                lambda x: self.is_visible(log=False),
+                message='Element "{}" not visible after {} seconds'.format(
+                    self.locator, timeout))
+        self.logger.info('finished waiting until {} is visible'.format(self._log_id_short))
+        self.logger.debug('finished waiting until page object is visible; {}'.format(self._log_id_long))
+        return self
+
+
     def click(self):
         elem = self.find()
         self.logger.info('clicking on {}'.format(self._log_id_short))
