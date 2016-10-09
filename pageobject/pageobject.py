@@ -136,8 +136,8 @@ class PageObject(object):
 
     def is_existing(self, log=True):
         if log:
-            self.logger.info('determining wheter {} is existing'.format(self._log_id_short))
-            self.logger.debug('determining wheter page object is existing; {}'.format(self._log_id_long))
+            self.logger.info('determining whether {} is existing'.format(self._log_id_short))
+            self.logger.debug('determining whether page object is existing; {}'.format(self._log_id_long))
         try:
             self.webdriver.find_element_by_xpath(self.locator)
         except WebDriverException:
@@ -153,8 +153,8 @@ class PageObject(object):
 
     def is_visible(self, log=True):
         if log:
-            self.logger.info('determining wheter {} is visible'.format(self._log_id_short))
-            self.logger.debug('determining wheter page object is visible; {}'.format(self._log_id_long))
+            self.logger.info('determining whether {} is visible'.format(self._log_id_short))
+            self.logger.debug('determining whether page object is visible; {}'.format(self._log_id_long))
         visible = self.find(log=log).is_displayed()
         neg_str = '' if visible else ' not'
         if log:
