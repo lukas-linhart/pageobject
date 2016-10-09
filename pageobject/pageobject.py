@@ -95,7 +95,7 @@ class PageObject(object):
 
 
     @property
-    def new_children_class(self):
+    def children_class(self):
         raise NotImplementedError
 
 
