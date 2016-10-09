@@ -151,6 +151,19 @@ class PageObject(object):
         return True
 
 
+    def is_visible(self, log=True):
+        if log:
+            self.logger.info('determining wheter {} is visible'.format(self._log_id_short))
+            self.logger.debug('determining wheter page object is visible; {}'.format(self._log_id_long))
+        visible = self.find(log=log).is_displayed()
+        neg_str = '' if visible else ' not'
+        if log:
+            self.logger.info('{} is{} visible'.format(self._log_id_short, neg_str))
+            self.logger.debug('page object is{} visible; {}'.format(neg_str, self._log_id_long))
+        return visible
+
+
+
     def wait_for_exist(self, timeout=60):
         self.logger.info('waiting until page contains {}'.format(self._log_id_short))
         self.logger.debug('waiting until page contains page object; {}'.format(self._log_id_long))
