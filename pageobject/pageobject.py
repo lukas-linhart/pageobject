@@ -128,6 +128,11 @@ class PageObject(object):
         return elem
 
 
+    @property
+    def text(self):
+        return self.find(log=False).text
+
+
     def is_existing(self, log=True):
         if log:
             self.logger.info('determining wheter {} is existing'.format(self._log_id_short))
