@@ -1,4 +1,5 @@
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import WebDriverException
 from . import useless_logger
 
@@ -219,4 +220,12 @@ class PageObject(object):
         self.logger.info('getting attribute "{}" of {}'.format(attribute, self._log_id_short))
         self.logger.debug('getting attribute "{}" of page object; {}'.format(attribute, self._log_id_long))
         return self.find(log=False).get_attribute(attribute)
+
+
+    def move_to(self):
+        self.logger.info('moving to {}'.format(self._log_id_short))
+        self.logger.debug('moving to page object; {}'.format(self._log_id_long))
+        action = ActionChains(self.webdriver).move_to_element(self.find())
+        action.perform()
+        return self
 
