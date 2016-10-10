@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.utils import keys_to_typing
 from selenium.common.exceptions import WebDriverException
 from . import useless_logger
 
@@ -252,5 +253,15 @@ class PageObject(object):
         self.logger.debug('moving to page object; {}'.format(self._log_id_long))
         action = ActionChains(self.webdriver).move_to_element(self.find())
         action.perform()
+        return self
+
+
+    def send_keys(self, keys, log=True):
+        elem = self.find(log=False)
+        single_keys = keys_to_typing(keys)
+        if log:
+            self.logger.info('sending keys {} to {}'.format(single_keys, self._log_id_short))
+            self.logger.debug('sending keys {} to page object; {}'.format(single_keys, self._log_id_long))
+        elem.send_keys(keys)
         return self
 
