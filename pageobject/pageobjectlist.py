@@ -33,5 +33,10 @@ class PageObjectList(PageObject):
 
 
     def index(self, value):
-        return [item.text for item in self[:]].index(value)
+        self.logger.info('getting index of "{}" within {}'.format(value, self._log_id_short))
+        self.logger.info('getting index of "{}" within page object; {}'.format(value, self._log_id_long))
+        index = [item.text for item in self[:]].index(value)
+        self.logger.info('index of "{}" within {} is {}'.format(value, self._log_id_short, index))
+        self.logger.info('index of "{}" within page object is {}; {}'.format(value, index, self._log_id_long))
+        return index
 
