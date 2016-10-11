@@ -263,7 +263,7 @@ class PageObject(object):
 
 
     def send_keys(self, keys, log=True):
-        elem = self.find(log=False)
+        elem = self.find(log=log)
         single_keys = keys_to_typing(keys)
         if log:
             self.logger.info('sending keys {} to {}'.format(single_keys, self._log_id_short))
