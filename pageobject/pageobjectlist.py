@@ -31,3 +31,7 @@ class PageObjectList(PageObject):
     def __len__(self):
         return len(self.children)
 
+
+    def index(self, value):
+        return [item.text for item in self[:]].index(value)
+
