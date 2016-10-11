@@ -1,6 +1,7 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.utils import keys_to_typing
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 from . import useless_logger
 
@@ -211,7 +212,7 @@ class PageObject(object):
         return self
 
 
-    def clear(self, log=True):
+    def clear(self, log=True, press_enter=False):
         elem = self.find(log=log)
         if log:
             self.logger.info('clearing {}'.format(self._log_id_short))
@@ -220,6 +221,11 @@ class PageObject(object):
         if log:
             self.logger.info('{} cleared'.format(self._log_id_short))
             self.logger.debug('page object cleared; {}'.format(self._log_id_long))
+        if press_enter:
+            elem.send_keys(Keys.ENTER)
+            if log:
+                self.logger.info('"enter" key sent to {}'.format(self._log_id_short))
+                self.logger.debug('"enter" key sent to page object; {}'.format(self._log_id_long))
         return self
 
 
