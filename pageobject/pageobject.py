@@ -8,6 +8,9 @@ from . import useless_logger
 
 class PageObject(object):
 
+    DEFAULT_NAME = 'page_object'
+    DEFAULT_ROOT_NAME = 'root'
+
     def __init__(self, locator, parent, chain=True, webdriver=None, logger=useless_logger, name=None, children_class=None):
         self._locator = locator
         self.parent = parent
@@ -73,9 +76,9 @@ class PageObject(object):
                 if self.parent.__dict__[child] == self:
                     return child
         except AttributeError:
-            return 'root'
+            return PageObject.DEFAULT_ROOT_NAME
         except KeyError:
-            return 'page_object'
+            return PageObject.DEFAULT_NAME
 
 
     @property
