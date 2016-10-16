@@ -21,6 +21,13 @@ class PageObjectTests(unittest.TestCase):
         self.assertEqual(root_po['nested_po'], root_po.nested_po)
 
 
+    def test_PO_len_returns_number_of_children(self):
+        root_po = po.PageObject('', None)
+        root_po.nested_po = po.PageObject('', root_po)
+        root_po.another_nested_po = po.PageObject('', root_po)
+        self.assertEqual(len(root_po), len(root_po.children))
+
+
     def test_root_PO_has_correct_short_implicit_name(self):
         root_po = po.PageObject('', None)
         self.assertEqual(root_po.name, po.PageObject.DEFAULT_ROOT_NAME)

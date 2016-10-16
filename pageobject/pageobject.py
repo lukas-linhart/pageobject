@@ -34,6 +34,10 @@ class PageObject(object):
         return self.children[key]
 
 
+    def __len__(self):
+        return len(self.children)
+
+
     def init_children(self):
         '''
         Meant to be overloaded by page objects
