@@ -84,7 +84,7 @@ class PageObject(object):
     @property
     def full_name(self):
         try:
-            if isinstance(self.parent.children, set):
+            if isinstance(self.parent.children, dict):
                 return '{}.{}'.format(self.parent.full_name, self.name)
             else:
                 return '{}[{}]'.format(self.parent.full_name, str(self.index))
