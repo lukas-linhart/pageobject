@@ -15,6 +15,12 @@ class PageObjectTests(unittest.TestCase):
         self.assertIsInstance(root_po.children, dict)
 
 
+    def test_PO_getitem_returns_correct_child(self):
+        root_po = po.PageObject('', None)
+        root_po.nested_po = po.PageObject('', root_po)
+        self.assertEqual(root_po['nested_po'], root_po.nested_po)
+
+
     def test_root_PO_has_correct_short_implicit_name(self):
         root_po = po.PageObject('', None)
         self.assertEqual(root_po.name, po.PageObject.DEFAULT_ROOT_NAME)

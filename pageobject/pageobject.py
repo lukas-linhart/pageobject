@@ -30,6 +30,10 @@ class PageObject(object):
                 my_class, base_class, self.locator)
 
 
+    def __getitem__(self, key):
+        return self.children[key]
+
+
     def init_children(self):
         '''
         Meant to be overloaded by page objects
