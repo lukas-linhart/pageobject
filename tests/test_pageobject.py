@@ -10,9 +10,9 @@ import pageobject as po
 
 class PageObjectTests(unittest.TestCase):
 
-    def test_PO_children_property_returns_set(self):
+    def test_PO_children_property_returns_dict(self):
         root_po = po.PageObject('', None)
-        self.assertIsInstance(root_po.children, set)
+        self.assertIsInstance(root_po.children, dict)
 
 
     def test_root_PO_has_correct_short_implicit_name(self):
@@ -24,6 +24,7 @@ class PageObjectTests(unittest.TestCase):
         po_name = 'explicit_name'
         root_po = po.PageObject('', None, name=po_name)
         self.assertEqual(root_po.name, po_name)
+
 
 
 if __name__ == '__main__':

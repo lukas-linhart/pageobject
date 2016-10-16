@@ -60,7 +60,7 @@ class PageObject(object):
 
     @property
     def children(self):
-        return {attr_name for attr_name, attr_value in self.__dict__.items()
+        return {attr_name: attr_value for attr_name, attr_value in self.__dict__.items()
                 if isinstance(attr_value, PageObject)
                 and attr_value is not self.parent}
 
