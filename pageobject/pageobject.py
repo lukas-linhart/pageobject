@@ -23,6 +23,13 @@ class PageObject(object):
         self.init_children()
 
 
+    def __repr__(self):
+        my_class = self.__class__.__name__
+        base_class = self.__class__.__bases__[0].__name__
+        return '<{}({}) (locator="{}")>'.format(
+                my_class, base_class, self.locator)
+
+
     def init_children(self):
         '''
         Meant to be overloaded by page objects
@@ -106,13 +113,6 @@ class PageObject(object):
     def _log_id_long(self):
         return 'full name path: "{}", element: "{}"'.format(
                 self.full_name, self.locator)
-
-
-    def __repr__(self):
-        my_class = self.__class__.__name__
-        base_class = self.__class__.__bases__[0].__name__
-        return '<{}({}) (locator="{}")>'.format(
-                my_class, base_class, self.locator)
 
 
     def find(self, log=True):
