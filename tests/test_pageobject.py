@@ -47,9 +47,10 @@ class PageObjectTests(unittest.TestCase):
     def test_nested_PO_has_correct_full_name(self):
         root_po = po.PageObject('', None)
         root_po.nested_po = po.PageObject('', root_po)
-        correct_name = '{}.{}'.format(
-                po.PageObject.DEFAULT_ROOT_NAME, root_po.nested_po.name)
-        self.assertEqual(root_po.nested_po.full_name, correct_name)
+        root_po.nested_po.leaf_po = po.PageObject('', root_po.nested_po)
+        leaf_po_full_name = '{}.{}.{}'.format(
+                root_po.name, root_po.nested_po.name, root_po.nested_po.leaf_po.name)
+        self.assertEqual(root_po.nested_po.leaf_po.full_name, leaf_po_full_name)
 
 
 
