@@ -93,14 +93,6 @@ class PageObject(object):
 
 
     @property
-    def short_full_name(self):
-        if self.name == self.full_name:
-            return self.name
-        else:
-            return '...{}'.format(self.name)
-
-
-    @property
     def children_class(self):
         raise NotImplementedError
 
