@@ -31,6 +31,10 @@ class PageObject(object):
                 my_class, base_class, self.locator)
 
 
+    def __bool__(self):
+        return True
+
+
     def __getitem__(self, key):
         return self.children[key]
 
