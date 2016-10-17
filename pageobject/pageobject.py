@@ -20,7 +20,7 @@ class PageObject(object):
         self._name = name
         self._children_class = children_class
 
-        self._register_as_child(self.parent, self.name)
+        self._register_as_child(self.parent, self._name)
         self.init_children()
 
 
@@ -44,7 +44,7 @@ class PageObject(object):
 
 
     def _register_as_child(self, parent, name):
-        if not parent or not name:
+        if not isinstance(parent, PageObject) or not name:
             return
         parent.__setattr__(name, self)
 

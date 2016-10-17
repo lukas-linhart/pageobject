@@ -15,6 +15,20 @@ class PageObjectTests(unittest.TestCase):
         self.assertIsInstance(root_po.children, dict)
 
 
+    def test_PO_registers_as_child_via_attribute_assignment(self):
+        root_po = po.PageObject('', None)
+        nested_po = po.PageObject('', root_po)
+        root_po.nested_po = nested_po
+        self.assertIn('nested_po', root_po.children)
+
+
+    def test_PO_registers_as_child_via_explicit_name(self):
+        root_po = po.PageObject('', None)
+        nested_po_name = 'nested_po'
+        po.PageObject('', root_po, name=nested_po_name)
+        self.assertIn(nested_po_name, root_po.children)
+
+
     def test_PO_getitem_returns_correct_child(self):
         root_po = po.PageObject('', None)
         root_po.nested_po = po.PageObject('', root_po)
