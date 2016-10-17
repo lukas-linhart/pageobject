@@ -20,6 +20,7 @@ class PageObject(object):
         self._name = name
         self._children_class = children_class
 
+        self._register_as_child(self.parent, self.name)
         self.init_children()
 
 
@@ -36,6 +37,12 @@ class PageObject(object):
 
     def __len__(self):
         return len(self.children)
+
+
+    def _register_as_child(self, parent, name):
+        if not parent or not name:
+            return
+        parent.__setattr__(name, self)
 
 
     def init_children(self):
