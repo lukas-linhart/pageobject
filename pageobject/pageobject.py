@@ -39,10 +39,10 @@ class PageObject(object):
 
 
     def init_children(self):
-        '''
+        """
         Meant to be overloaded by page objects
         containing other page objects.
-        '''
+        """
         pass
 
 
