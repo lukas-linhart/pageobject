@@ -10,6 +10,7 @@ class PageObject(object):
 
     DEFAULT_NAME = 'page_object'
     DEFAULT_ROOT_NAME = 'root'
+    DEFAULT_WAIT_TIMEOUT = 60
 
     def __init__(self, locator, parent, chain=True, webdriver=None, logger=useless_logger, name=None, children_class=None):
         self._locator = locator
@@ -185,7 +186,7 @@ class PageObject(object):
 
 
 
-    def wait_for_exist(self, timeout=60):
+    def wait_for_exist(self, timeout=DEFAULT_WAIT_TIMEOUT):
         self.logger.info('waiting until page contains {}'.format(self._log_id_short))
         self.logger.debug('waiting until page contains page object; {}'.format(self._log_id_long))
         WebDriverWait(self.webdriver, timeout).until(
@@ -197,7 +198,7 @@ class PageObject(object):
         return self
 
 
-    def wait_for_vanish(self, timeout=60):
+    def wait_for_vanish(self, timeout=DEFAULT_WAIT_TIMEOUT):
         self.logger.info('waiting until page does not contain {}'.format(self._log_id_short))
         self.logger.debug('waiting until page does not contain page object; {}'.format(self._log_id_long))
         WebDriverWait(self.webdriver, timeout).until(
@@ -209,7 +210,7 @@ class PageObject(object):
         return self
 
 
-    def wait_for_visible(self, timeout=60):
+    def wait_for_visible(self, timeout=DEFAULT_WAIT_TIMEOUT):
         self.logger.info('waiting until {} is visible'.format(self._log_id_short))
         self.logger.debug('waiting until page object is visible; {}'.format(self._log_id_long))
         WebDriverWait(self.webdriver, timeout).until(
