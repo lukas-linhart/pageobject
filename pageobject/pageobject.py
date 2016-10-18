@@ -20,7 +20,11 @@ class PageObject(object):
         self._name = name
         self._children_class = children_class
 
-        self._register_as_child(self.parent, self._name)
+        try:
+            self.parent.register_child(self)
+        except AttributeError:
+            pass
+
         self.init_children()
 
 
@@ -43,10 +47,11 @@ class PageObject(object):
         return len(self.children)
 
 
-    def _register_as_child(self, parent, name):
-        if not isinstance(parent, PageObject) or not name:
+    def register_child(self, child):
+        try:
+            self.__setattr__(child.name, child)
+        except TypeError:
             return
-        parent.__setattr__(name, self)
 
 
     def init_children(self):
