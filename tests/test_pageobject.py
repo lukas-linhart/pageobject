@@ -75,8 +75,10 @@ class PageObjectTests(unittest.TestCase):
         root_po = po.PageObject('', None)
         nested_po = po.PageObject('', root_po, name='nested_po')
         leaf_po = po.PageObject('', nested_po, name='leaf_po')
-        leaf_po_full_name = '{}.{}.{}'.format(
-                root_po.name, nested_po.name, leaf_po.name)
+        separator = po.PageObject.NAME_SEPARATOR
+        leaf_po_full_name = '{}{}{}{}{}'.format(
+                root_po.name, separator, nested_po.name,
+                separator, leaf_po.name)
         self.assertEqual(leaf_po.full_name, leaf_po_full_name)
 
 

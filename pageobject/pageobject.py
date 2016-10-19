@@ -11,6 +11,7 @@ class PageObject(object):
     DEFAULT_NAME = 'page_object'
     DEFAULT_ROOT_NAME = 'root'
     DEFAULT_WAIT_TIMEOUT = 60
+    NAME_SEPARATOR = '.'
 
     def __init__(self, locator, parent, chain=True, webdriver=None, logger=useless_logger, name=None, children_class=None):
         self._locator = locator
@@ -117,7 +118,7 @@ class PageObject(object):
     def full_name(self):
         try:
             if isinstance(self.parent.children, dict):
-                return '{}.{}'.format(self.parent.full_name, self.name)
+                return '{}{}{}'.format(self.parent.full_name, PageObject.NAME_SEPARATOR, self.name)
             else:
                 return '{}[{}]'.format(self.parent.full_name, str(self.index))
         except AttributeError:
