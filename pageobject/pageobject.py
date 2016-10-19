@@ -195,7 +195,7 @@ class PageObject(object):
         self.logger.debug('waiting until page contains page object; {}'.format(self._log_id_long))
         WebDriverWait(self.webdriver, timeout).until(
                 lambda x: self.is_existing(log=False),
-                message='Element "{}" not found after {} seconds'.format(
+                message='Element "{}" still not existing after {} seconds'.format(
                     self.locator, timeout))
         self.logger.info('finished waiting until page contains {}'.format(self._log_id_short))
         self.logger.debug('finished waiting until page contains page object; {}'.format(self._log_id_long))
@@ -207,7 +207,7 @@ class PageObject(object):
         self.logger.debug('waiting until page does not contain page object; {}'.format(self._log_id_long))
         WebDriverWait(self.webdriver, timeout).until(
                 lambda x: not self.is_existing(log=False),
-                message='Element "{}" not found after {} seconds'.format(
+                message='Element "{}" still existing after {} seconds'.format(
                     self.locator, timeout))
         self.logger.info('finished waiting until page does not contain {}'.format(self._log_id_short))
         self.logger.debug('finished waiting until page does not contain page object; {}'.format(self._log_id_long))
