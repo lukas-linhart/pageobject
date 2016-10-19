@@ -13,7 +13,7 @@ class PageObject(object):
     DEFAULT_WAIT_TIMEOUT = 60
     NAME_SEPARATOR = '.'
 
-    def __init__(self, locator, parent, chain=True, webdriver=None, logger=useless_logger, name=None, children_class=None):
+    def __init__(self, locator, parent, chain=True, webdriver=None, logger=None, name=None, children_class=None):
         self._locator = locator
         self.parent = parent
         self._chain = chain
@@ -88,7 +88,10 @@ class PageObject(object):
         try:
             return self.parent.logger
         except AttributeError:
-            return self._logger
+            if self._logger is None:
+                return useless_logger
+            else:
+                return self._logger
 
 
     @property
