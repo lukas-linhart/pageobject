@@ -3,24 +3,22 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
-from . import useless_logger
+
+from .pageobjectbase import PageObjectBase
 
 
-class PageObject(object):
+class PageObject(PageObjectBase):
 
-    DEFAULT_NAME = 'page_object'
-    DEFAULT_ROOT_NAME = 'root'
     DEFAULT_WAIT_TIMEOUT = 60
-    NAME_SEPARATOR = '.'
 
-    def __init__(self, locator, parent, chain=True, webdriver=None, logger=None, name=None, children_class=None):
+
+    def __init__(self, locator, parent, chain=True, webdriver=None, logger=None, name=None):
         self._locator = locator
         self.parent = parent
         self._chain = chain
         self._webdriver = webdriver
         self._logger = logger
         self._name = name
-        self._children_class = children_class
 
         try:
             self.parent.register_child(self)
@@ -65,83 +63,10 @@ class PageObject(object):
 
 
     @property
-    def locator(self):
-        try:
-            if self._chain:
-                return self.parent.locator + self._locator
-            else:
-                return self._locator
-        except AttributeError:
-            return self._locator
-
-
-    @property
-    def webdriver(self):
-        try:
-            return self.parent.webdriver
-        except AttributeError:
-            return self._webdriver
-
-
-    @property
-    def logger(self):
-        try:
-            return self.parent.logger
-        except AttributeError:
-            if self._logger is None:
-                return useless_logger
-            else:
-                return self._logger
-
-
-    @property
     def children(self):
         return {attr_name: attr_value for attr_name, attr_value in self.__dict__.items()
-                if isinstance(attr_value, PageObject)
+                if isinstance(attr_value, PageObjectBase)
                 and attr_value is not self.parent}
-
-
-    @property
-    def name(self):
-        if self._name:
-            return self._name
-        try:
-            if isinstance(self.parent.children, list):
-                return '{}[{}]'.format(self.parent.name, str(self.index))
-            for child in self.parent.children:
-                if self.parent.__dict__[child] == self:
-                    return child
-        except AttributeError:
-            return PageObject.DEFAULT_ROOT_NAME
-        except KeyError:
-            return PageObject.DEFAULT_NAME
-
-
-    @property
-    def full_name(self):
-        try:
-            if isinstance(self.parent.children, dict):
-                return '{}{}{}'.format(self.parent.full_name, PageObject.NAME_SEPARATOR, self.name)
-            else:
-                return '{}[{}]'.format(self.parent.full_name, str(self.index))
-        except AttributeError:
-            return self.name
-
-
-    @property
-    def children_class(self):
-        raise NotImplementedError
-
-
-    @property
-    def _log_id_short(self):
-        return 'page object "{}"'.format(self.name)
-
-
-    @property
-    def _log_id_long(self):
-        return 'full name path: "{}", element: "{}"'.format(
-                self.full_name, self.locator)
 
 
     def find(self, log=True):

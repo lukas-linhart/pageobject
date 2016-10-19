@@ -1,7 +1,21 @@
+from .pageobjectbase import PageObjectBase
 from .pageobject import PageObject
 
 
-class PageObjectList(PageObject):
+class PageObjectList(PageObjectBase):
+
+    def __init__(self, locator, parent, chain=True, name=None, children_class=None):
+        self._locator = locator
+        self.parent = parent
+        self._chain = chain
+        self._name = name
+        self._children_class = children_class
+
+        try:
+            self.parent.register_child(self)
+        except AttributeError:
+            pass
+
 
     @property
     def children(self):
@@ -30,10 +44,6 @@ class PageObjectList(PageObject):
 
     def __len__(self):
         return len(self.children)
-
-
-    def register_child(self, child):
-        pass
 
 
     def index(self, value):
