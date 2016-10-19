@@ -6,6 +6,7 @@ parent_dir = '{}/..'.format(here)
 sys.path.append(parent_dir)
 
 from pageobject import PageObject
+from pageobject import PageObjectList
 
 
 class PageObjectTests(unittest.TestCase):
@@ -22,11 +23,25 @@ class PageObjectTests(unittest.TestCase):
         self.assertIn('nested_po', root_po.children)
 
 
+    def test_POL_registers_as_child_via_attribute_assignment(self):
+        root_po = PageObject('', None)
+        nested_po_list = PageObjectList('', root_po)
+        root_po.nested_po_list = nested_po_list
+        self.assertIn('nested_po_list', root_po.children)
+
+
     def test_PO_registers_as_child_via_explicit_name(self):
         root_po = PageObject('', None)
         nested_po_name = 'nested_po'
         PageObject('', root_po, name=nested_po_name)
         self.assertIn(nested_po_name, root_po.children)
+
+
+    def test_POL_registers_as_child_via_explicit_name(self):
+        root_po = PageObject('', None)
+        nested_po_list_name = 'nested_po_list'
+        PageObjectList('', root_po, name=nested_po_list_name)
+        self.assertIn(nested_po_list_name, root_po.children)
 
 
     def test_PO_getitem_returns_correct_child(self):
