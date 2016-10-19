@@ -32,6 +32,10 @@ class PageObjectList(PageObject):
         return len(self.children)
 
 
+    def register_child(self, child):
+        pass
+
+
     def index(self, value):
         self.logger.info('getting index of "{}" within {}'.format(value, self._log_id_short))
         self.logger.debug('getting index of "{}" within page object; {}'.format(value, self._log_id_long))
