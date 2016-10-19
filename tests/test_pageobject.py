@@ -82,6 +82,18 @@ class PageObjectTests(unittest.TestCase):
         self.assertEqual(leaf_po.full_name, leaf_po_full_name)
 
 
+    def test_root_PO_has_correct_chained_locator(self):
+        locator = '//body'
+        root_po = PageObject(locator, None, chain=True)
+        self.assertEqual(root_po.locator, locator)
+
+
+    def test_root_PO_has_correct_nonchained_locator(self):
+        locator = '//body'
+        root_po = PageObject(locator, None, chain=False)
+        self.assertEqual(root_po.locator, locator)
+
+
 
 if __name__ == '__main__':
     unittest.main()
