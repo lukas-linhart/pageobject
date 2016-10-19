@@ -11,10 +11,7 @@ class PageObjectList(PageObjectBase):
         self._name = name
         self._children_class = children_class
 
-        try:
-            self.parent.register_child(self)
-        except AttributeError:
-            pass
+        self.parent.register_child(self)
 
 
     @property
