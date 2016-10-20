@@ -4,21 +4,23 @@ from .pageobject import PageObject
 
 class PageObjectList(PageObjectBase):
 
-    def __init__(self, locator, parent, chain=True, name=None, children_class=None):
+    def __init__(self, locator, parent, chain=True, name=None, children_class=None, children_locator=None, count_locator=None):
         self._locator = locator
         self.parent = parent
         self._chain = chain
         self._name = name
         self._children_class = children_class
+        self._children_locator = children_locator
+        self._count_locator = count_locator
 
         self.parent.register_child(self)
 
 
     @property
     def children(self):
-        elems = self.webdriver.find_elements_by_xpath(self.locator)
+        children_count = len(self.webdriver.find_elements_by_xpath(self.count_locator))
         children = []
-        for i, x in enumerate(elems):
+        for i in range(children_count):
             locator = '({})[{}]'.format(self.locator, str(i+1))
             ChildrenClass = self.children_class
             child = ChildrenClass(locator, self, chain=False)
@@ -33,6 +35,35 @@ class PageObjectList(PageObjectBase):
             return self._children_class
         else:
             return PageObject
+
+
+    @property
+    def default_children_locator(self):
+        return None
+
+
+    @property
+    def children_locator(self):
+        if self.default_children_locator:
+            return self.default_children_locator
+        else:
+            return self._children_locator
+
+
+    @property
+    def default_count_locator(self):
+        return None
+
+
+    @property
+    def count_locator(self):
+        if self.default_count_locator:
+            return self.default_count_locator
+        elif self._count_locator:
+            return self._count_locator
+        else:
+            return self.locator
+
 
 
     def __getitem__(self, slice):
