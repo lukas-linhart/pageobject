@@ -13,7 +13,10 @@ class PageObjectList(PageObjectBase):
         self._children_locator = children_locator
         self._count_locator = count_locator
 
-        self.parent.register_child(self)
+        try:
+            self.parent.register_child(self)
+        except AttributeError:
+            pass
 
 
     @property
