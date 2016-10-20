@@ -21,7 +21,7 @@ class PageObjectList(PageObjectBase):
         children_count = len(self.webdriver.find_elements_by_xpath(self.count_locator))
         children = []
         for i in range(children_count):
-            locator = '({})[{}]'.format(self.locator, str(i+1))
+            locator = self.children_locator.format(i+1)
             ChildrenClass = self.children_class
             child = ChildrenClass(locator, self, chain=False)
             child.index = i
@@ -46,8 +46,10 @@ class PageObjectList(PageObjectBase):
     def children_locator(self):
         if self.default_children_locator:
             return self.default_children_locator
-        else:
+        elif self._children_locator:
             return self._children_locator
+        else:
+            return '({})[{}]'.format(self.locator, '{}')
 
 
     @property
