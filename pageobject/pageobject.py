@@ -28,13 +28,6 @@ class PageObject(PageObjectBase):
         self.init_children()
 
 
-    def __repr__(self):
-        my_class = self.__class__.__name__
-        base_class = self.__class__.__bases__[0].__name__
-        return '<{}({}) (locator="{}")>'.format(
-                my_class, base_class, self.locator)
-
-
     def __bool__(self):
         return True
 
