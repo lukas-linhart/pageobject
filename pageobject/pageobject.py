@@ -29,7 +29,7 @@ class PageObject(PageObjectBase):
 
 
     def __bool__(self):
-        return True
+        return self.is_existing(log=False)
 
 
     def __getitem__(self, key):
