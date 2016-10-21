@@ -20,6 +20,18 @@ class PageObjectList(PageObjectBase):
             pass
 
 
+    def __bool__(self):
+        return bool(len(self))
+
+
+    def __getitem__(self, slice):
+        return self.children[slice]
+
+
+    def __len__(self):
+        return len(self.children)
+
+
     @property
     def children(self):
         children_count = len(self.webdriver.find_elements_by_xpath(self.count_locator))
@@ -69,18 +81,6 @@ class PageObjectList(PageObjectBase):
             return self._count_locator
         else:
             return self.locator
-
-
-    def __bool__(self):
-        return bool(len(self))
-
-
-    def __getitem__(self, slice):
-        return self.children[slice]
-
-
-    def __len__(self):
-        return len(self.children)
 
 
     def index(self, value, attempt=1):
