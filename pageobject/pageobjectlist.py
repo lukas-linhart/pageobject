@@ -71,6 +71,9 @@ class PageObjectList(PageObjectBase):
             return self.locator
 
 
+    def __bool__(self):
+        return bool(len(self))
+
 
     def __getitem__(self, slice):
         return self.children[slice]
