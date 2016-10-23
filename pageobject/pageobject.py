@@ -1,8 +1,9 @@
+import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import WebDriverException
+from selenium.common.exceptions import WebDriverException, TimeoutException
 
 from .pageobjectbase import PageObjectBase
 
@@ -10,6 +11,7 @@ from .pageobjectbase import PageObjectBase
 class PageObject(PageObjectBase):
 
     DEFAULT_WAIT_TIMEOUT = 60
+    DEFAULT_POLL_INTERVAL = 0.25
 
 
     def __init__(self, locator, parent, chain=True, webdriver=None, logger=None, name=None):
@@ -106,6 +108,14 @@ class PageObject(PageObjectBase):
             self.logger.debug('page object is{} visible; {}'.format(neg_str, self._log_id_long))
         return visible
 
+
+    def wait_until(self, func, timeout=DEFAULT_WAIT_TIMEOUT, func_args=[], func_kwargs={}, error_msg=''):
+        deadline = time.time() + timeout
+        while time.time() < deadline:
+            if func(*func_args, **func_kwargs):
+                return self
+            time.sleep(PageObject.DEFAULT_POLL_INTERVAL)
+        raise TimeoutException(error_msg)
 
 
     def wait_for_exist(self, timeout=DEFAULT_WAIT_TIMEOUT):
