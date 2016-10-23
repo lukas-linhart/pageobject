@@ -109,10 +109,10 @@ class PageObject(PageObjectBase):
         return visible
 
 
-    def wait_until(self, func, timeout=DEFAULT_WAIT_TIMEOUT, func_args=[], func_kwargs={}, error_msg=''):
+    def wait_until(self, func, timeout=DEFAULT_WAIT_TIMEOUT, func_args=[], func_kwargs={}, error_msg='', reverse=False):
         deadline = time.time() + timeout
         while time.time() < deadline:
-            if func(*func_args, **func_kwargs):
+            if func(*func_args, **func_kwargs) is not reverse:
                 return self
             time.sleep(PageObject.DEFAULT_POLL_INTERVAL)
         raise TimeoutException(error_msg)
