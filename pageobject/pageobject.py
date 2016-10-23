@@ -1,5 +1,4 @@
 import time
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.utils import keys_to_typing
 from selenium.webdriver.common.keys import Keys
@@ -126,10 +125,10 @@ class PageObject(PageObjectBase):
     def wait_for_exist(self, timeout=DEFAULT_WAIT_TIMEOUT):
         self.logger.info('waiting until page contains {}'.format(self._log_id_short))
         self.logger.debug('waiting until page contains page object; {}'.format(self._log_id_long))
-        WebDriverWait(self.webdriver, timeout).until(
-                lambda x: self.is_existing(log=False),
-                message='Element "{}" still not existing after {} seconds'.format(
-                    self.locator, timeout))
+        error_msg = 'Element "{}" still not existing after {} seconds'.format(
+            self.locator, timeout)
+        self.wait_until(self.is_existing, func_kwargs=dict(log=False),
+            timeout=timeout, error_msg=error_msg)
         self.logger.info('finished waiting until page contains {}'.format(self._log_id_short))
         self.logger.debug('finished waiting until page contains page object; {}'.format(self._log_id_long))
         return self
@@ -138,10 +137,10 @@ class PageObject(PageObjectBase):
     def wait_for_vanish(self, timeout=DEFAULT_WAIT_TIMEOUT):
         self.logger.info('waiting until page does not contain {}'.format(self._log_id_short))
         self.logger.debug('waiting until page does not contain page object; {}'.format(self._log_id_long))
-        WebDriverWait(self.webdriver, timeout).until(
-                lambda x: not self.is_existing(log=False),
-                message='Element "{}" still existing after {} seconds'.format(
-                    self.locator, timeout))
+        error_msg = 'Element "{}" still existing after {} seconds'.format(
+            self.locator, timeout)
+        self.wait_until(self.is_existing, func_kwargs=dict(log=False),
+            timeout=timeout, error_msg=error_msg, reverse=True)
         self.logger.info('finished waiting until page does not contain {}'.format(self._log_id_short))
         self.logger.debug('finished waiting until page does not contain page object; {}'.format(self._log_id_long))
         return self
@@ -150,10 +149,10 @@ class PageObject(PageObjectBase):
     def wait_for_visible(self, timeout=DEFAULT_WAIT_TIMEOUT):
         self.logger.info('waiting until {} is visible'.format(self._log_id_short))
         self.logger.debug('waiting until page object is visible; {}'.format(self._log_id_long))
-        WebDriverWait(self.webdriver, timeout).until(
-                lambda x: self.is_visible(log=False),
-                message='Element "{}" not visible after {} seconds'.format(
-                    self.locator, timeout))
+        error_msg = 'Element "{}" still not visible after {} seconds'.format(
+            self.locator, timeout)
+        self.wait_until(self.is_visible, func_kwargs=dict(log=False),
+            timeout=timeout, error_msg=error_msg)
         self.logger.info('finished waiting until {} is visible'.format(self._log_id_short))
         self.logger.debug('finished waiting until page object is visible; {}'.format(self._log_id_long))
         return self
