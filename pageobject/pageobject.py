@@ -63,20 +63,14 @@ class PageObject(PageObjectBase):
                 and attr_value is not self.parent}
 
 
-    def find(self, log=True):
-        if log:
-            self.logger.info('looking for {}'.format(self._log_id_short))
-            self.logger.debug('looking for page object; {}'.format(self._log_id_long))
-        elem = self.webdriver.find_element_by_xpath(self.locator)
-        if log:
-            self.logger.info('{} found'.format(self._log_id_short))
-            self.logger.debug('page object found; {}'.format(self._log_id_long))
-        return elem
+    @property
+    def webelement(self):
+        return self.webdriver.find_element_by_xpath(self.locator)
 
 
     @property
     def text(self):
-        return self.find(log=False).text
+        return self.webelement.text
 
 
     def is_existing(self, log=True):
@@ -100,7 +94,7 @@ class PageObject(PageObjectBase):
         if log:
             self.logger.info('determining whether {} is visible'.format(self._log_id_short))
             self.logger.debug('determining whether page object is visible; {}'.format(self._log_id_long))
-        visible = self.find(log=log).is_displayed()
+        visible = self.webelement.is_displayed()
         neg_str = '' if visible else ' not'
         if log:
             self.logger.info('{} is{} visible'.format(self._log_id_short, neg_str))
@@ -159,7 +153,7 @@ class PageObject(PageObjectBase):
 
 
     def click(self):
-        elem = self.find()
+        elem = self.webelement
         self.logger.info('clicking on {}'.format(self._log_id_short))
         self.logger.debug('clicking on page object; {}'.format(self._log_id_long))
         elem.click()
@@ -169,7 +163,7 @@ class PageObject(PageObjectBase):
 
 
     def clear(self, log=True, press_enter=False):
-        elem = self.find(log=log)
+        elem = self.webelement
         if log:
             self.logger.info('clearing {}'.format(self._log_id_short))
             self.logger.debug('clearing page object; {}'.format(self._log_id_long))
@@ -186,7 +180,7 @@ class PageObject(PageObjectBase):
 
 
     def get_value(self):
-        elem = self.find()
+        elem = self.webelement
         self.logger.info('getting value of {}'.format(self._log_id_short))
         self.logger.debug('getting value of page object; {}'.format(self._log_id_long))
         value = elem.get_attribute('value')
@@ -197,7 +191,7 @@ class PageObject(PageObjectBase):
 
     def set_value(self, value):
         self.clear()
-        elem = self.find(log=False)
+        elem = self.webelement
         self.logger.info('setting value of {} to "{}"'.format(self._log_id_short, value))
         self.logger.debug('setting value of page object to "{}"; {}'.format(value, self._log_id_long))
         elem.send_keys(value)
@@ -208,19 +202,19 @@ class PageObject(PageObjectBase):
         if log:
             self.logger.info('getting attribute "{}" of {}'.format(attribute, self._log_id_short))
             self.logger.debug('getting attribute "{}" of page object; {}'.format(attribute, self._log_id_long))
-        return self.find(log=log).get_attribute(attribute)
+        return self.webelement.get_attribute(attribute)
 
 
     def move_to(self):
         self.logger.info('moving to {}'.format(self._log_id_short))
         self.logger.debug('moving to page object; {}'.format(self._log_id_long))
-        action = ActionChains(self.webdriver).move_to_element(self.find())
+        action = ActionChains(self.webdriver).move_to_element(self.webelement)
         action.perform()
         return self
 
 
     def send_keys(self, keys, log=True):
-        elem = self.find(log=log)
+        elem = self.webelement
         single_keys = keys_to_typing(keys)
         if log:
             self.logger.info('sending keys {} to {}'.format(single_keys, self._log_id_short))
