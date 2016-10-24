@@ -6,7 +6,7 @@ class Select(PageObject):
 
     @property
     def elem(self):
-        return WebDriverSelect(self.find())
+        return WebDriverSelect(self.webelement)
 
 
     @property
