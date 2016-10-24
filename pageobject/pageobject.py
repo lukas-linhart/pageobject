@@ -78,7 +78,7 @@ class PageObject(PageObjectBase):
             self.logger.info('determining whether {} is existing'.format(self._log_id_short))
             self.logger.debug('determining whether page object is existing; {}'.format(self._log_id_long))
         try:
-            self.webdriver.find_element_by_xpath(self.locator)
+            self.webelement
         except WebDriverException:
             if log:
                 self.logger.info('{} is not existing'.format(self._log_id_short))
