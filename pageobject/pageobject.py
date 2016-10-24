@@ -153,21 +153,19 @@ class PageObject(PageObjectBase):
 
 
     def click(self):
-        elem = self.webelement
         self.logger.info('clicking on {}'.format(self._log_id_short))
         self.logger.debug('clicking on page object; {}'.format(self._log_id_long))
-        elem.click()
+        self.webelement.click()
         self.logger.info('successfully clicked on {}'.format(self._log_id_short))
         self.logger.debug('successfully clicked on page object; {}'.format(self._log_id_long))
         return self
 
 
     def clear(self, log=True, press_enter=False):
-        elem = self.webelement
         if log:
             self.logger.info('clearing {}'.format(self._log_id_short))
             self.logger.debug('clearing page object; {}'.format(self._log_id_long))
-        elem.clear()
+        self.webelement.clear()
         if log:
             self.logger.info('{} cleared'.format(self._log_id_short))
             self.logger.debug('page object cleared; {}'.format(self._log_id_long))
@@ -180,10 +178,9 @@ class PageObject(PageObjectBase):
 
 
     def get_value(self):
-        elem = self.webelement
         self.logger.info('getting value of {}'.format(self._log_id_short))
         self.logger.debug('getting value of page object; {}'.format(self._log_id_long))
-        value = elem.get_attribute('value')
+        value = self.webelement.get_attribute('value')
         self.logger.info('value of {} is "{}"'.format(self._log_id_short, value))
         self.logger.debug('value of page object is "{}"; {}'.format(value, self._log_id_long))
         return value
@@ -191,10 +188,9 @@ class PageObject(PageObjectBase):
 
     def set_value(self, value):
         self.clear()
-        elem = self.webelement
         self.logger.info('setting value of {} to "{}"'.format(self._log_id_short, value))
         self.logger.debug('setting value of page object to "{}"; {}'.format(value, self._log_id_long))
-        elem.send_keys(value)
+        self.webelement.send_keys(value)
         return self
 
 
@@ -214,11 +210,10 @@ class PageObject(PageObjectBase):
 
 
     def send_keys(self, keys, log=True):
-        elem = self.webelement
         single_keys = keys_to_typing(keys)
         if log:
             self.logger.info('sending keys {} to {}'.format(single_keys, self._log_id_short))
             self.logger.debug('sending keys {} to page object; {}'.format(single_keys, self._log_id_long))
-        elem.send_keys(keys)
+        self.webelement.send_keys(keys)
         return self
 
