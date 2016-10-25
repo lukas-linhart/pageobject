@@ -1,4 +1,4 @@
-from . import useless_logger
+import logging
 
 
 class PageObjectBase(object):
@@ -40,7 +40,7 @@ class PageObjectBase(object):
             return self.parent.logger
         except AttributeError:
             if self._logger is None:
-                return useless_logger
+                return logging
             else:
                 return self._logger
 
