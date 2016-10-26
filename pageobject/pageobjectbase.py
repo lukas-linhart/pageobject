@@ -16,7 +16,14 @@ class PageObjectBase(object):
 
 
     @property
+    def default_locator(self):
+        return None
+
+
+    @property
     def locator(self):
+        if self.default_locator:
+            return self.default_locator
         try:
             if self._chain:
                 return self.parent.locator + self._locator
