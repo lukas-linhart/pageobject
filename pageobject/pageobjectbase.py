@@ -6,6 +6,8 @@ class PageObjectBase(object):
     DEFAULT_NAME = 'page_object'
     DEFAULT_ROOT_NAME = 'root'
     NAME_SEPARATOR = '.'
+    DEFAULT_WAIT_TIMEOUT = 60
+    DEFAULT_POLL_INTERVAL = 0.25
 
 
     def __repr__(self):

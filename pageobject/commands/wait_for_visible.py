@@ -1,7 +1,4 @@
-DEFAULT_WAIT_TIMEOUT = 60
-
-
-def wait_for_visible(self, timeout=DEFAULT_WAIT_TIMEOUT):
+def wait_for_visible(self, timeout=None):
     self.logger.info('waiting until {} is visible'.format(self._log_id_short))
     self.logger.debug('waiting until page object is visible; {}'.format(self._log_id_long))
     error_msg = 'Element "{}" still not visible after {} seconds'.format(

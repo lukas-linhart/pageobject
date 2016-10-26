@@ -1,7 +1,4 @@
-DEFAULT_WAIT_TIMEOUT = 60
-
-
-def wait_for_vanish(self, timeout=DEFAULT_WAIT_TIMEOUT):
+def wait_for_vanish(self, timeout=None):
     self.logger.info('waiting until page does not contain {}'.format(self._log_id_short))
     self.logger.debug('waiting until page does not contain page object; {}'.format(self._log_id_long))
     error_msg = 'Element "{}" still existing after {} seconds'.format(
