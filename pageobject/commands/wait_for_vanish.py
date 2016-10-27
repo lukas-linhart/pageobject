@@ -1,4 +1,9 @@
+from pageobject.pageobjectbase import PageObjectBase
+
+
 def wait_for_vanish(self, timeout=None):
+    if timeout is None:
+        timeout = PageObjectBase.DEFAULT_WAIT_TIMEOUT
     self.logger.info('waiting until page does not contain {}'.format(self._log_id_short))
     self.logger.debug('waiting until page does not contain page object; {}'.format(self._log_id_long))
     error_msg = 'Element "{}" still existing after {} seconds'.format(
