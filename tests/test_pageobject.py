@@ -1,9 +1,8 @@
 import os
 import unittest
 import sys
-here = os.path.abspath(os.path.dirname(__file__))
-parent_dir = '{}/..'.format(here)
-sys.path.append(parent_dir)
+
+sys.path.insert(0, os.path.abspath('.'))
 
 from pageobject import PageObject
 from pageobject import PageObjectList
