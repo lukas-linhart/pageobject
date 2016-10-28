@@ -47,7 +47,7 @@ setup_args = {
     'keywords': 'pageobject browser automation',
     'packages': find_packages(exclude=['contrib', 'docs', 'tests*']),
     'install_requires': ['selenium>=3.0.1'],
-    'tests_require': ['pytest'],
+    'tests_require': ['pytest', 'pytest-cov'],
     'cmdclass': {'test': PyTest},
 }
 
