@@ -1,4 +1,23 @@
+import sys
 from setuptools import setup, find_packages
+from setuptools.command.test import test as TestCommand
+
+
+class PyTest(TestCommand):
+
+    def finalize_options(self):
+        TestCommand.finalize_options(self)
+        self.test_args = [
+            '--strict',
+            '--verbose',
+            '--tb=long',
+            'tests']
+
+    def run_tests(self):
+        import pytest
+        errno = pytest.main(self.test_args)
+        sys.exit(errno)
+
 
 long_description = 'Page Object design pattern implementation' + \
        ' using selenium WebDriver'
@@ -27,7 +46,9 @@ setup_args = {
                     'Programming Language :: Python :: 3.5'],
     'keywords': 'pageobject browser automation',
     'packages': find_packages(exclude=['contrib', 'docs', 'tests*']),
-    'install_requires': ['selenium>=2.53.0']
+    'install_requires': ['selenium>=3.0.1'],
+    'tests_require': ['pytest'],
+    'cmdclass': {'test': PyTest},
 }
 
 setup(**setup_args)
