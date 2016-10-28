@@ -11,6 +11,8 @@ class PyTest(TestCommand):
             '--strict',
             '--verbose',
             '--tb=long',
+            '--cov',
+            'pageobject',
             'tests']
 
     def run_tests(self):
