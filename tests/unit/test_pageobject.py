@@ -45,3 +45,18 @@ def test_register_child_method_registers_a_child():
     root_po._register_child(child_po)
     assert root_po['child_po'] == child_po
 
+
+def children_property_returns_dict():
+    po = PageObject('', None)
+    assert isinstance(po.children, dict)
+
+def test_children_property_returns_correct_children():
+    root_po = PageObject('', None)
+    child_po = PageObject('', root_po)
+    root_po.child_po = child_po
+    child_po.leaf_po_a = PageObject('', child_po)
+    child_po.leaf_po_b = PageObject('', child_po)
+    assert len(child_po.children) == 2
+    assert 'leaf_po_a' in child_po.children
+    assert 'leaf_po_b' in child_po.children
+
