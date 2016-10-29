@@ -17,7 +17,7 @@ class PageObjectList(PageObjectBase):
         try:
             self.parent.register_child(self)
         except AttributeError:
-            pass
+            pass # we don't have a parent
 
 
     def __bool__(self):
