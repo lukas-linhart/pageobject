@@ -13,7 +13,7 @@ class PageObject(PageObjectBase):
         self._name = name
 
         try:
-            self.parent.register_child(self)
+            self.parent._register_child(self)
         except AttributeError:
             pass # we don't have a parent or the parent is not a PageObject
 
@@ -34,8 +34,9 @@ class PageObject(PageObjectBase):
         return len(self.children)
 
 
-    def register_child(self, child):
+    def _register_child(self, child):
         try:
+            assert isinstance(child, PageObjectBase)
             self.__setattr__(child.name, child)
         except TypeError:
             pass # child has an invalid name

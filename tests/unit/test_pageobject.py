@@ -31,3 +31,17 @@ def test_dunder_len_method_returns_correct_length():
     root_po.b = PageObject('', root_po)
     assert len(root_po) == len(root_po.children)
 
+
+def test_register_child_nop_when_child_has_invalid_name(monkeypatch):
+    root_po = PageObject('', None)
+    child_po = PageObject('', None)
+    monkeypatch.setattr(PageObject, 'name', None)
+    root_po._register_child(child_po)
+    assert len(root_po.children) == 0
+
+def test_register_child_method_registers_a_child():
+    root_po = PageObject('', None)
+    child_po = PageObject('', None, name='child_po')
+    root_po._register_child(child_po)
+    assert root_po['child_po'] == child_po
+

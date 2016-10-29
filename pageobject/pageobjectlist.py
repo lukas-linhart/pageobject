@@ -15,7 +15,7 @@ class PageObjectList(PageObjectBase):
         self._count_locator = count_locator
 
         try:
-            self.parent.register_child(self)
+            self.parent._register_child(self)
         except AttributeError:
             pass # we don't have a parent or the parent is not a PageObject
 
