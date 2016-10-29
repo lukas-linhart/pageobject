@@ -15,7 +15,7 @@ class PageObject(PageObjectBase):
         try:
             self.parent.register_child(self)
         except AttributeError:
-            pass # we don't have a parent
+            pass # we don't have a parent or the parent is not a PageObject
 
         self.init_children()
 
@@ -38,7 +38,7 @@ class PageObject(PageObjectBase):
         try:
             self.__setattr__(child.name, child)
         except TypeError:
-            pass # parent is PageObjectList
+            pass # child has an invalid name
 
 
     def init_children(self):
