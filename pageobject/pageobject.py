@@ -42,7 +42,7 @@ class PageObject(PageObjectBase):
             pass # child has an invalid name
 
 
-    def init_children(self):
+    def init_children(self): # pragma: no cover
         """
         Meant to be overloaded by page objects
         containing other page objects.
