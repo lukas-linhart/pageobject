@@ -2,61 +2,73 @@ from pageobject import PageObject
 import pytest
 
 
-def test_dunder_bool_method_returns_True_when_is_existing(monkeypatch):
-    po = PageObject('', None)
-    monkeypatch.setattr(po, 'is_existing', lambda log=False: True)
-    assert bool(po)
+@pytest.fixture
+def mock_po():
+    class MockPo(PageObject):
+        def __init__(self): pass
+    return MockPo()
 
-def test_dunder_bool_method_returns_False_when_is_not_existing(monkeypatch):
-    po = PageObject('', None)
-    monkeypatch.setattr(po, 'is_existing', lambda log=False: False)
-    assert(bool(po) == False)
+@pytest.fixture
+def another_mock_po():
+    class AnotherMockPo(PageObject):
+        def __init__(self): pass
+    return AnotherMockPo()
+
+@pytest.fixture
+def yet_another_mock_po():
+    class YetAnotherMockPo(PageObject):
+        def __init__(self): pass
+    return YetAnotherMockPo()
 
 
-def test_dunder_getitem_method_raises_KeyError_for_nonexisting_child():
-    po = PageObject('', None)
+def test_dunder_bool_method_returns_True_when_is_existing(mock_po):
+    mock_po.is_existing = lambda log=False: True
+    assert bool(mock_po)
+
+def test_dunder_bool_method_returns_False_when_is_not_existing(mock_po):
+    mock_po.is_existing = lambda log=False: False
+    assert bool(mock_po) == False
+
+
+def test_dunder_getitem_method_raises_KeyError_for_nonexisting_child(monkeypatch, mock_po):
+    monkeypatch.setattr(mock_po.__class__, 'children', dict())
     with pytest.raises(KeyError):
-        po['nonexisting_child']
+        mock_po['nonexisting_child']
 
-def test_dunder_getitem_method_returns_correct_child():
-    root_po = PageObject('', None)
-    child_po = PageObject('', None)
-    root_po.child_po = PageObject('', root_po)
-    assert root_po['child_po'] == root_po.child_po
+def test_dunder_getitem_method_returns_correct_child(monkeypatch, mock_po):
+    monkeypatch.setattr(mock_po.__class__, 'children', dict(child_po_name='child_po'))
+    assert mock_po['child_po_name'] == 'child_po'
 
 
-def test_dunder_len_method_returns_correct_length():
-    root_po = PageObject('', None)
-    root_po.a = PageObject('', root_po)
-    root_po.b = PageObject('', root_po)
-    assert len(root_po) == len(root_po.children)
+def test_dunder_len_method_returns_correct_length(monkeypatch, mock_po):
+    monkeypatch.setattr(mock_po.__class__, 'children', dict(a=1, b=2))
+    assert len(mock_po) == len(mock_po.children)
 
 
-def test_register_child_nop_when_child_has_invalid_name(monkeypatch):
-    root_po = PageObject('', None)
-    child_po = PageObject('', None)
-    monkeypatch.setattr(PageObject, 'name', None)
-    root_po._register_child(child_po)
-    assert len(root_po.children) == 0
+def test_register_child_nop_when_child_has_invalid_name(monkeypatch, mock_po, another_mock_po):
+    monkeypatch.setattr(another_mock_po.__class__, 'name', None)
+    mock_po._register_child(another_mock_po)
+    with pytest.raises(AttributeError):
+        assert mock_po.another_mock_po
 
-def test_register_child_method_registers_a_child():
-    root_po = PageObject('', None)
-    child_po = PageObject('', None, name='child_po')
-    root_po._register_child(child_po)
-    assert root_po['child_po'] == child_po
+def test_register_child_method_registers_a_child(monkeypatch, mock_po, another_mock_po):
+    monkeypatch.setattr(another_mock_po.__class__, 'name', 'child_po')
+    mock_po._register_child(another_mock_po)
+    assert mock_po.child_po == another_mock_po
 
 
-def children_property_returns_dict():
-    po = PageObject('', None)
-    assert isinstance(po.children, dict)
+def test_children_property_returns_dict(monkeypatch, mock_po):
+    monkeypatch.setattr(mock_po.__class__, 'children', dict())
+    assert isinstance(mock_po.children, dict)
 
-def test_children_property_returns_correct_children():
-    root_po = PageObject('', None)
-    child_po = PageObject('', root_po)
-    root_po.child_po = child_po
-    child_po.leaf_po_a = PageObject('', child_po)
-    child_po.leaf_po_b = PageObject('', child_po)
-    assert len(child_po.children) == 2
-    assert 'leaf_po_a' in child_po.children
-    assert 'leaf_po_b' in child_po.children
+def test_children_property_returns_correct_children(monkeypatch, mock_po, another_mock_po, yet_another_mock_po):
+    root_po = mock_po
+    child_po = another_mock_po
+    leaf_po = yet_another_mock_po
+    child_po.parent = root_po
+    child_po.leaf_po = leaf_po
+    child_po.not_a_po = 'not a page object'
+    assert 'leaf_po' in child_po.children
+    assert 'root_po' not in child_po.children
+    assert 'not_a_po' not in child_po.children
 
