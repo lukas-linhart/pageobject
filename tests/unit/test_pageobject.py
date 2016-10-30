@@ -21,6 +21,14 @@ def yet_another_mock_po():
     return YetAnotherMockPo()
 
 
+def test_dunder_init_method_calls_register_child_method_of_parent(monkeypatch, mock_po):
+    def mock_register_child(self, child):
+        self.child_registered = True
+    monkeypatch.setattr(mock_po.__class__, '_register_child', mock_register_child)
+    po = PageObject('', mock_po)
+    assert mock_po.child_registered is True
+
+
 def test_dunder_bool_method_returns_True_when_is_existing(mock_po):
     mock_po.is_existing = lambda log=False: True
     assert bool(mock_po)
@@ -44,12 +52,6 @@ def test_dunder_len_method_returns_correct_length(monkeypatch, mock_po):
     monkeypatch.setattr(mock_po.__class__, 'children', dict(a=1, b=2))
     assert len(mock_po) == len(mock_po.children)
 
-
-def test_register_child_nop_when_child_has_invalid_name(monkeypatch, mock_po, another_mock_po):
-    monkeypatch.setattr(another_mock_po.__class__, 'name', None)
-    mock_po._register_child(another_mock_po)
-    with pytest.raises(AttributeError):
-        assert mock_po.another_mock_po
 
 def test_register_child_method_registers_a_child(monkeypatch, mock_po, another_mock_po):
     monkeypatch.setattr(another_mock_po.__class__, 'name', 'child_po')

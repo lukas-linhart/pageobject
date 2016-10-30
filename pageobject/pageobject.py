@@ -14,7 +14,7 @@ class PageObject(PageObjectBase):
 
         try:
             self.parent._register_child(self)
-        except AttributeError:
+        except AttributeError: # pragma: no cover
             pass # we don't have a parent or the parent is not a PageObject
 
         self.init_children()
@@ -38,7 +38,7 @@ class PageObject(PageObjectBase):
         try:
             assert isinstance(child, PageObjectBase)
             self.__setattr__(child.name, child)
-        except TypeError:
+        except TypeError: # pragma: no cover
             pass # child has an invalid name
 
 
