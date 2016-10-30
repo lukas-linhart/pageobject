@@ -11,9 +11,12 @@ class PyTest(TestCommand):
             '--strict',
             '--verbose',
             '--tb=long',
-            '--cov',
-            'pageobject',
-            'tests']
+            '--cov-report',
+            'term:skip-covered',
+            '--cov-report',
+            'term-missing',
+            '--cov=pageobject',
+            'tests/']
 
     def run_tests(self):
         import pytest
