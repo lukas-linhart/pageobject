@@ -58,7 +58,6 @@ class PageObject(PageObjectBase):
 
 
     # commands
-    webdriver = commands.webdriver
     webelement = commands.webelement
     text = commands.text
     is_existing = commands.is_existing
