@@ -28,6 +28,13 @@ def test_dunder_init_method_calls_register_child_method_of_parent(monkeypatch, m
     po = PageObject('', mock_po)
     assert mock_po.child_registered is True
 
+def test_dunder_init_method_calls_init_children_method(monkeypatch):
+    class MockPageObject(PageObject):
+        def init_children(self):
+            self.children_initialized = True
+    po = MockPageObject('', None)
+    assert po.children_initialized is True
+
 
 def test_dunder_bool_method_returns_True_when_is_existing(mock_po):
     mock_po.is_existing = lambda log=False: True
