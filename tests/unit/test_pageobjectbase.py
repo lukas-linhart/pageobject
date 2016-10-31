@@ -15,29 +15,31 @@ def test_default_locator_returns_None_when_not_provided():
     assert po.default_locator is None
 
 
-def test_locator_returns_default_locator_when_provided(monkeypatch):
-    po = PageObject('', None)
+def test_locator_returns_default_locator_when_provided(monkeypatch, mock_po_base):
     locator = 'default'
-    monkeypatch.setattr(PageObject, 'default_locator', locator)
-    assert po.locator == locator
+    monkeypatch.setattr(mock_po_base.__class__, 'default_locator', locator)
+    assert mock_po_base.locator == locator
 
-def test_locator_returns_correct_value_when_not_chained(monkeypatch):
+def test_locator_returns_correct_value_when_not_chained(monkeypatch, mock_po_base):
     locator = '//body'
-    po = PageObject(locator, None)
-    monkeypatch.setattr(po, '_chain', False)
-    assert po.locator == locator
+    mock_po_base._chain = False
+    mock_po_base._locator = locator
+    assert mock_po_base.locator == locator
 
-def test_locator_returns_correct_value_when_chained_and_parent_exists(monkeypatch):
+def test_locator_returns_correct_value_when_chained_and_parent_exists(mock_po_base):
     parent_locator = '//html'
     child_locator = '//body'
     class Parent:
         locator = parent_locator
-    child_po = PageObject(child_locator, Parent)
-    assert child_po.locator == '{}{}'.format(parent_locator, child_locator)
+    mock_po_base._chain = True
+    mock_po_base._locator = child_locator
+    mock_po_base.parent = Parent()
+    assert mock_po_base.locator == '{}{}'.format(parent_locator, child_locator)
 
-def test_locator_returns_correct_value_when_chained_but_not_a_child(monkeypatch):
+def test_locator_returns_correct_value_when_chained_but_not_a_child(monkeypatch, mock_po_base):
     locator = '//body'
-    po = PageObject(locator, None)
-    monkeypatch.setattr(po, '_chain', True)
-    assert po.locator == locator
+    mock_po_base._chain = True
+    mock_po_base._locator = locator
+    mock_po_base.parent = None
+    assert mock_po_base.locator == locator
 
