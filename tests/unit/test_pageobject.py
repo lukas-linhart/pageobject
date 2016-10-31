@@ -1,24 +1,6 @@
-from pageobject import PageObject
 import pytest
-
-
-@pytest.fixture
-def mock_po():
-    class MockPo(PageObject):
-        def __init__(self): pass
-    return MockPo()
-
-@pytest.fixture
-def another_mock_po():
-    class AnotherMockPo(PageObject):
-        def __init__(self): pass
-    return AnotherMockPo()
-
-@pytest.fixture
-def yet_another_mock_po():
-    class YetAnotherMockPo(PageObject):
-        def __init__(self): pass
-    return YetAnotherMockPo()
+from pageobject import PageObject
+from .fixtures import mock_po, another_mock_po, yet_another_mock_po
 
 
 def test_dunder_init_method_assigns_locator_correctly():
