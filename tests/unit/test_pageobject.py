@@ -21,6 +21,16 @@ def yet_another_mock_po():
     return YetAnotherMockPo()
 
 
+def test_dunder_init_method_assigns_locator_correctly():
+    locator = '//body'
+    po = PageObject(locator, None)
+    assert po._locator == locator
+
+def test_dunder_init_method_assigns_parent_correctly():
+    parent = 'parent'
+    po = PageObject('', parent)
+    assert po.parent == parent
+
 def test_dunder_init_method_calls_register_child_method_of_parent(monkeypatch, mock_po):
     def mock_register_child(self, child):
         self.child_registered = True
