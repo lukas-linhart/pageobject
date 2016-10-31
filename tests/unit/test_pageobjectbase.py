@@ -1,17 +1,17 @@
-from pageobject import PageObject
 import pytest
+from pageobject import PageObject
+from pageobject.pageobjectbase import PageObjectBase
+from .fixtures import mock_po_base
 
 
-def test_dunder_repr_returns_correct_string(monkeypatch):
-    locator = "//body"
-    po = PageObject(locator, None)
-    monkeypatch.setattr(PageObject, 'locator', locator)
-    assert repr(po) == '<PageObject(PageObjectBase) (locator="{}")>'.format(
-            locator)
+def test_dunder_repr_returns_correct_string(monkeypatch, mock_po_base):
+    monkeypatch.setattr(mock_po_base.__class__, 'locator', '//body')
+    assert repr(mock_po_base) == '<MockPoBase(MockPoBaseTemplate) (locator="{}")>'.format(
+            mock_po_base.locator)
 
 
 def test_default_locator_returns_None_when_not_provided():
-    po = PageObject('', None)
+    po = PageObjectBase()
     assert po.default_locator is None
 
 
