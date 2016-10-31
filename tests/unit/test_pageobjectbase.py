@@ -15,6 +15,19 @@ def test_default_locator_returns_None_when_not_provided():
     assert po.default_locator is None
 
 
+def test_parent_locator_returns_correct_value_when_parent_is_valid(monkeypatch, mock_po_base):
+    parent_locator = '//body'
+    class Parent:
+        locator = parent_locator
+    mock_po_base.parent = Parent()
+    assert mock_po_base._parent_locator == parent_locator
+
+
+def test_parent_locator_returns_empty_string_when_parent_is_invalid(mock_po_base):
+    mock_po_base.parent = None
+    assert mock_po_base._parent_locator == ''
+
+
 def test_locator_returns_default_locator_when_provided(monkeypatch, mock_po_base):
     locator = 'default'
     monkeypatch.setattr(mock_po_base.__class__, 'default_locator', locator)

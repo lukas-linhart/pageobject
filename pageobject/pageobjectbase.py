@@ -24,15 +24,20 @@ class PageObjectBase(object):
 
 
     @property
+    def _parent_locator(self):
+        try:
+            return self.parent.locator
+        except AttributeError:
+            return ''
+
+
+    @property
     def locator(self):
         if self.default_locator:
             return self.default_locator
-        try:
-            if self._chain:
-                return self.parent.locator + self._locator
-            else:
-                return self._locator
-        except AttributeError:
+        elif self._chain:
+            return '{}{}'.format(self._parent_locator, self._locator)
+        else:
             return self._locator
 
 
