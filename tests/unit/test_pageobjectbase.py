@@ -2,6 +2,7 @@ import pytest
 from pageobject import PageObject
 from pageobject.pageobjectbase import PageObjectBase
 from .fixtures import mock_po_base
+from selenium.webdriver import Remote as RemoteWebDriver
 
 
 def test_dunder_repr_returns_correct_string(monkeypatch, mock_po_base):
@@ -44,4 +45,26 @@ def test_locator_returns_correct_value_when_not_chained(monkeypatch, mock_po_bas
     mock_po_base._chain = False
     mock_po_base._locator = locator
     assert mock_po_base.locator == locator
+
+
+def test_webdriver_returns_webdriver_of_a_parent_if_available(monkeypatch, mock_po_base):
+    parent_webdriver = 'parent_webdriver'
+    class Parent:
+        webdriver = parent_webdriver
+    mock_po_base.parent = Parent()
+    assert mock_po_base.webdriver == parent_webdriver
+
+def test_webdriver_returns_correct_value_if_valid(mock_po_base):
+    class MockWebDriver(RemoteWebDriver):
+        def __init__(self):  pass
+        def __repr__(self): return 'MockWebDriver'
+    mock_po_base.parent = None
+    mock_po_base._webdriver = MockWebDriver()
+    assert mock_po_base.webdriver == mock_po_base._webdriver
+
+def test_webdriver_raises_AssertionException_when_invalid(mock_po_base):
+    mock_po_base.parent = None
+    mock_po_base._webdriver = None
+    with pytest.raises(AssertionError):
+        mock_po_base.webdriver
 
