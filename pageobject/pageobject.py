@@ -57,6 +57,12 @@ class PageObject(PageObjectBase):
                 and attr_value is not self.parent}
 
 
+    def _get_child_name(self, child_po):
+        for child_name in self.children:
+            if self.__dict__[child_name] == child_po:
+                return child_name
+
+
     # commands
     webelement = commands.webelement
     text = commands.text

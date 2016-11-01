@@ -67,11 +67,7 @@ class PageObjectBase(object):
         if self._name:
             return self._name
         try:
-            if isinstance(self.parent.children, list):
-                return '{}[{}]'.format(self.parent.name, str(self.index))
-            for child in self.parent.children:
-                if self.parent.__dict__[child] == self:
-                    return child
+            return self.parent._get_child_name(self)
         except AttributeError:
             return PageObjectBase.DEFAULT_ROOT_NAME
 

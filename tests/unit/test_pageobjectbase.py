@@ -91,23 +91,10 @@ def test_name_returns_initialized_value_if_valid(mock_po_base):
     mock_po_base._name = 'valid name'
     assert mock_po_base.name == mock_po_base._name
 
-def test_name_returns_correct_name_when_parent_is_PageObjectList(mock_po_base):
-    parent_name = 'parent_name'
-    index = 2
-    class Parent:
-        children = []
-        name = parent_name
-    mock_po_base._name = None
-    mock_po_base.parent = Parent()
-    mock_po_base.index = index
-    assert mock_po_base.name == '{}[{}]'.format(parent_name, index)
-
-def test_name_returns_correct_name_when_parent_is_PageObject(mock_po_base):
+def test_name_returns_correct_name_when_parent_exists(mock_po_base):
     correct_name = 'correct_name'
     class Parent:
-        children = {correct_name: mock_po_base}
-        def __init__(self):
-            self.correct_name = mock_po_base
+        def _get_child_name(self, child): return correct_name
     mock_po_base._name = None
     mock_po_base.parent = Parent()
     assert mock_po_base.name == correct_name

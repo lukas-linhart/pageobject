@@ -45,6 +45,10 @@ class PageObjectList(PageObjectBase):
         return children
 
 
+    def _get_child_name(self, child_po):
+        return '{}[{}]'.format(self.name, child_po.index)
+
+
     @property
     def children_class(self):
         if self._children_class:

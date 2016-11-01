@@ -58,6 +58,15 @@ def test_register_child_method_registers_a_child(monkeypatch, mock_po, another_m
     assert mock_po.child_po == another_mock_po
 
 
+def test_get_child_name_returns_correct_name(monkeypatch, mock_po, another_mock_po):
+    parent_po = mock_po
+    child_po = another_mock_po
+    parent_po.child_po = child_po
+    child_po_name = 'child_po'
+    monkeypatch.setattr(parent_po.__class__, 'children', {child_po_name: child_po})
+    assert parent_po._get_child_name(child_po) == child_po_name
+
+
 def test_children_property_returns_dict(monkeypatch, mock_po):
     monkeypatch.setattr(mock_po.__class__, 'children', dict())
     assert isinstance(mock_po.children, dict)
