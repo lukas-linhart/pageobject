@@ -4,7 +4,6 @@ from selenium.webdriver import Remote as WebDriver
 
 class PageObjectBase(object):
 
-    DEFAULT_NAME = 'page_object'
     DEFAULT_ROOT_NAME = 'root'
     NAME_SEPARATOR = '.'
     DEFAULT_WAIT_TIMEOUT = 60
@@ -75,8 +74,6 @@ class PageObjectBase(object):
                     return child
         except AttributeError:
             return PageObjectBase.DEFAULT_ROOT_NAME
-        except KeyError:
-            return PageObjectBase.DEFAULT_NAME
 
 
     @property
