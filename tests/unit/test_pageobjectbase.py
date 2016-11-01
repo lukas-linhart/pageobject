@@ -86,3 +86,33 @@ def test_logger_returns_initialized_value_if_valid(mock_po_base):
     mock_po_base._logger = 'valid_logger'
     assert mock_po_base.logger == mock_po_base._logger
 
+
+def test_name_returns_initialized_value_if_valid(mock_po_base):
+    mock_po_base._name = 'valid name'
+    assert mock_po_base.name == mock_po_base._name
+
+def test_name_returns_correct_name_when_parent_is_PageObjectList(mock_po_base):
+    parent_name = 'parent_name'
+    index = 2
+    class Parent:
+        children = []
+        name = parent_name
+    mock_po_base._name = None
+    mock_po_base.parent = Parent()
+    mock_po_base.index = index
+    assert mock_po_base.name == '{}[{}]'.format(parent_name, index)
+
+def test_name_returns_correct_name_when_parent_is_PageObject(mock_po_base):
+    correct_name = 'correct_name'
+    class Parent:
+        children = {correct_name: mock_po_base}
+        def __init__(self):
+            self.correct_name = mock_po_base
+    mock_po_base._name = None
+    mock_po_base.parent = Parent()
+    assert mock_po_base.name == correct_name
+
+def test_name_returns_default_root_name_when_po_is_a_root(mock_po_base):
+    mock_po_base._name = None
+    assert mock_po_base.name == PageObjectBase.DEFAULT_ROOT_NAME
+
