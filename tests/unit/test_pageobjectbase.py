@@ -1,4 +1,5 @@
 import pytest
+import logging
 from pageobject import PageObject
 from pageobject.pageobjectbase import PageObjectBase
 from .fixtures import mock_po_base
@@ -67,4 +68,21 @@ def test_webdriver_raises_AssertionException_when_invalid(mock_po_base):
     mock_po_base._webdriver = None
     with pytest.raises(AssertionError):
         mock_po_base.webdriver
+
+
+def test_logger_returns_parent_logger_if_available(mock_po_base):
+    parent_logger = 'parent_logger'
+    class Parent:
+        logger = parent_logger
+    mock_po_base.parent = Parent()
+    assert mock_po_base.logger == parent_logger
+
+def test_logger_returns_standard_logging_when_not_provided(mock_po_base):
+    mock_po_base._logger = None
+    assert mock_po_base.logger == logging
+
+def test_logger_returns_initialized_value_if_valid(mock_po_base):
+    mock_po_base.parent = None
+    mock_po_base._logger = 'valid_logger'
+    assert mock_po_base.logger == mock_po_base._logger
 
