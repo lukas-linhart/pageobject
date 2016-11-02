@@ -92,7 +92,7 @@ def test_name_returns_initialized_value_if_valid(mock_po_base):
     assert mock_po_base.name == mock_po_base._name
 
 def test_name_returns_correct_name_when_parent_exists(mock_po_base):
-    correct_name = 'correct_name'
+    correct_name = 'child_name'
     class Parent:
         def _get_child_name(self, child): return correct_name
     mock_po_base._name = None
@@ -102,4 +102,17 @@ def test_name_returns_correct_name_when_parent_exists(mock_po_base):
 def test_name_returns_default_root_name_when_po_is_a_root(mock_po_base):
     mock_po_base._name = None
     assert mock_po_base.name == PageObjectBase.DEFAULT_ROOT_NAME
+
+
+def test_full_name_returns_correct_name_when_parent_exists(mock_po_base):
+    correct_name = 'child_full_name'
+    class Parent:
+        def _get_child_full_name(self, child): return correct_name
+    mock_po_base.parent = Parent()
+    assert mock_po_base.full_name == correct_name
+
+def test_full_name_returns_name_when_po_is_a_root(monkeypatch, mock_po_base):
+    monkeypatch.setattr(mock_po_base.__class__, 'name', 'po_name')
+    mock_po_base.parent = None
+    assert mock_po_base.full_name == mock_po_base.name
 
