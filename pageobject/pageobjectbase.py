@@ -75,10 +75,7 @@ class PageObjectBase(object):
     @property
     def full_name(self):
         try:
-            if isinstance(self.parent.children, dict):
-                return '{}{}{}'.format(self.parent.full_name, PageObjectBase.NAME_SEPARATOR, self.name)
-            else:
-                return '{}[{}]'.format(self.parent.full_name, str(self.index))
+            return self.parent._get_child_full_name(self)
         except AttributeError:
             return self.name
 

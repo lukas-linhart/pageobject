@@ -63,6 +63,11 @@ class PageObject(PageObjectBase):
                 return child_name
 
 
+    def _get_child_full_name(self, child_po):
+        return '{}{}{}'.format(self.full_name, PageObjectBase.NAME_SEPARATOR,
+                child_po.name)
+
+
     # commands
     webelement = commands.webelement
     text = commands.text
