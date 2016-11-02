@@ -81,12 +81,12 @@ class PageObjectBase(object):
 
 
     @property
-    def _log_id_short(self):
+    def _log_id_short(self): # pragma: no cover
         return 'page object "{}"'.format(self.name)
 
 
     @property
-    def _log_id_long(self):
+    def _log_id_long(self): # pragma: no cover
         return 'full name path: "{}", element: "{}"'.format(
                 self.full_name, self.locator)
 
