@@ -16,7 +16,7 @@ class PageObjectList(PageObjectBase):
 
         try:
             self.parent._register_child(self)
-        except AttributeError:
+        except AttributeError: # pragma: no cover
             pass # we don't have a parent or the parent is not a PageObject
 
 

@@ -1,5 +1,33 @@
 import pytest
-from .fixtures import mock_po_list
+from pageobject import PageObjectList
+from .fixtures import mock_po, mock_po_list
+
+
+def test_dunder_init_method_assigns_parameters_correctly():
+    locator = 1
+    parent = 2
+    chain = 3
+    name = 4
+    children_class = 5
+    children_locator = 6
+    count_locator = 7
+    po_list = PageObjectList(locator, parent, chain=chain, name=name,
+            children_class=children_class, children_locator=children_locator,
+            count_locator=count_locator)
+    assert po_list._locator == locator
+    assert po_list.parent == parent
+    assert po_list._chain == chain
+    assert po_list._name == name
+    assert po_list._children_class == children_class
+    assert po_list._children_locator == children_locator
+    assert po_list._count_locator == count_locator
+
+def test_dunder_init_method_calls_register_child_method_of_parent(monkeypatch, mock_po):
+    def mock_register_child(self, child):
+        self.child_registered = True
+    monkeypatch.setattr(mock_po.__class__, '_register_child', mock_register_child)
+    po_list = PageObjectList('', mock_po)
+    assert mock_po.child_registered
 
 
 def test_get_child_name_returns_correct_name(monkeypatch, mock_po_list):
