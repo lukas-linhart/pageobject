@@ -15,7 +15,7 @@ class PageObjectBase(object):
         base_class = self.__class__.__bases__[0].__name__
         try:
             locator = self.locator
-        except:
+        except: # pragma: no cover
             locator = 'INVALID LOCATOR'
         return '<{}({}) (locator="{}")>'.format(
                 my_class, base_class, locator)
