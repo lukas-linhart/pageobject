@@ -4,10 +4,20 @@ from pageobject.pageobjectbase import PageObjectBase
 from .fixtures import mock_po, another_mock_po, yet_another_mock_po
 
 
-def test_dunder_init_method_assigns_locator_correctly():
+def test_dunder_init_method_assigns_parameters_correctly():
     locator = '//body'
-    po = PageObject(locator, None)
+    parent = 'parent_po'
+    chain = 'chain'
+    webdriver = 'webdriver'
+    logger = 'logger'
+    name = 'name'
+    po = PageObject(locator, parent, chain=chain, webdriver=webdriver, logger=logger, name=name)
     assert po._locator == locator
+    assert po.parent == parent
+    assert po._chain == chain
+    assert po._webdriver == webdriver
+    assert po._logger == logger
+    assert po._name == name
 
 def test_dunder_init_method_assigns_parent_correctly():
     parent = 'parent'
