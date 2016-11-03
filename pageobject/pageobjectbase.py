@@ -13,8 +13,12 @@ class PageObjectBase(object):
     def __repr__(self):
         my_class = self.__class__.__name__
         base_class = self.__class__.__bases__[0].__name__
+        try:
+            locator = self.locator
+        except:
+            locator = 'INVALID LOCATOR'
         return '<{}({}) (locator="{}")>'.format(
-                my_class, base_class, self.locator)
+                my_class, base_class, locator)
 
 
     @property
