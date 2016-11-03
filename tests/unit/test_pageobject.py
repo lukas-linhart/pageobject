@@ -19,11 +19,6 @@ def test_dunder_init_method_assigns_parameters_correctly():
     assert po._logger == logger
     assert po._name == name
 
-def test_dunder_init_method_assigns_parent_correctly():
-    parent = 'parent'
-    po = PageObject('', parent)
-    assert po.parent == parent
-
 def test_dunder_init_method_calls_register_child_method_of_parent(monkeypatch, mock_po):
     def mock_register_child(self, child):
         self.child_registered = True
