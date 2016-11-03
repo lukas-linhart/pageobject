@@ -30,6 +30,15 @@ def test_dunder_init_method_calls_register_child_method_of_parent(monkeypatch, m
     assert mock_po.child_registered
 
 
+def test_dunder_bool_method_returns_True_if_len_is_nonzero(monkeypatch, mock_po_list):
+    monkeypatch.setattr(mock_po_list.__class__, '__len__', lambda self: 1)
+    assert bool(mock_po_list)
+
+def test_dunder_bool_method_returns_False_if_len_is_zero(monkeypatch, mock_po_list):
+    monkeypatch.setattr(mock_po_list.__class__, '__len__', lambda self: 0)
+    assert bool(mock_po_list) == False
+
+
 def test_get_child_name_returns_correct_name(monkeypatch, mock_po_list):
     index = 2
     class Child:
