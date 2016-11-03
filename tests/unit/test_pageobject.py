@@ -34,12 +34,12 @@ def test_dunder_init_method_calls_init_children_method(monkeypatch):
     assert po.children_initialized is True
 
 
-def test_dunder_bool_method_returns_True_when_is_existing(mock_po):
-    mock_po.is_existing = lambda log=False: True
-    assert bool(mock_po)
+def test_dunder_bool_method_returns_True_when_is_existing(monkeypatch, mock_po):
+    monkeypatch.setattr(mock_po.__class__, 'is_existing', lambda self, log=False: True)
+    assert bool(mock_po) == True
 
-def test_dunder_bool_method_returns_False_when_is_not_existing(mock_po):
-    mock_po.is_existing = lambda log=False: False
+def test_dunder_bool_method_returns_False_when_is_not_existing(monkeypatch, mock_po):
+    monkeypatch.setattr(mock_po.__class__, 'is_existing', lambda self, log=False: False)
     assert bool(mock_po) == False
 
 
