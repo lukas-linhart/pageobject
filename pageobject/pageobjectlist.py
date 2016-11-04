@@ -32,9 +32,13 @@ class PageObjectList(PageObjectBase):
         return len(self.children)
 
 
+    def _get_children_count(self):
+        return len(self.webdriver.find_elements_by_xpath(self.count_locator))
+
+
     @property
     def children(self):
-        children_count = len(self.webdriver.find_elements_by_xpath(self.count_locator))
+        children_count = self._get_children_count()
         children = []
         for i in range(children_count):
             locator = self.children_locator.format(i+1)

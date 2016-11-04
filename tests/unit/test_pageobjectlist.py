@@ -52,6 +52,16 @@ def test_dunder_len_method_returns_children_len(monkeypatch, mock_po_list):
     assert len(mock_po_list) == len(children)
 
 
+def test_get_children_count_returns_a_number(monkeypatch, mock_po_list):
+    elements = list('elements')
+    class MockWebDriver:
+        def find_elements_by_xpath(self, dummy):
+            return elements
+    monkeypatch.setattr(mock_po_list.__class__, 'count_locator', None)
+    monkeypatch.setattr(mock_po_list.__class__, 'webdriver', MockWebDriver())
+    assert isinstance(mock_po_list._get_children_count(), int)
+
+
 def test_get_child_name_returns_correct_name(monkeypatch, mock_po_list):
     index = 2
     class Child:
