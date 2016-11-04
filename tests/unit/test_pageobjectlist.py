@@ -46,6 +46,12 @@ def test_dunder_getitem_method_returns_correct_slice(monkeypatch, mock_po_list):
     assert mock_po_list[_slice] == children[_slice]
 
 
+def test_dunder_len_method_returns_children_len(monkeypatch, mock_po_list):
+    children = list('spameggs')
+    monkeypatch.setattr(mock_po_list.__class__, 'children', children)
+    assert len(mock_po_list) == len(children)
+
+
 def test_get_child_name_returns_correct_name(monkeypatch, mock_po_list):
     index = 2
     class Child:
