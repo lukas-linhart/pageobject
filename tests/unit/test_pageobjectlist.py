@@ -39,6 +39,13 @@ def test_dunder_bool_method_returns_False_if_len_is_zero(monkeypatch, mock_po_li
     assert bool(mock_po_list) == False
 
 
+def test_dunder_getitem_method_returns_correct_slice(monkeypatch, mock_po_list):
+    children = list('spameggs')
+    _slice = slice(0, len(children), 2)
+    monkeypatch.setattr(mock_po_list.__class__, 'children', children)
+    assert mock_po_list[_slice] == children[_slice]
+
+
 def test_get_child_name_returns_correct_name(monkeypatch, mock_po_list):
     index = 2
     class Child:
