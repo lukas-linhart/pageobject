@@ -23,6 +23,8 @@ class PageObjectList(PageObjectBase):
     def __bool__(self):
         return bool(len(self))
 
+    __nonzero__ = __bool__ # Python 2 throwback
+
 
     def __getitem__(self, slice):
         return self.children[slice]
