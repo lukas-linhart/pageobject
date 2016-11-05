@@ -42,9 +42,9 @@ class PageObjectList(PageObjectBase):
     @property
     def children(self):
         children = []
+        ChildrenClass = self.children_class
         for i in range(self._children_count):
             locator = self.children_locator.format(i+1)
-            ChildrenClass = self.children_class
             child = ChildrenClass(locator, self, chain=False)
             child.index = i
             children.append(child)

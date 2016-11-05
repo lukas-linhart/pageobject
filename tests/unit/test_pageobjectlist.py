@@ -52,7 +52,7 @@ def test_dunder_len_method_returns_children_len(monkeypatch, mock_po_list):
     assert len(mock_po_list) == len(children)
 
 
-def test_children_count_property_returns_a_number(monkeypatch, mock_po_list):
+def test_children_count_property_returns_an_int(monkeypatch, mock_po_list):
     elements = list('elements')
     class MockWebDriver:
         def find_elements_by_xpath(self, dummy):
@@ -60,6 +60,31 @@ def test_children_count_property_returns_a_number(monkeypatch, mock_po_list):
     monkeypatch.setattr(mock_po_list.__class__, 'count_locator', None)
     monkeypatch.setattr(mock_po_list.__class__, 'webdriver', MockWebDriver())
     assert isinstance(mock_po_list._children_count, int)
+
+
+def test_children_property_returns_an_empty_list_if_children_count_is_zero(monkeypatch, mock_po_list):
+    monkeypatch.setattr(mock_po_list.__class__, 'children_class', None)
+    monkeypatch.setattr(mock_po_list.__class__, '_children_count', 0)
+    assert mock_po_list.children == []
+
+def test_children_property_returns_instances_of_children_class(monkeypatch, mock_po_list):
+    monkeypatch.setattr(mock_po_list.__class__, 'children_class', PageObject)
+    monkeypatch.setattr(mock_po_list.__class__, '_children_count', 1)
+    monkeypatch.setattr(mock_po_list.__class__, 'children_locator', 'locator')
+    assert isinstance(mock_po_list.children[0], mock_po_list.children_class)
+
+def test_children_property_inits_children_with_correct_locator_and_index(monkeypatch, mock_po_list):
+    class MockPageObject:
+        def __init__(self, locator, parent, chain=True):
+            self.test_locator = locator
+    children_count = 2
+    locator = 'locator[{}]'
+    monkeypatch.setattr(mock_po_list.__class__, 'children_class', MockPageObject)
+    monkeypatch.setattr(mock_po_list.__class__, '_children_count', children_count)
+    monkeypatch.setattr(mock_po_list.__class__, 'children_locator', locator)
+    for i in range(children_count):
+        assert mock_po_list.children[i].test_locator == locator.format(i+1)
+        assert mock_po_list.children[i].index == i
 
 
 def test_get_child_name_returns_correct_name(monkeypatch, mock_po_list):
