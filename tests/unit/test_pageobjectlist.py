@@ -91,3 +91,8 @@ def test_children_class_property_returns_PageObject_if_not_initialized(mock_po_l
     mock_po_list._children_class = None
     assert mock_po_list.children_class == PageObject
 
+
+def test_default_children_locator_returns_None_when_not_provided():
+    po_list = PageObjectList('', None)
+    assert po_list.default_children_locator == None
+
