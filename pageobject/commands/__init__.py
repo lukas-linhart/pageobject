@@ -1,3 +1,4 @@
+# PageObject commands
 from .webelement import webelement
 from .text import text
 from .is_existing import is_existing
@@ -13,4 +14,7 @@ from .set_value import set_value
 from .get_attribute import get_attribute
 from .move_to import move_to
 from .send_keys import send_keys
+
+# PageObjectList commands
+from .index import index
 
