@@ -110,3 +110,8 @@ def test_children_locator_returns_correct_value_if_not_initialized(monkeypatch, 
     monkeypatch.setattr(mock_po_list.__class__, 'locator', 'locator')
     assert mock_po_list.children_locator == '({})[{}]'.format(mock_po_list.locator, '{}')
 
+
+def test_default_count_locator_returns_None_when_not_provided():
+    po_list = PageObjectList('', None)
+    assert po_list.default_count_locator == None
+
