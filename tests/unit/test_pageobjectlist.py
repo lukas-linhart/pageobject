@@ -96,3 +96,17 @@ def test_default_children_locator_returns_None_when_not_provided():
     po_list = PageObjectList('', None)
     assert po_list.default_children_locator == None
 
+
+def test_children_locator_returns_default_children_locator_if_provided(monkeypatch, mock_po_list):
+    monkeypatch.setattr(mock_po_list.__class__, 'default_children_locator', 'default')
+    assert mock_po_list.children_locator == mock_po_list.default_children_locator
+
+def test_children_locator_returns_initialized_value_if_provided(monkeypatch, mock_po_list):
+    mock_po_list._children_locator = 'children_locator'
+    assert mock_po_list.children_locator == mock_po_list._children_locator
+
+def test_children_locator_returns_correct_value_if_not_initialized(monkeypatch, mock_po_list):
+    mock_po_list._children_locator = None
+    monkeypatch.setattr(mock_po_list.__class__, 'locator', 'locator')
+    assert mock_po_list.children_locator == '({})[{}]'.format(mock_po_list.locator, '{}')
+
