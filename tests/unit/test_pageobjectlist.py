@@ -1,5 +1,5 @@
 import pytest
-from pageobject import PageObjectList
+from pageobject import PageObject, PageObjectList
 from .fixtures import mock_po, mock_po_list
 
 
@@ -81,4 +81,13 @@ def test_get_child_full_name_returns_correct_name(monkeypatch, mock_po_list):
     monkeypatch.setattr(mock_po_list.__class__, 'full_name', 'full_po_list_name')
     assert mock_po_list._get_child_full_name(child_po) == '{}[{}]'.format(
             mock_po_list.full_name, child_po.index)
+
+
+def test_children_class_property_returns_correct_value_if_initialized(mock_po_list):
+    mock_po_list._children_class = 'children_class'
+    assert mock_po_list.children_class == mock_po_list._children_class
+
+def test_children_class_property_returns_PageObject_if_not_initialized(mock_po_list):
+    mock_po_list._children_class = None
+    assert mock_po_list.children_class == PageObject
 
