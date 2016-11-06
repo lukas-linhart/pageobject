@@ -17,8 +17,9 @@ class Select(PageObject):
         return WebDriverSelect(self.webelement)
 
 
-    def __getattr__(self, attribute_name):
-        delegated_attributes = {
+    @property
+    def _delegated_attributes(self):
+        return {
             'options',
             'all_selected_options',
             'first_selected_option',
@@ -30,7 +31,10 @@ class Select(PageObject):
             'deselect_by_index',
             'deselect_by_visible_text',
         }
-        if attribute_name in delegated_attributes:
+
+
+    def __getattr__(self, attribute_name):
+        if attribute_name in self._delegated_attributes:
             return self.elem.__getattribute__(attribute_name)
         else:
             return object.__getattribute__(self, attribute_name)
