@@ -1,5 +1,6 @@
 from pageobject import PageObject
 from pageobject import PageObjectList
+from pageobject import Select
 from pageobject.pageobjectbase import PageObjectBase
 import pytest
 
@@ -39,4 +40,13 @@ class MockPoListTemplate(PageObjectList):
 def mock_po_list():
     class MockPoList(MockPoListTemplate): pass
     return MockPoList()
+
+
+class MockSelectTemplate(Select):
+    def __init__(self): pass
+
+@pytest.fixture
+def mock_select():
+    class MockSelect(MockSelectTemplate): pass
+    return MockSelect()
 

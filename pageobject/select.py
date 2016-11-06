@@ -13,8 +13,13 @@ class WebDriverSelect(Python2IncompatibleSelect, object):
 class Select(PageObject):
 
     @property
+    def _select_class(self):
+        return WebDriverSelect
+
+
+    @property
     def elem(self):
-        return WebDriverSelect(self.webelement)
+        return self._select_class(self.webelement)
 
 
     @property
