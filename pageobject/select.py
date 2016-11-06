@@ -9,45 +9,21 @@ class Select(PageObject):
         return WebDriverSelect(self.webelement)
 
 
-    @property
-    def options(self):
-        return self.elem.options
-
-
-    @property
-    def all_selected_options(self):
-        return self.elem.all_selected_options
-
-
-    @property
-    def first_selected_option(self):
-        return self.elem.first_selected_option
-
-
-    def select_by_value(self, value):
-        self.elem.select_by_value(value)
-
-
-    def select_by_index(self, index):
-        self.elem.select_by_index(index)
-
-
-    def select_by_visible_text(self, text):
-        self.elem.select_by_visible_text(text)
-
-
-    def deselect_all(self):
-        self.elem.deselect_all()
-
-
-    def deselect_by_value(self, value):
-        self.elem.deselect_by_value(value)
-
-
-    def deselect_by_index(self, index):
-        self.elem.deselect_by_index(index)
-
-
-    def deselect_by_visible_text(self, text):
-        self.elem.deselect_by_visible_text(text)
+    def __getattribute__(self, attribute_name):
+        delegated_attributes = {
+            'options',
+            'all_selected_options',
+            'first_selected_option',
+            'select_by_value',
+            'select_by_index',
+            'select_by_visible_text',
+            'deselect_all',
+            'deselect_by_value',
+            'deselect_by_index',
+            'deselect_by_visible_text',
+        }
+        if attribute_name in delegated_attributes:
+            return self.elem.__getattribute__(attribute_name)
+        else:
+            return object.__getattribute__(self, attribute_name)
 
