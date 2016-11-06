@@ -19,3 +19,12 @@ def test_delegated_attributes_property_returns_a_set_of_strings(mock_select):
     assert isinstance(mock_select._delegated_attributes, set)
     assert all(isinstance(x, str) for x in mock_select._delegated_attributes)
 
+
+def test_dunder_getattr_method_delegates_to_elem_property(monkeypatch, mock_select):
+    class MockElem(object):
+        @property
+        def options(self):
+            return ['options']
+    monkeypatch.setattr(mock_select.__class__, 'elem', MockElem())
+    assert mock_select.options == mock_select.elem.options
+
