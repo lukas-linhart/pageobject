@@ -1,5 +1,13 @@
 from .pageobject import PageObject
-from selenium.webdriver.support.ui import Select as WebDriverSelect
+from selenium.webdriver.support.ui import Select as Python2IncompatibleSelect
+
+
+class WebDriverSelect(Python2IncompatibleSelect, object):
+    """
+    This is a workaround for selenium.webdriver.support.ui.Select class
+    not inheriting from object.
+    """
+    pass
 
 
 class Select(PageObject):
@@ -9,7 +17,7 @@ class Select(PageObject):
         return WebDriverSelect(self.webelement)
 
 
-    def __getattribute__(self, attribute_name):
+    def __getattr__(self, attribute_name):
         delegated_attributes = {
             'options',
             'all_selected_options',
