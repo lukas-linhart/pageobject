@@ -22,25 +22,6 @@ class Select(PageObject):
         return self._select_class(self.webelement)
 
 
-    @property
-    def _delegated_attributes(self):
-        return {
-            'options',
-            'all_selected_options',
-            'first_selected_option',
-            'select_by_value',
-            'select_by_index',
-            'select_by_visible_text',
-            'deselect_all',
-            'deselect_by_value',
-            'deselect_by_index',
-            'deselect_by_visible_text',
-        }
-
-
     def __getattr__(self, attribute_name):
-        if attribute_name in self._delegated_attributes:
-            return self.elem.__getattribute__(attribute_name)
-        else:
-            return object.__getattribute__(self, attribute_name)
+        return self.elem.__getattribute__(attribute_name)
 

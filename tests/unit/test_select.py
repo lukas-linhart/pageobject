@@ -15,11 +15,6 @@ def test_elem_property_returns_an_instance_of_webdriver_select(monkeypatch, mock
     assert isinstance(mock_select.elem, WebDriverSelect)
 
 
-def test_delegated_attributes_property_returns_a_set_of_strings(mock_select):
-    assert isinstance(mock_select._delegated_attributes, set)
-    assert all(isinstance(x, str) for x in mock_select._delegated_attributes)
-
-
 def test_dunder_getattr_method_delegates_to_elem_property(monkeypatch, mock_select):
     class MockElem(object):
         @property
