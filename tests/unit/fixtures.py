@@ -24,6 +24,7 @@ def yet_another_mock_po():
     return YetAnotherMockPo()
 
 
+
 class MockPoBaseTemplate(PageObjectBase):
     def __init__(self): pass
 
@@ -49,4 +50,24 @@ class MockSelectTemplate(Select):
 def mock_select():
     class MockSelect(MockSelectTemplate): pass
     return MockSelect()
+
+
+@pytest.fixture
+def mock_commands_po():
+
+    class NopLogger(object):
+        info = debug = lambda *args, **kwargs: None
+
+    class MockWebElement(object):
+        pass
+
+    class MockCommandsPo(MockPoTemplate):
+        @property
+        def logger(self):
+            return NopLogger()
+        _log_id_short = None
+        _log_id_long = None
+        webelement = MockWebElement()
+
+    return MockCommandsPo()
 
