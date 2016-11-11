@@ -30,7 +30,7 @@ long_description = 'Page Object design pattern implementation' + \
 setup_args = {
     'name': 'pageobject',
     'packages': ['pageobject'],
-    'version': '0.0.31',
+    'version': '0.0.32',
     'description': 'Page Object implementation',
     'long_description': long_description,
     'url': 'https://github.com/lukas-linhart/pageobject',
