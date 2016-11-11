@@ -23,6 +23,9 @@ class PageObjectBase(object):
 
     def __setattr__(self, attr_name, attr_value):
         object.__setattr__(self, attr_name, attr_value)
+        if attr_name is not '_parent' and isinstance(attr_value, PageObjectBase):
+            child = attr_value
+            child.__dict__['_parent'] = self
 
 
     @property
