@@ -4,7 +4,7 @@ from . import commands
 
 class PageObject(PageObjectBase):
 
-    def __init__(self, locator, parent, chain=True, webdriver=None, logger=None, name=None):
+    def __init__(self, locator, parent=None, chain=True, webdriver=None, logger=None, name=None):
         self._locator = locator
         self._parent = parent
         self._chain = chain

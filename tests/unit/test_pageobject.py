@@ -11,9 +11,9 @@ def test_dunder_init_method_assigns_parameters_correctly():
     webdriver = 'webdriver'
     logger = 'logger'
     name = 'name'
-    po = PageObject(locator, parent, chain=chain, webdriver=webdriver, logger=logger, name=name)
+    po = PageObject(locator, parent=parent, chain=chain, webdriver=webdriver, logger=logger, name=name)
     assert po._locator == locator
-    assert po.parent == parent
+    assert po._parent == parent
     assert po._chain == chain
     assert po._webdriver == webdriver
     assert po._logger == logger

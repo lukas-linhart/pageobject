@@ -5,7 +5,7 @@ from . import commands
 
 class PageObjectList(PageObjectBase):
 
-    def __init__(self, locator, parent, chain=True, name=None, children_class=None, children_locator=None, count_locator=None):
+    def __init__(self, locator, parent=None, chain=True, name=None, children_class=None, children_locator=None, count_locator=None):
         self._locator = locator
         self._parent = parent
         self._chain = chain
