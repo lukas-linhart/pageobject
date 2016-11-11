@@ -6,7 +6,7 @@ class PageObject(PageObjectBase):
 
     def __init__(self, locator, parent, chain=True, webdriver=None, logger=None, name=None):
         self._locator = locator
-        self.parent = parent
+        self._parent = parent
         self._chain = chain
         self._webdriver = webdriver
         self._logger = logger

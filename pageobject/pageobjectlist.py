@@ -7,7 +7,7 @@ class PageObjectList(PageObjectBase):
 
     def __init__(self, locator, parent, chain=True, name=None, children_class=None, children_locator=None, count_locator=None):
         self._locator = locator
-        self.parent = parent
+        self._parent = parent
         self._chain = chain
         self._name = name
         self._children_class = children_class

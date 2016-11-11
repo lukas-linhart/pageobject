@@ -22,6 +22,11 @@ class PageObjectBase(object):
 
 
     @property
+    def parent(self):
+        return self._parent
+
+
+    @property
     def default_locator(self):
         return None
 

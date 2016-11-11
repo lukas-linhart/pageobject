@@ -21,11 +21,11 @@ def test_parent_locator_returns_correct_value_when_parent_is_valid(monkeypatch, 
     parent_locator = '//body'
     class Parent:
         locator = parent_locator
-    mock_po_base.parent = Parent()
+    mock_po_base._parent = Parent()
     assert mock_po_base._parent_locator == parent_locator
 
 def test_parent_locator_returns_empty_string_when_parent_is_invalid(mock_po_base):
-    mock_po_base.parent = None
+    mock_po_base._parent = None
     assert mock_po_base._parent_locator == ''
 
 def test_locator_returns_default_locator_when_provided(monkeypatch, mock_po_base):
@@ -52,19 +52,19 @@ def test_webdriver_returns_webdriver_of_a_parent_if_available(monkeypatch, mock_
     parent_webdriver = 'parent_webdriver'
     class Parent:
         webdriver = parent_webdriver
-    mock_po_base.parent = Parent()
+    mock_po_base._parent = Parent()
     assert mock_po_base.webdriver == parent_webdriver
 
 def test_webdriver_returns_correct_value_if_valid(mock_po_base):
     class MockWebDriver(RemoteWebDriver):
         def __init__(self):  pass
         def __repr__(self): return 'MockWebDriver'
-    mock_po_base.parent = None
+    mock_po_base._parent = None
     mock_po_base._webdriver = MockWebDriver()
     assert mock_po_base.webdriver == mock_po_base._webdriver
 
 def test_webdriver_raises_AssertionException_when_invalid(mock_po_base):
-    mock_po_base.parent = None
+    mock_po_base._parent = None
     mock_po_base._webdriver = None
     with pytest.raises(AssertionError):
         mock_po_base.webdriver
@@ -74,7 +74,7 @@ def test_logger_returns_parent_logger_if_available(mock_po_base):
     parent_logger = 'parent_logger'
     class Parent:
         logger = parent_logger
-    mock_po_base.parent = Parent()
+    mock_po_base._parent = Parent()
     assert mock_po_base.logger == parent_logger
 
 def test_logger_returns_standard_logging_when_not_provided(mock_po_base):
@@ -82,7 +82,7 @@ def test_logger_returns_standard_logging_when_not_provided(mock_po_base):
     assert mock_po_base.logger == logging
 
 def test_logger_returns_initialized_value_if_valid(mock_po_base):
-    mock_po_base.parent = None
+    mock_po_base._parent = None
     mock_po_base._logger = 'valid_logger'
     assert mock_po_base.logger == mock_po_base._logger
 
@@ -96,7 +96,7 @@ def test_name_returns_correct_name_when_parent_exists(mock_po_base):
     class Parent:
         def _get_child_name(self, child): return correct_name
     mock_po_base._name = None
-    mock_po_base.parent = Parent()
+    mock_po_base._parent = Parent()
     assert mock_po_base.name == correct_name
 
 def test_name_returns_default_root_name_when_po_is_a_root(mock_po_base):
@@ -108,11 +108,11 @@ def test_full_name_returns_correct_name_when_parent_exists(mock_po_base):
     correct_name = 'child_full_name'
     class Parent:
         def _get_child_full_name(self, child): return correct_name
-    mock_po_base.parent = Parent()
+    mock_po_base._parent = Parent()
     assert mock_po_base.full_name == correct_name
 
 def test_full_name_returns_name_when_po_is_a_root(monkeypatch, mock_po_base):
     monkeypatch.setattr(mock_po_base.__class__, 'name', 'po_name')
-    mock_po_base.parent = None
+    mock_po_base._parent = None
     assert mock_po_base.full_name == mock_po_base.name
 

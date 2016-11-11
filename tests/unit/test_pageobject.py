@@ -92,7 +92,7 @@ def test_children_property_returns_correct_children(monkeypatch, mock_po, anothe
     root_po = mock_po
     child_po = another_mock_po
     leaf_po = yet_another_mock_po
-    child_po.parent = root_po
+    child_po._parent = root_po
     child_po.leaf_po = leaf_po
     child_po.not_a_po = 'not a page object'
     assert 'leaf_po' in child_po.children
