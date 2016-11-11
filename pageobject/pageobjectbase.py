@@ -21,6 +21,10 @@ class PageObjectBase(object):
                 my_class, base_class, locator)
 
 
+    def __setattr__(self, attr_name, attr_value):
+        object.__setattr__(self, attr_name, attr_value)
+
+
     @property
     def parent(self):
         return self._parent
