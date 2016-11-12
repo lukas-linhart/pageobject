@@ -11,13 +11,12 @@ def test_constructor_assigns_parameters_correctly():
     children_class = 5
     children_locator = 6
     count_locator = 7
-    po_list = PageObjectList(locator, parent=parent, chain=chain, name=name,
+    po_list = PageObjectList(locator, parent=parent, chain=chain,
             children_class=children_class, children_locator=children_locator,
             count_locator=count_locator)
     assert po_list._locator == locator
     assert po_list.parent == parent
     assert po_list._chain == chain
-    assert po_list._name == name
     assert po_list._children_class == children_class
     assert po_list._children_locator == children_locator
     assert po_list._count_locator == count_locator

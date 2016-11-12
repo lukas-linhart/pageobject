@@ -5,11 +5,10 @@ from . import commands
 
 class PageObjectList(PageObjectBase):
 
-    def __init__(self, locator, parent=None, chain=True, name=None, children_class=None, children_locator=None, count_locator=None):
+    def __init__(self, locator, parent=None, chain=True, children_class=None, children_locator=None, count_locator=None):
         self._locator = locator
         self._parent = parent
         self._chain = chain
-        self._name = name
         self._children_class = children_class
         self._children_locator = children_locator
         self._count_locator = count_locator
