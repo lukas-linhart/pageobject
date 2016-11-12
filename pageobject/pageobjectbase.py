@@ -10,6 +10,10 @@ class PageObjectBase(object):
     DEFAULT_POLL_INTERVAL = 0.25
 
 
+    def __nonzero__(self):      # pragma: no cover
+        return self.__bool__()  # Python 2 throwback
+
+
     def __repr__(self):
         my_class = self.__class__.__name__
         base_class = self.__class__.__bases__[0].__name__
