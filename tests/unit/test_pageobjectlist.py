@@ -22,13 +22,6 @@ def test_constructor_assigns_parameters_correctly():
     assert po_list._children_locator == children_locator
     assert po_list._count_locator == count_locator
 
-def test_constructor_calls_register_as_child_method():
-    class MockPageObjectList(PageObjectList):
-        def _register_as_child(self):
-            self.registered_as_child = True
-    po_list = MockPageObjectList('')
-    assert po_list.registered_as_child == True
-
 
 def test_dunder_bool_method_returns_True_if_len_is_nonzero(monkeypatch, mock_po_list):
     monkeypatch.setattr(mock_po_list.__class__, '__len__', lambda self: 1)

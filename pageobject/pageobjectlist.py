@@ -14,8 +14,6 @@ class PageObjectList(PageObjectBase):
         self._children_locator = children_locator
         self._count_locator = count_locator
 
-        self._register_as_child()
-
 
     def __bool__(self):
         return bool(len(self))

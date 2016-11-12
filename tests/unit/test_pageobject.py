@@ -19,13 +19,6 @@ def test_constructor_assigns_parameters_correctly():
     assert po._logger == logger
     assert po._name == name
 
-def test_constructor_calls_register_as_child_method():
-    class MockPageObject(PageObject):
-        def _register_as_child(self):
-            self.registered_as_child = True
-    po = MockPageObject('')
-    assert po.registered_as_child is True
-
 def test_constructor_calls_init_children_method():
     class MockPageObject(PageObject):
         def init_children(self):
@@ -56,12 +49,6 @@ def test_dunder_getitem_method_returns_correct_child(monkeypatch, mock_po):
 def test_dunder_len_method_returns_correct_length(monkeypatch, mock_po):
     monkeypatch.setattr(mock_po.__class__, 'children', dict(a=1, b=2))
     assert len(mock_po) == len(mock_po.children)
-
-
-def test_register_child_method_registers_a_child(monkeypatch, mock_po, another_mock_po):
-    monkeypatch.setattr(another_mock_po.__class__, 'name', 'child_po')
-    mock_po._register_child(another_mock_po)
-    assert mock_po.child_po == another_mock_po
 
 
 def test_get_child_name_returns_correct_name(monkeypatch, mock_po, another_mock_po):

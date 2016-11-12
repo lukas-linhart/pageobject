@@ -12,15 +12,6 @@ def test_dunder_repr_returns_correct_string(monkeypatch, mock_po_base):
             mock_po_base.locator)
 
 
-def test_register_as_child_calls_register_child_method_of_parent(monkeypatch, mock_po_base):
-    class Parent():
-        def _register_child(self, child):
-            self.is_child_registered = True
-    monkeypatch.setattr(mock_po_base.__class__, 'parent', Parent())
-    mock_po_base._register_as_child()
-    assert mock_po_base.parent.is_child_registered is True
-
-
 def test_default_locator_returns_None_when_not_provided():
     po = PageObjectBase()
     assert po.default_locator is None

@@ -12,7 +12,6 @@ class PageObject(PageObjectBase):
         self._logger = logger
         self._name = name
 
-        self._register_as_child()
         self.init_children()
 
 
@@ -28,14 +27,6 @@ class PageObject(PageObjectBase):
 
     def __len__(self):
         return len(self.children)
-
-
-    def _register_child(self, child):
-        try:
-            assert isinstance(child, PageObjectBase)
-            self.__setattr__(child.name, child)
-        except TypeError: # pragma: no cover
-            pass # child has an invalid name
 
 
     def init_children(self): # pragma: no cover
