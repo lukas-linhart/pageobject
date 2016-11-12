@@ -4,7 +4,7 @@ from pageobject.pageobjectbase import PageObjectBase
 from .fixtures import mock_po, another_mock_po, yet_another_mock_po
 
 
-def test_dunder_init_method_assigns_parameters_correctly():
+def test_constructor_assigns_parameters_correctly():
     locator = '//body'
     parent = 'parent_po'
     chain = 'chain'
@@ -19,18 +19,18 @@ def test_dunder_init_method_assigns_parameters_correctly():
     assert po._logger == logger
     assert po._name == name
 
-def test_dunder_init_method_calls_register_child_method_of_parent(monkeypatch, mock_po):
-    def mock_register_child(self, child):
-        self.child_registered = True
-    monkeypatch.setattr(mock_po.__class__, '_register_child', mock_register_child)
-    po = PageObject('', mock_po)
-    assert mock_po.child_registered is True
+def test_constructor_calls_register_as_child_method():
+    class MockPageObject(PageObject):
+        def _register_as_child(self):
+            self.registered_as_child = True
+    po = MockPageObject('')
+    assert po.registered_as_child is True
 
-def test_dunder_init_method_calls_init_children_method(monkeypatch):
+def test_constructor_calls_init_children_method():
     class MockPageObject(PageObject):
         def init_children(self):
             self.children_initialized = True
-    po = MockPageObject('', None)
+    po = MockPageObject('')
     assert po.children_initialized is True
 
 

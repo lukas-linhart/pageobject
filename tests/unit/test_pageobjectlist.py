@@ -3,7 +3,7 @@ from pageobject import PageObject, PageObjectList
 from .fixtures import mock_po, mock_po_list
 
 
-def test_dunder_init_method_assigns_parameters_correctly():
+def test_constructor_assigns_parameters_correctly():
     locator = 1
     parent = 2
     chain = 3
@@ -11,7 +11,7 @@ def test_dunder_init_method_assigns_parameters_correctly():
     children_class = 5
     children_locator = 6
     count_locator = 7
-    po_list = PageObjectList(locator, parent, chain=chain, name=name,
+    po_list = PageObjectList(locator, parent=parent, chain=chain, name=name,
             children_class=children_class, children_locator=children_locator,
             count_locator=count_locator)
     assert po_list._locator == locator
@@ -22,12 +22,12 @@ def test_dunder_init_method_assigns_parameters_correctly():
     assert po_list._children_locator == children_locator
     assert po_list._count_locator == count_locator
 
-def test_dunder_init_method_calls_register_child_method_of_parent(monkeypatch, mock_po):
-    def mock_register_child(self, child):
-        self.child_registered = True
-    monkeypatch.setattr(mock_po.__class__, '_register_child', mock_register_child)
-    po_list = PageObjectList('', mock_po)
-    assert mock_po.child_registered
+def test_constructor_calls_register_as_child_method():
+    class MockPageObjectList(PageObjectList):
+        def _register_as_child(self):
+            self.registered_as_child = True
+    po_list = MockPageObjectList('')
+    assert po_list.registered_as_child == True
 
 
 def test_dunder_bool_method_returns_True_if_len_is_nonzero(monkeypatch, mock_po_list):
