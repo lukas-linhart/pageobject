@@ -14,10 +14,7 @@ class PageObjectList(PageObjectBase):
         self._children_locator = children_locator
         self._count_locator = count_locator
 
-        try:
-            self.parent._register_child(self)
-        except AttributeError: # pragma: no cover
-            pass # we don't have a parent or the parent is not a PageObject
+        self._register_as_child()
 
 
     def __bool__(self):

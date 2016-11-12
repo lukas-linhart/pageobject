@@ -33,6 +33,13 @@ class PageObjectBase(object):
         return self._parent
 
 
+    def _register_as_child(self):
+        try:
+            self.parent._register_child(self)
+        except AttributeError: # pragma: no cover
+            pass # we don't have a parent or the parent is not a PageObject
+
+
     @property
     def default_locator(self):
         return None

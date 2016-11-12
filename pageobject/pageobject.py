@@ -12,11 +12,7 @@ class PageObject(PageObjectBase):
         self._logger = logger
         self._name = name
 
-        try:
-            self.parent._register_child(self)
-        except AttributeError: # pragma: no cover
-            pass # we don't have a parent or the parent is not a PageObject
-
+        self._register_as_child()
         self.init_children()
 
 
