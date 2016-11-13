@@ -16,11 +16,8 @@ class Page(PageObjectBase):
         self.init_children()
 
 
-    def load(self):
-        self.webdriver.get(self._url)
-
-
     # commands
+    load = commands.load
     is_existing = commands.is_existing
     wait_for_exist = commands.wait_for_exist
     wait_for_vanish = commands.wait_for_vanish

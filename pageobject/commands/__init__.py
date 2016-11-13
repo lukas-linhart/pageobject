@@ -1,3 +1,6 @@
+# Page commands
+from .load import load
+
 # PageObject commands
 from .webelement import webelement
 from .text import text
