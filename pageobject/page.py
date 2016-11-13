@@ -4,6 +4,9 @@ from . import commands
 
 class Page(PageObjectBase):
 
+    DEFAULT_ROOT_NAME = 'page'
+
+
     def __init__(self, url=None, locator='', chain=True, webdriver=None, logger=None, name=None):
         self._url = url
         self._locator = locator
