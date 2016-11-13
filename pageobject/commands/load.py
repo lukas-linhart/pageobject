@@ -4,4 +4,5 @@ def load(self, log=True):
     self.webdriver.get(self._url)
     if log:
         self.logger.info('page loaded (url "{}")'.format(self._url))
+    return self
 
