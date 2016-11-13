@@ -4,16 +4,15 @@ from pageobject.pageobjectbase import PageObjectBase
 from .fixtures import mock_po, another_mock_po, yet_another_mock_po
 
 
-def test_constructor_assigns_parameters_correctly():
+def test_constructor_inits_parameters_correctly():
     locator = '//body'
-    parent = 'parent_po'
     chain = 'chain'
     webdriver = 'webdriver'
     logger = 'logger'
     name = 'name'
-    po = PageObject(locator, parent=parent, chain=chain, webdriver=webdriver, logger=logger, name=name)
+    po = PageObject(locator, chain=chain, webdriver=webdriver, logger=logger, name=name)
     assert po._locator == locator
-    assert po._parent == parent
+    assert po._parent == None
     assert po._chain == chain
     assert po._webdriver == webdriver
     assert po._logger == logger

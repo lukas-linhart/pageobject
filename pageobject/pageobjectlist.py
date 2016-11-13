@@ -5,13 +5,13 @@ from . import commands
 
 class PageObjectList(PageObjectBase):
 
-    def __init__(self, locator, parent=None, chain=True, children_class=None, children_locator=None, count_locator=None):
+    def __init__(self, locator, chain=True, children_class=None, children_locator=None, count_locator=None):
         self._locator = locator
-        self._parent = parent
         self._chain = chain
         self._children_class = children_class
         self._children_locator = children_locator
         self._count_locator = count_locator
+        self._parent = None
 
 
     def __bool__(self):
@@ -37,8 +37,9 @@ class PageObjectList(PageObjectBase):
         ChildrenClass = self.children_class
         for i in range(self._children_count):
             locator = self.children_locator.format(i+1)
-            child = ChildrenClass(locator, self, chain=False)
+            child = ChildrenClass(locator, chain=False)
             child.index = i
+            child._parent = self
             children.append(child)
         return children
 

@@ -4,13 +4,13 @@ from . import commands
 
 class PageObject(PageObjectBase):
 
-    def __init__(self, locator, parent=None, chain=True, webdriver=None, logger=None, name=None):
+    def __init__(self, locator, chain=True, webdriver=None, logger=None, name=None):
         self._locator = locator
-        self._parent = parent
         self._chain = chain
         self._webdriver = webdriver
         self._logger = logger
         self._name = name
+        self._parent = None
 
         self.init_children()
 

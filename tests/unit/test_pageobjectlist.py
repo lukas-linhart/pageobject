@@ -3,19 +3,18 @@ from pageobject import PageObject, PageObjectList
 from .fixtures import mock_po, mock_po_list
 
 
-def test_constructor_assigns_parameters_correctly():
+def test_constructor_inits_parameters_correctly():
     locator = 1
-    parent = 2
     chain = 3
     name = 4
     children_class = 5
     children_locator = 6
     count_locator = 7
-    po_list = PageObjectList(locator, parent=parent, chain=chain,
+    po_list = PageObjectList(locator, chain=chain,
             children_class=children_class, children_locator=children_locator,
             count_locator=count_locator)
     assert po_list._locator == locator
-    assert po_list.parent == parent
+    assert po_list.parent == None
     assert po_list._chain == chain
     assert po_list._children_class == children_class
     assert po_list._children_locator == children_locator
@@ -67,7 +66,7 @@ def test_children_property_returns_instances_of_children_class(monkeypatch, mock
 
 def test_children_property_inits_children_with_correct_locator_and_index(monkeypatch, mock_po_list):
     class MockPageObject:
-        def __init__(self, locator, parent, chain=True):
+        def __init__(self, locator, chain=True):
             self.test_locator = locator
     children_count = 2
     locator = 'locator[{}]'
