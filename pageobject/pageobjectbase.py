@@ -84,12 +84,13 @@ class PageObjectBase(object):
 
     @property
     def name(self):
-        if self._name:
-            return self._name
         try:
             return self.parent._get_child_name(self)
         except AttributeError:
-            return PageObjectBase.DEFAULT_ROOT_NAME
+            if self._name:
+                return self._name
+            else:
+                return PageObjectBase.DEFAULT_ROOT_NAME
 
 
     @property

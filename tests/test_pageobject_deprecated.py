@@ -27,7 +27,6 @@ class PageObjectTests(unittest.TestCase):
         root_po.another_nested_po = PageObject('', root_po)
         self.assertEqual(len(root_po), len(root_po.children))
 
-
     def test_root_PO_has_correct_short_implicit_name(self):
         root_po = PageObject('', None)
         self.assertEqual(root_po.name, PageObject.DEFAULT_ROOT_NAME)
@@ -48,13 +47,6 @@ class PageObjectTests(unittest.TestCase):
         root_po = PageObject('', None)
         root_po.nested_po = PageObject('', root_po)
         self.assertEqual(root_po.nested_po.name, 'nested_po')
-
-
-    def test_nested_PO_has_correct_short_explicit_name(self):
-        root_po = PageObject('', None)
-        po_name = 'explicit_name'
-        root_po.nested_po = PageObject('', root_po, name=po_name)
-        self.assertEqual(root_po.nested_po.name, po_name)
 
 
     def test_nested_PO_has_correct_full_name(self):
