@@ -19,6 +19,14 @@ class Page(PageObjectBase):
         self.init_children()
 
 
+    def init_children(self): # pragma: no cover
+        """
+        Meant to be overloaded by page objects
+        containing other page objects.
+        """
+        pass
+
+
     # commands
     load = commands.load
     is_existing = commands.is_existing
