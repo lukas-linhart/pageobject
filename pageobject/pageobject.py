@@ -63,6 +63,7 @@ class PageObject(PageObjectBase):
     wait_for_exist = commands.wait_for_exist
     wait_for_vanish = commands.wait_for_vanish
     wait_for_visible = commands.wait_for_visible
+    wait_for_enabled = commands.wait_for_enabled
     click = commands.click
     clear = commands.clear
     get_value = commands.get_value
