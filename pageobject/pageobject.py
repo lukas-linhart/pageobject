@@ -58,6 +58,7 @@ class PageObject(PageObjectBase):
     text = commands.text
     is_existing = commands.is_existing
     is_visible = commands.is_visible
+    is_enabled = commands.is_enabled
     wait_until = commands.wait_until
     wait_for_exist = commands.wait_for_exist
     wait_for_vanish = commands.wait_for_vanish
