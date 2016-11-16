@@ -3,6 +3,9 @@ from .singlepageobjectbase import SinglePageObjectBase
 
 class PageObject(SinglePageObjectBase):
 
+    DEFAULT_ROOT_NAME = 'page_object'
+
+
     def __init__(self, locator, chain=True, webdriver=None, logger=None, name=None):
         self._locator = locator
         self._chain = chain

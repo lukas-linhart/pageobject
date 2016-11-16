@@ -18,7 +18,7 @@ class PageObjectTests(unittest.TestCase):
 
     def test_root_PO_has_correct_short_implicit_name(self):
         root_po = PageObject('', None)
-        self.assertEqual(root_po.name, PageObject.DEFAULT_ROOT_NAME)
+        self.assertEqual(root_po.name, root_po.__class__.DEFAULT_ROOT_NAME)
 
 
     def test_root_PO_has_correct_short_explicit_name(self):

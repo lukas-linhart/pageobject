@@ -83,7 +83,7 @@ class PageObjectBase(object):
             if self._name:
                 return self._name
             else:
-                return PageObjectBase.DEFAULT_ROOT_NAME
+                return self.__class__.DEFAULT_ROOT_NAME
 
 
     @property

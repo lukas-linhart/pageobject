@@ -45,7 +45,7 @@ class SinglePageObjectBase(PageObjectBase):
 
 
     def _get_child_full_name(self, child_po):
-        return '{}{}{}'.format(self.full_name, PageObjectBase.NAME_SEPARATOR,
+        return '{}{}{}'.format(self.full_name, self.__class__.NAME_SEPARATOR,
                 child_po.name)
 
 
