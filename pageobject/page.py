@@ -1,8 +1,8 @@
-from .pageobjectbase import PageObjectBase
+from .singlepageobjectbase import SinglePageObjectBase
 from . import commands
 
 
-class Page(PageObjectBase):
+class Page(SinglePageObjectBase):
 
     DEFAULT_ROOT_NAME = 'page'
 
@@ -17,14 +17,6 @@ class Page(PageObjectBase):
         self._parent = None
 
         self.init_children()
-
-
-    def init_children(self): # pragma: no cover
-        """
-        Meant to be overloaded by page objects
-        containing other page objects.
-        """
-        pass
 
 
     # commands
