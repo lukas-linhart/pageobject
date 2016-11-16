@@ -1,9 +1,6 @@
-from pageobject.pageobjectbase import PageObjectBase
-
-
 def wait_for_visible(self, timeout=None):
     if timeout is None:
-        timeout = PageObjectBase.DEFAULT_WAIT_TIMEOUT
+        timeout = self.__class__.DEFAULT_WAIT_TIMEOUT
     self.logger.info('waiting until {} is visible'.format(self._log_id_short))
     self.logger.debug('waiting until page object is visible; {}'.format(self._log_id_long))
     error_msg = 'Element "{}" still not visible after {} seconds'.format(

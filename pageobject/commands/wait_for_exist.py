@@ -1,9 +1,6 @@
-from pageobject.pageobjectbase import PageObjectBase
-
-
 def wait_for_exist(self, timeout=None):
     if timeout is None:
-        timeout = PageObjectBase.DEFAULT_WAIT_TIMEOUT
+        timeout = self.__class__.DEFAULT_WAIT_TIMEOUT
     self.logger.info('waiting until page contains {}'.format(self._log_id_short))
     self.logger.debug('waiting until page contains page object; {}'.format(self._log_id_long))
     error_msg = 'Element "{}" still not existing after {} seconds'.format(
