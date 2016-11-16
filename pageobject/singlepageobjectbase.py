@@ -49,6 +49,16 @@ class SinglePageObjectBase(PageObjectBase):
                 child_po.name)
 
 
+    @property
+    def _descendants(self):
+        descendants = dict()
+        for child_name, child in self.children.items():
+            if not isinstance(child, SinglePageObjectBase):
+                child_name = '{}[i]'.format(child_name)
+            descendants[child_name] = child._descendants
+        return descendants
+
+
     # commands
     webelement = commands.webelement
     text = commands.text

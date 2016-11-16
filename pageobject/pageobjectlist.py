@@ -53,6 +53,11 @@ class PageObjectList(PageObjectBase):
 
 
     @property
+    def _descendants(self):
+        return self.children_class(None)._descendants
+
+
+    @property
     def children_class(self):
         if self._children_class:
             return self._children_class

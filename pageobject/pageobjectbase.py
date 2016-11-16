@@ -95,6 +95,11 @@ class PageObjectBase(object):
 
 
     @property
+    def tree(self):
+        return {self.name: self._descendants}
+
+
+    @property
     def _log_id_short(self): # pragma: no cover
         return 'page object "{}"'.format(self.name)
 
