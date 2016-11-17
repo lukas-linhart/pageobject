@@ -3,6 +3,11 @@ from selenium.webdriver import Remote as WebDriver
 
 
 class PageObjectBase(object):
+    """
+    Abstract page object base class.
+
+    All the other classes inherit from this one.
+    """
 
     DEFAULT_ROOT_NAME = 'root'
     NAME_SEPARATOR = '.'
@@ -27,16 +32,35 @@ class PageObjectBase(object):
 
     @property
     def parent(self):
+        """
+        Return the parent of the page object.
+
+        This is either a subclass of :class:`PageObjectBase` or None.
+        :rtype: :class:`PageObjectBase` or None
+        """
         return self._parent
 
 
     @property
     def default_locator(self):
+        """
+        Return default locator, None by default.
+
+        May be overridden to take precedence before the locator
+        provided to constructor.
+        :rtype: None
+        """
         return None
 
 
     @property
     def _parent_locator(self):
+        """
+        Return the locator of the parent page object.
+
+        If the page object does not have a parent, return empty string.
+        :rtype: string
+        """
         try:
             return self.parent.locator
         except AttributeError:
@@ -45,6 +69,13 @@ class PageObjectBase(object):
 
     @property
     def locator(self):
+        """
+        Return the locator of the page object.
+
+        If *chain* it True, chain the locator of the page object
+        to the locator of its parent.
+        :rtype: string
+        """
         if self.default_locator:
             return self.default_locator
         elif self._chain:
