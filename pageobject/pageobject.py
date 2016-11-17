@@ -22,6 +22,14 @@ class PageObject(SinglePageObjectBase):
         :param str name: Name used when the page object is a root.
         :type webdriver: :class:`selenium.webdriver.Remote` instance or None
         :type logger: `logging` or None
+
+        :Example usage:
+
+        .. code-block:: python
+
+            from pageobject import PageObject
+            top_panel = PageObject("//*[@class='topPanel']")
+
         """
         self._locator = locator
         self._chain = chain
