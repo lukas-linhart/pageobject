@@ -10,11 +10,16 @@ class PageObjectBase(object):
     """
 
     DEFAULT_ROOT_NAME = 'root'
-    NAME_SEPARATOR = '.'
-    DEFAULT_WAIT_TIMEOUT = 60
+    """Default name for a root page object."""
 
-    """Default interval for wait commands."""
+    NAME_SEPARATOR = '.'
+    """Separator character for long (chained) page object names."""
+
+    DEFAULT_WAIT_TIMEOUT = 60
+    """Default timeout (in seconds) for wait commands."""
+
     DEFAULT_POLL_INTERVAL = 0.25
+    """Poll interval (in seconds) for wait commands."""
 
 
     def __nonzero__(self):      # pragma: no cover
