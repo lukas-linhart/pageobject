@@ -12,6 +12,8 @@ class PageObjectBase(object):
     DEFAULT_ROOT_NAME = 'root'
     NAME_SEPARATOR = '.'
     DEFAULT_WAIT_TIMEOUT = 60
+
+    """Default interval for wait commands."""
     DEFAULT_POLL_INTERVAL = 0.25
 
 
@@ -35,8 +37,8 @@ class PageObjectBase(object):
         """
         Return the parent of the page object.
 
-        This is either a subclass of :class:`PageObjectBase` or None.
-        :rtype: :class:`PageObjectBase` or None
+        :returns: Parent page object.
+        :rtype: :class:`PageObjectBase` or `None` (default)
         """
         return self._parent
 
@@ -48,7 +50,9 @@ class PageObjectBase(object):
 
         May be overridden to take precedence before the locator
         provided to constructor.
-        :rtype: None
+
+        :returns: default locator
+        :rtype: string or None (default)
         """
         return None
 
@@ -59,6 +63,7 @@ class PageObjectBase(object):
         Return the locator of the parent page object.
 
         If the page object does not have a parent, return empty string.
+
         :rtype: string
         """
         try:
@@ -74,6 +79,7 @@ class PageObjectBase(object):
 
         If *chain* it True, chain the locator of the page object
         to the locator of its parent.
+
         :rtype: string
         """
         if self.default_locator:

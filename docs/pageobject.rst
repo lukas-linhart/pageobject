@@ -25,6 +25,7 @@ pageobject.pageobject module
 .. automodule:: pageobject.pageobject
     :members:
     :undoc-members:
+    :inherited-members:
     :show-inheritance:
 
 pageobject.pageobjectbase module
@@ -67,3 +68,13 @@ Module contents
     :members:
     :undoc-members:
     :show-inheritance:
+
+    .. autoclass:: PageObject
+        :members:
+        :undoc-members:
+        :inherited-members:
+        :show-inheritance:
+
+    .. autoclass:: Page
+        :show-inheritance:
+
