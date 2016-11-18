@@ -1,6 +1,5 @@
 from .pageobjectlistbase import PageObjectListBase
 from .pageobject import PageObject
-from . import commands
 
 
 class PageObjectList(PageObjectListBase):
@@ -12,18 +11,6 @@ class PageObjectList(PageObjectListBase):
         self._children_locator = children_locator
         self._count_locator = count_locator
         self._parent = None
-
-
-    def __bool__(self):
-        return bool(len(self))
-
-
-    def __getitem__(self, slice):
-        return self.children[slice]
-
-
-    def __len__(self):
-        return len(self.children)
 
 
     @property
@@ -42,19 +29,6 @@ class PageObjectList(PageObjectListBase):
             child._parent = self
             children.append(child)
         return children
-
-
-    def _get_child_name(self, child_po):
-        return '{}[{}]'.format(self.name, child_po.index)
-
-
-    def _get_child_full_name(self, child_po):
-        return '{}[{}]'.format(self.full_name, child_po.index)
-
-
-    @property
-    def _descendants(self):
-        return self.children_class(None)._descendants
 
 
     @property
@@ -93,8 +67,4 @@ class PageObjectList(PageObjectListBase):
             return self._count_locator
         else:
             return self.locator
-
-
-    # commands
-    index = commands.index
 
