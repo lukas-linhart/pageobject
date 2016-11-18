@@ -10,12 +10,11 @@ def test_constructor_inits_parameters_correctly():
     logger = 'logger'
     name = 'name'
     page = Page(url=url, locator=locator, chain=chain, webdriver=webdriver,
-            logger=logger, name=name)
+            name=name)
     assert page._url == url
     assert page._locator == locator
     assert page._chain == chain
     assert page._webdriver == webdriver
-    assert page._logger == logger
     assert page._name == name
 
 def test_constructor_calls_init_children_method():

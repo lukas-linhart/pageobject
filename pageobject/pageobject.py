@@ -8,7 +8,7 @@ class PageObject(SinglePageObjectBase):
     """Default name for a root page object."""
 
 
-    def __init__(self, locator, chain=True, webdriver=None, logger=None, name=None):
+    def __init__(self, locator, chain=True, webdriver=None, name=None):
         """
         Create a page object and its children.
 
@@ -17,11 +17,8 @@ class PageObject(SinglePageObjectBase):
         :param bool chain: Determines whether to chain locator
             to its parent.
         :param webdriver: Only needs to be provided for root page object.
-        :param logger: Any object implementing the interface
-            of the standard `logging` module.
         :param str name: Name used when the page object is a root.
         :type webdriver: :class:`selenium.webdriver.Remote` instance or None
-        :type logger: `logging` or None
 
         :Example usage:
 
@@ -34,7 +31,6 @@ class PageObject(SinglePageObjectBase):
         self._locator = locator
         self._chain = chain
         self._webdriver = webdriver
-        self._logger = logger
         self._name = name
         self._parent = None
 

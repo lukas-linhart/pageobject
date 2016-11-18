@@ -121,19 +121,10 @@ class PageObjectBase(object):
         """
         Return the logger object.
 
-        If parent exists, use the logger property of the parent.
-        Otherwise use the value provided to constructor. If logger
-        was not provided to constructor, use standard logging module.
-
-        :returns: logger object
+        :returns: standard logging module
+        :rtype: :py:obj:`logging`
         """
-        try:
-            return self.parent.logger
-        except AttributeError:
-            if self._logger is None:
-                return logging
-            else:
-                return self._logger
+        return logging
 
 
     @property

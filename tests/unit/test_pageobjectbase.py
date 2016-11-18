@@ -70,21 +70,9 @@ def test_webdriver_raises_AssertionException_when_invalid(monkeypatch, mock_po_b
         mock_po_base.webdriver
 
 
-def test_logger_returns_parent_logger_if_available(monkeypatch, mock_po_base):
-    parent_logger = 'parent_logger'
-    class Parent:
-        logger = parent_logger
-    monkeypatch.setattr(mock_po_base.__class__, 'parent', Parent())
-    assert mock_po_base.logger == parent_logger
-
-def test_logger_returns_standard_logging_when_not_provided(mock_po_base):
+def test_logger_returns_standard_logging(mock_po_base):
     mock_po_base._logger = None
     assert mock_po_base.logger == logging
-
-def test_logger_returns_initialized_value_if_valid(monkeypatch, mock_po_base):
-    monkeypatch.setattr(mock_po_base.__class__, 'parent', None)
-    mock_po_base._logger = 'valid_logger'
-    assert mock_po_base.logger == mock_po_base._logger
 
 
 def test_name_returns_initialized_value_if_valid(mock_po_base):

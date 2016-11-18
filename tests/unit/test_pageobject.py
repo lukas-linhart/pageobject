@@ -8,14 +8,12 @@ def test_constructor_inits_parameters_correctly():
     locator = '//body'
     chain = 'chain'
     webdriver = 'webdriver'
-    logger = 'logger'
     name = 'name'
-    po = PageObject(locator, chain=chain, webdriver=webdriver, logger=logger, name=name)
+    po = PageObject(locator, chain=chain, webdriver=webdriver, name=name)
     assert po._locator == locator
     assert po._parent == None
     assert po._chain == chain
     assert po._webdriver == webdriver
-    assert po._logger == logger
     assert po._name == name
 
 def test_constructor_calls_init_children_method():
