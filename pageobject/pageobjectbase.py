@@ -43,7 +43,7 @@ class PageObjectBase(object):
         Return the parent of the page object.
 
         :returns: Parent page object.
-        :rtype: :class:`PageObjectBase` or `None` (default)
+        :rtype: :class:`pageobject.pageobjectbase.PageObjectBase` or `None` (default)
         """
         return self._parent
 
@@ -57,7 +57,7 @@ class PageObjectBase(object):
         provided to constructor.
 
         :returns: default locator
-        :rtype: string or None (default)
+        :rtype: `None` (default) or `str` (if overridden)
         """
         return None
 
@@ -67,9 +67,8 @@ class PageObjectBase(object):
         """
         Return the locator of the parent page object.
 
-        If the page object does not have a parent, return empty string.
-
-        :rtype: string
+        :returns: locator of parent or empty string if parent does not exist
+        :rtype: `str`
         """
         try:
             return self.parent.locator
@@ -82,10 +81,11 @@ class PageObjectBase(object):
         """
         Return the locator of the page object.
 
-        If *chain* it True, chain the locator of the page object
+        If *chain* is True, chain the locator of the page object
         to the locator of its parent.
 
-        :rtype: string
+        :returns: locator of the page object
+        :rtype: `str`
         """
         if self.default_locator:
             return self.default_locator
@@ -97,6 +97,16 @@ class PageObjectBase(object):
 
     @property
     def webdriver(self):
+        """
+        Return the instance of WebDriver.
+
+        If parent exists, use the webdriver property of the parent.
+        Otherwise use the value provided to constructor.
+
+        :returns: reference to the webdriver instance
+        :rtype: `selenium.webdriver.Remote`
+        :raises AssertionError: if the webdriver is not a valid WebDriver
+        """
         try:
             return self.parent.webdriver
         except AttributeError:
@@ -108,6 +118,15 @@ class PageObjectBase(object):
 
     @property
     def logger(self):
+        """
+        Return the logger object.
+
+        If parent exists, use the logger property of the parent.
+        Otherwise use the value provided to constructor. If logger
+        was not provided to constructor, use standard logging module.
+
+        :returns: logger object
+        """
         try:
             return self.parent.logger
         except AttributeError:
@@ -119,6 +138,16 @@ class PageObjectBase(object):
 
     @property
     def name(self):
+        """
+        Return name of the page object instance.
+
+        If parent exists, ask for its child name, otherwise use the name
+        provided to constructor. If that doesn't exist either,
+        use `DEFAULT_ROOT_NAME`.
+
+        :returns: Name of the page object.
+        :rtype: `str`
+        """
         try:
             return self.parent._get_child_name(self)
         except AttributeError:
@@ -130,6 +159,19 @@ class PageObjectBase(object):
 
     @property
     def full_name(self):
+        """
+        Return full name of the page object instance.
+
+        If parent exists, ask for its child full name, otherwiser use
+        normal short name.
+
+        :returns: Full name of the pge object.
+        :rtype: `str`
+
+        .. seealso::
+            :py:func:`_get_child_full_name`
+
+        """
         try:
             return self.parent._get_child_full_name(self)
         except AttributeError:
@@ -138,16 +180,29 @@ class PageObjectBase(object):
 
     @property
     def tree(self):
+        """
+        :returns: Hierarchical tree of page object and its descendants.
+        :rtype: `dict`
+        """
         return {self.name: self._descendants}
 
 
     @property
     def _log_id_short(self): # pragma: no cover
+        """
+        :returns: String identifying the page object by its name.
+        :rtype: `str`
+        """
         return 'page object "{}"'.format(self.name)
 
 
     @property
     def _log_id_long(self): # pragma: no cover
+        """
+        :returns: String identifying the page object
+            by its full name and locator.
+        :rtype: `str`
+        """
         return 'full name path: "{}", element: "{}"'.format(
                 self.full_name, self.locator)
 

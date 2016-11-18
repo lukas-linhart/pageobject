@@ -73,8 +73,20 @@ Module contents
         :members:
         :undoc-members:
         :inherited-members:
+        :private-members:
+        :show-inheritance:
+
+    .. autoclass:: PageObjectList
+        :members:
+        :undoc-members:
+        :inherited-members:
+        :private-members:
         :show-inheritance:
 
     .. autoclass:: Page
+        :members:
+        :undoc-members:
+        :inherited-members:
+        :private-members:
         :show-inheritance:
 
