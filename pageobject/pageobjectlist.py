@@ -1,9 +1,9 @@
-from .pageobjectbase import PageObjectBase
+from .pageobjectlistbase import PageObjectListBase
 from .pageobject import PageObject
 from . import commands
 
 
-class PageObjectList(PageObjectBase):
+class PageObjectList(PageObjectListBase):
 
     def __init__(self, locator, chain=True, children_class=None, children_locator=None, count_locator=None):
         self._locator = locator
