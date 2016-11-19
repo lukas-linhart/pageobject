@@ -5,6 +5,12 @@ from . import commands
 class SinglePageObjectBase(PageObjectBase):
 
     def __bool__(self):
+        """
+        Delegate to is_existing command.
+
+        .. seealso::
+            :py:func:`commands.is_existing`
+        """
         return self.is_existing(log=False)
 
 
@@ -17,6 +23,9 @@ class SinglePageObjectBase(PageObjectBase):
 
 
     def __setattr__(self, attr_name, attr_value):
+        """
+        Register self as parent if attribute value is a page object.
+        """
         object.__setattr__(self, attr_name, attr_value)
         if attr_name is not '_parent' and isinstance(attr_value, PageObjectBase):
             child = attr_value
