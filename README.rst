@@ -2,6 +2,8 @@
 pageobject
 ==========
 
+|docs|
+
 Page Object design pattern implementation built on top of selenium WebDriver.
 
 See the wiki_ for more detailed info.
@@ -34,4 +36,10 @@ Interactive use
 
 Script use
 ----------
+
+
+.. |docs| image:: https://readthedocs.org/projects/pageobject/badge/?version=latest
+       :alt: Documentation Status
+    :scale: 100%
+    :target: https://pageobject.readthedocs.io/en/latest/?badge=latest
 

@@ -162,5 +162,6 @@ Module contents
 
 .. automodule:: pageobject.commands
     :members:
+    :noindex:
     :undoc-members:
     :show-inheritance:

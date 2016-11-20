@@ -70,6 +70,7 @@ try:
     release = pkg_resources.get_distribution('pageobject').version
 except pkg_resources.DistributionNotFound:
     print('Cannot import pageobject.')
+    import sys
     sys.exit(1)
 del pkg_resources
 version = release
