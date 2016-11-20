@@ -1,4 +1,11 @@
 def is_visible(self, log=True):
+    """
+    Return True if page object is visible, False otherwise.
+
+    :param bool log: whether to log or not (default is True)
+    :returns: whether page object is visible
+    :rtype: :py:obj:`bool`
+    """
     if log:
         self.logger.info('determining whether {} is visible'.format(self._log_id_short))
         self.logger.debug('determining whether page object is visible; {}'.format(self._log_id_long))

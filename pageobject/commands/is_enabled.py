@@ -1,4 +1,11 @@
 def is_enabled(self, log=True):
+    """
+    Return True if page object is enabled, False otherwise.
+
+    :param bool log: whether to log or not (defualt is True)
+    :returns: whether page object is enabled
+    :rtype: :py:obj:`bool`
+    """
     if log:
         self.logger.info('determining whether {} is enabled'.format(self._log_id_short))
         self.logger.debug('determining whether page object is enabled; {}'.format(self._log_id_long))
