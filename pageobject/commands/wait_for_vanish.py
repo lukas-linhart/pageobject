@@ -1,4 +1,10 @@
 def wait_for_vanish(self, timeout=None):
+    """
+    Wait fro page object to vanish from the DOM.
+
+    :param int timeout: number of seconds to wait, if not provided
+        :py:obj:`PageObject.DEFAULT_WAIT_TIMEOUT` is used
+    """
     if timeout is None:
         timeout = self.__class__.DEFAULT_WAIT_TIMEOUT
     self.logger.info('waiting until page does not contain {}'.format(self._log_id_short))

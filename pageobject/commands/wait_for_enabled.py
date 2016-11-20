@@ -1,4 +1,10 @@
 def wait_for_enabled(self, timeout=None):
+    """
+    Wait for page object to be enabled.
+
+    :param int timeout: number of seconds to wait, if not provided
+        :py:obj:`PageObject.DEFAULT_WAIT_TIMEOUT` is used
+    """
     if timeout is None:
         timeout = self.__class__.DEFAULT_WAIT_TIMEOUT
     self.logger.info('waiting until {} is enabled'.format(self._log_id_short))
