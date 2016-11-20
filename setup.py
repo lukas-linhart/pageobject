@@ -1,6 +1,18 @@
 import sys
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
+import ast
+import re
+
+
+def get_version():
+    _version_re = re.compile(r'__version__\s+=\s+(.*)')
+
+    with open('pageobject/__init__.py', 'rb') as f:
+        version = str(ast.literal_eval(_version_re.search(
+            f.read().decode('utf-8')).group(1)))
+
+    return version
 
 
 class PyTest(TestCommand):
@@ -30,7 +42,7 @@ long_description = 'Page Object design pattern implementation' + \
 setup_args = {
     'name': 'pageobject',
     'packages': ['pageobject'],
-    'version': '0.0.40',
+    'version': get_version(),
     'description': 'Page Object implementation',
     'long_description': long_description,
     'url': 'https://github.com/lukas-linhart/pageobject',
