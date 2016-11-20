@@ -39,7 +39,7 @@ Script use
 
 
 .. |docs| image:: https://readthedocs.org/projects/pageobject/badge/?version=latest
-       :alt: Documentation Status
+    :alt: Documentation Status
     :scale: 100%
     :target: https://pageobject.readthedocs.io/en/latest/?badge=latest
 
