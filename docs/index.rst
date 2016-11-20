@@ -1,15 +1,34 @@
-.. pageobject documentation master file, created by
-   sphinx-quickstart on Thu Nov 17 08:51:47 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Welcome to pageobject's documentation
+=====================================
 
-Welcome to pageobject's documentation!
-======================================
+`pageobject`_ is an open source library built on top of `selenium WebDriver`_
+intended for creating powerful and easy to maintain browser automation layer
+for your test automation or web scraping project in `python`_.
 
-Contents:
+**Please note that this documentation is still a work in progress.**
+
+.. _pageobject: https://github.com/lukas-linhart/pageobject
+.. _selenium WebDriver: https://github.com/SeleniumHQ/selenium/tree/master/py
+.. _python: https://www.python.org
+
+The documentation has two main parts:
+
+* :ref:`user-guide`
+* :ref:`api-documentation`
+
+.. _user-guide:
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
+   :caption: User Guide
+
+   getting_started
+
+.. _api-documentation:
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API Documentation
 
    pageobject
 
