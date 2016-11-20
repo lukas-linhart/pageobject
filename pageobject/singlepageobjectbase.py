@@ -34,32 +34,60 @@ class SinglePageObjectBase(PageObjectBase):
 
     def init_children(self): # pragma: no cover
         """
-        Meant to be overloaded by page objects
+        Initialize children of the page object.
+
+        Intended to be overridden by page objects
         containing other page objects.
+
+        :rtype: :py:obj:`None`
         """
         pass
 
 
     @property
     def children(self):
+        """
+        Return dict of page object children.
+
+        :returns: children of the page object
+        :rtype: :py:obj:`dict`
+        """
         return {attr_name: attr_value for attr_name, attr_value in self.__dict__.items()
                 if isinstance(attr_value, PageObjectBase)
                 and attr_value is not self.parent}
 
 
     def _get_child_name(self, child_po):
+        """
+        Return name of a child page object.
+
+        :returns: name of a child page object
+        :rtype: :py:obj:`str`
+        """
         for child_name in self.children:
             if self.__dict__[child_name] == child_po:
                 return child_name
 
 
     def _get_child_full_name(self, child_po):
+        """
+        Return full name of a child page object.
+
+        :returns: full name of a child page object
+        :rtype: :py:obj:`str`
+        """
         return '{}{}{}'.format(self.full_name, self.__class__.NAME_SEPARATOR,
                 child_po.name)
 
 
     @property
     def _descendants(self):
+        """
+        Return descendants of the page object.
+
+        :returns: hierarchical tree of descendants of the page object
+        :rtype: :py:obj:`dict`
+        """
         descendants = dict()
         for child_name, child in self.children.items():
             if not isinstance(child, SinglePageObjectBase):
