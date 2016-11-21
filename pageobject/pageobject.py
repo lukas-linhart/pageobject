@@ -1,4 +1,5 @@
 from .singlepageobjectbase import SinglePageObjectBase
+from . import commands
 
 
 class PageObject(SinglePageObjectBase):
@@ -35,4 +36,17 @@ class PageObject(SinglePageObjectBase):
         self._parent = None
 
         self.init_children()
+
+
+    # commands
+    is_enabled = commands.is_enabled
+    is_visible = commands.is_visible
+    wait_for_visible = commands.wait_for_visible
+    wait_for_enabled = commands.wait_for_enabled
+    click = commands.click
+    clear = commands.clear
+    get_value = commands.get_value
+    set_value = commands.set_value
+    move_to = commands.move_to
+    send_keys = commands.send_keys
 
