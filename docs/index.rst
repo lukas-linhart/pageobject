@@ -5,12 +5,13 @@ Welcome to pageobject's documentation
 intended for creating powerful and easy to maintain browser automation layer
 for your test automation or web scraping project in `python`_. How ? `Read on`_.
 
-**Please note that this documentation is still a work in progress.**
 
 .. _pageobject: https://github.com/lukas-linhart/pageobject
 .. _selenium WebDriver: https://github.com/SeleniumHQ/selenium/tree/master/py
 .. _python: https://www.python.org
 .. _Read on: overview.html
+
+.. note:: Please note that this documentation is still a work in progress.
 
 The documentation has two main parts:
 
