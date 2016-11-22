@@ -1,7 +1,7 @@
 Welcome to pageobject's documentation
 =====================================
 
-`pageobject`_ is an open source library built on top of `selenium WebDriver`_
+`Pageobject`_ is an open source library built on top of `selenium WebDriver`_
 intended for creating powerful and easy to maintain browser automation layer
 for your test automation or web scraping project in `python`_. How ? `Read on`_.
 
