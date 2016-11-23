@@ -1,4 +1,5 @@
 from .singlepageobjectbase import SinglePageObjectBase
+from .locator import Locator
 from . import commands
 
 
