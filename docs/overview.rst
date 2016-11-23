@@ -13,7 +13,8 @@ What is pageobject
 ------------------
 
 `Pageobject`_ library implements the so-called *Page Object design pattern*
-on steroids. This implementation will be henceforth refered to as ``pageobject``.
+on steroids. This library/implementation will be henceforth referred to as
+``pageobject``.
 
 .. _Pageobject: https://github.com/lukas-linhart/pageobject
 
