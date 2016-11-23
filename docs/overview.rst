@@ -64,7 +64,7 @@ Compare the nested model of the UI to the flat one::
     ├── top_panel
     │   ├── logo
     │   │   └── is_visible()
-    │   └── search
+    │   └── search_form
     │       ├── input
     │       │   ├── get_value()
     │       │   └── set_value()
@@ -94,4 +94,26 @@ Compare the nested model of the UI to the flat one::
     ├── set_password_value()
     ├── is_submit_login_button_enabled()
     └── click_submit_login_button()
+
+In the above example, both structures provide the same methods,
+just named differently, e.g. ``search_form.submit_button.click()`` vs.
+``click_submit_search_button()`` or ``login_form.submit_button.click()``
+vs. ``click_submit_login_button()``.
+
+Apart from being a feature in itself, the nesting has several implications
+which other features are based upon.
+
+After closer inspection, it becomes immediately obvious that each
+page object is a separate `namespace`_. This is crucial because not only
+you don't need to worry about conflicting names (``submit_button`` within
+``search_form`` is different from ``submit_button`` within ``login_form``),
+but also each page object can inherit methods like ``click()``
+from common base class and you don't need to reimplement and come up with
+some crazy name for it. In fact, even the ``submit_button`` can be
+a reusable component, because semantically it is and does the same
+thing, just in a different context (the context being location of the
+button webelement in the `DOM`_ of the webpage; more on that later).
+
+.. _namespace: https://en.wikipedia.org/wiki/Namespace
+.. _DOM: https://en.wikipedia.org/wiki/Document_Object_Model
 
