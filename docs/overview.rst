@@ -56,3 +56,41 @@ of the bathroom walls probably don't concern you at this level.
 
 .. _abstraction: https://en.wikipedia.org/wiki/Abstraction_(software_engineering)
 
+Consider a simple ``login_page`` with only a few components.
+Compare the nested model of the UI to the flat one::
+
+    login_page
+    ├── top_panel
+    │   ├── logo
+    │   │   └── is_visible()
+    │   └── search
+    │       ├── input
+    │       │   ├── get_value()
+    │       │   └── set_value()
+    │       └── submit_button
+    │           ├── is_enabled()
+    │           └── click()
+    └── login_form
+        ├── username
+        │   ├── get_value()
+        │   └── set_value()
+        ├── password
+        │   ├── get_value()
+        │   └── set_value()
+        └── submit_button
+            ├── is_enabled()
+            └── click()
+
+    login_page
+    ├── is_logo_visible()
+    ├── get_search_input_value()
+    ├── set_search_input_value()
+    ├── is_submit_search_button_enabled()
+    ├── click_submit_search_button()
+    ├── get_username_value()
+    ├── set_username_value()
+    ├── get_password_value()
+    ├── set_password_value()
+    ├── is_submit_login_button_enabled()
+    └── click_submit_login_button()
+
