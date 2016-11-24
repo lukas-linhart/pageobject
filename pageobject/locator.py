@@ -1,5 +1,10 @@
 class Locator(object):
 
     def __init__(self, *args, **kwargs):
-        self.value = args[0]
+        self._value = args[0]
+
+
+    @property
+    def value(self):
+        return self._value
 

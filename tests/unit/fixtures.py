@@ -2,6 +2,7 @@ from pageobject import PageObject
 from pageobject import PageObjectList
 from pageobject import Select
 from pageobject.pageobjectbase import PageObjectBase
+from pageobject.locator import Locator
 import pytest
 
 
@@ -70,4 +71,14 @@ def mock_commands_po():
         webelement = MockWebElement()
 
     return MockCommandsPo()
+
+
+class MockLocatorTemplate(Locator):
+    def __init__(self): pass
+
+@pytest.fixture
+def mock_locator():
+
+    class MockLocator(MockLocatorTemplate): pass
+    return MockLocator()
 
