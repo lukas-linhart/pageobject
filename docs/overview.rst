@@ -117,3 +117,29 @@ button webelement in the `DOM`_ of the webpage; more on that later).
 .. _namespace: https://en.wikipedia.org/wiki/Namespace
 .. _DOM: https://en.wikipedia.org/wiki/Document_Object_Model
 
+
+
+Chained locators
+~~~~~~~~~~~~~~~~
+
+The ability to chain locators is a direct consequence of nesting.
+
+Let's narrow down the nested model to the two submit buttons for now
+(the string following the dash character is an `xpath`_ of the page
+object relative to its parent)::
+
+    login_page - //body
+    ├── top_panel - //*[@class='topPanel']
+    │   └── search_form - //form[@name='search']
+    │       └── submit_button - //button
+    └── login_form - //form[@name='login']
+        └── submit_button - //button
+
+.. _xpath: http://www.w3schools.com/xml/xpath_intro.asp
+
+As you can see, both submit buttons have the same relative xpath,
+it's just the context - the location of the parent page object -
+that's different for each of them. This means that when you are
+locating a page object, you can safely disregard everything
+above its parent. That's huge.
+
