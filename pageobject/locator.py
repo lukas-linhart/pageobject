@@ -3,21 +3,21 @@ from .pageobjectbase import PageObjectBase
 
 class Locator(object):
 
-    def __init__(self, *args, **kwargs):
-        self._value = args[0]
-        self.page_object = kwargs['page_object']
-        assert isinstance(self.page_object, PageObjectBase)
+    def __init__(self, value, page_object=None):
+        self._value = value
+        assert isinstance(page_object, PageObjectBase)
+        self._page_object = page_object
 
 
     @property
     def chain(self):
-        return self.page_object._chain
+        return self._page_object._chain
 
 
     @property
     def parent_locator_value(self):
         try:
-            return self.page_object._parent_locator.value
+            return self._page_object._parent_locator.value
         except AttributeError:
             return ''
 
