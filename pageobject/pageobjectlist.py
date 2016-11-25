@@ -1,5 +1,4 @@
 from .pageobjectlistbase import PageObjectListBase
-from .pageobjectbase import PageObjectBase
 from .pageobject import PageObject
 
 
@@ -21,7 +20,7 @@ class PageObjectList(PageObjectListBase):
             for more deeply nested children.
         :param str count_locator: Xpath determining the number of
             children, necessary for more deeply nested children.
-        :type children_class: :class:`.PageObjectBase`
+        :type children_class: PageObjectBase
         """
         self._locator = locator
         self._chain = chain
@@ -42,7 +41,7 @@ class PageObjectList(PageObjectListBase):
         Return list of children page objects.
 
         :returns: list of children page objects
-        :rtype: :py:obj:`list` of :class:`.PageObjectBase` instances
+        :rtype: :py:obj:`list` of PageObjectBase instances
         """
         children = []
         ChildrenClass = self.children_class
@@ -61,7 +60,7 @@ class PageObjectList(PageObjectListBase):
         Return class to use for children instantiation.
 
         :returns: Class for children instantiation.
-        :rtype: :class:`.PageObjectBase` subclass
+        :rtype: PageObjectBase subclass
         """
         if self._children_class:
             return self._children_class
