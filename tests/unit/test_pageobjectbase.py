@@ -2,6 +2,7 @@ import pytest
 import logging
 from pageobject import PageObject
 from pageobject.pageobjectbase import PageObjectBase
+from pageobject.locator import Locator
 from .fixtures import mock_po_base
 from selenium.webdriver import Remote as RemoteWebDriver
 
@@ -24,26 +25,19 @@ def test_parent_locator_returns_correct_value_when_parent_is_valid(monkeypatch, 
     monkeypatch.setattr(mock_po_base.__class__, 'parent', Parent())
     assert mock_po_base._parent_locator == parent_locator
 
-def test_parent_locator_returns_empty_string_when_parent_is_invalid(monkeypatch, mock_po_base):
+def test_parent_locator_returns_None_when_parent_is_invalid(monkeypatch, mock_po_base):
     monkeypatch.setattr(mock_po_base.__class__, 'parent', None)
-    assert mock_po_base._parent_locator == ''
+    assert mock_po_base._parent_locator == None
+
 
 def test_locator_returns_default_locator_when_provided(monkeypatch, mock_po_base):
     locator = 'default'
-    monkeypatch.setattr(mock_po_base.__class__, 'default_locator', locator)
-    assert mock_po_base.locator == locator
+    monkeypatch.setattr(mock_po_base.__class__, 'default_locator', True)
+    monkeypatch.setattr(mock_po_base.__class__, '_default_locator', locator)
+    assert mock_po_base.locator == mock_po_base._default_locator
 
-def test_locator_returns_correct_value_when_chained(monkeypatch, mock_po_base):
-    parent_locator = '//html'
-    child_locator = '//body'
-    mock_po_base._chain = True
-    monkeypatch.setattr(mock_po_base.__class__, '_parent_locator', parent_locator)
-    mock_po_base._locator = child_locator
-    assert mock_po_base.locator == '{}{}'.format(parent_locator, child_locator)
-
-def test_locator_returns_correct_value_when_not_chained(monkeypatch, mock_po_base):
-    locator = '//body'
-    mock_po_base._chain = False
+def test_locator_returns_instantiated_value_when_default_not_provided(mock_po_base):
+    locator = 'locateor'
     mock_po_base._locator = locator
     assert mock_po_base.locator == locator
 

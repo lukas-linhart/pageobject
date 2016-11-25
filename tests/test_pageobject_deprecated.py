@@ -52,13 +52,13 @@ class PageObjectTests(unittest.TestCase):
     def test_root_PO_has_correct_chained_locator(self):
         locator = '//body'
         root_po = PageObject(locator, chain=True)
-        self.assertEqual(root_po.locator, locator)
+        self.assertEqual(root_po.locator.value, locator)
 
 
     def test_root_PO_has_correct_nonchained_locator(self):
         locator = '//body'
         root_po = PageObject(locator, chain=False)
-        self.assertEqual(root_po.locator, locator)
+        self.assertEqual(root_po.locator.value, locator)
 
 
     def test_nested_PO_has_correct_chained_locator(self):
@@ -67,7 +67,7 @@ class PageObjectTests(unittest.TestCase):
         chained_locator = '{}{}'.format(root_po_locator, nested_po_locator)
         root_po = PageObject(root_po_locator)
         root_po.nested_po = PageObject(nested_po_locator, chain=True)
-        self.assertEqual(root_po.nested_po.locator, chained_locator)
+        self.assertEqual(root_po.nested_po.locator.value, chained_locator)
 
 
     def test_nested_PO_has_correct_nonchained_locator(self):
@@ -75,7 +75,7 @@ class PageObjectTests(unittest.TestCase):
         nested_po_locator = '//div'
         root_po = PageObject(root_po_locator)
         root_po.nested_po = PageObject(nested_po_locator, chain=False)
-        self.assertEqual(root_po.nested_po.locator, nested_po_locator)
+        self.assertEqual(root_po.nested_po.locator.value, nested_po_locator)
 
 
 

@@ -1,5 +1,6 @@
 import logging
 from selenium.webdriver import Remote as WebDriver
+from .locator import Locator
 
 
 class PageObjectBase(object):
@@ -63,17 +64,30 @@ class PageObjectBase(object):
 
 
     @property
+    def _default_locator(self):
+        """
+        :returns: default locator converted wrapped in Locator
+            if it is defined, None otherwise
+        :rtype: instance of Locator or None
+        """
+        if self.default_locator is None:
+            return None
+        elif not isinstance(self.default_locator, Locator):
+            return Locator(self.default_locator, page_object=self)
+
+
+    @property
     def _parent_locator(self):
         """
         Return the locator of the parent page object.
 
-        :returns: locator of parent or empty string if parent does not exist
-        :rtype: `str`
+        :returns: locator of parent or None if parent does not exist
+        :rtype: Locator or None
         """
         try:
             return self.parent.locator
         except AttributeError:
-            return ''
+            return None
 
 
     @property
@@ -81,16 +95,14 @@ class PageObjectBase(object):
         """
         Return the locator of the page object.
 
-        If *chain* is True, chain the locator of the page object
-        to the locator of its parent.
+        If default_locator is defined, return it instead
+        of the locator provided to constructor.
 
         :returns: locator of the page object
-        :rtype: `str`
+        :rtype: Locator
         """
         if self.default_locator:
-            return self.default_locator
-        elif self._chain:
-            return '{}{}'.format(self._parent_locator, self._locator)
+            return self._default_locator
         else:
             return self._locator
 

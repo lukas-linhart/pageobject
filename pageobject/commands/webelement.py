@@ -16,5 +16,5 @@ def webelement(self):
             .github.io/selenium/docs/api/py/webdriver_remote/selenium\
             .webdriver.remote.webelement.html
     """
-    return self.webdriver.find_element_by_xpath(self.locator)
+    return self.webdriver.find_element_by_xpath(self.locator.value)
 
