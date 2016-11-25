@@ -1,5 +1,6 @@
 import pytest
 from pageobject import PageObject
+from pageobject import Locator
 from pageobject.pageobjectbase import PageObjectBase
 from .fixtures import mock_po, another_mock_po, yet_another_mock_po
 
@@ -10,7 +11,7 @@ def test_constructor_inits_parameters_correctly():
     webdriver = 'webdriver'
     name = 'name'
     po = PageObject(locator, chain=chain, webdriver=webdriver, name=name)
-    assert po._locator == locator
+    assert isinstance(po._locator, Locator)
     assert po._parent == None
     assert po._chain == chain
     assert po._webdriver == webdriver
