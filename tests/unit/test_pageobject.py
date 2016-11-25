@@ -1,6 +1,6 @@
 import pytest
 from pageobject import PageObject
-from pageobject import Locator
+from pageobject.locator import Locator
 from pageobject.pageobjectbase import PageObjectBase
 from .fixtures import mock_po, another_mock_po, yet_another_mock_po
 

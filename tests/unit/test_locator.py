@@ -10,12 +10,6 @@ def test_constructor_inits_parameters_correctly():
     assert locator._value == xpath
 
 
-def test_constructor_raises_AssertionError_when_po_is_not_a_po():
-    xpath = "//body"
-    with pytest.raises(AssertionError):
-        locator = Locator(xpath, page_object=None)
-
-
 def test_chain_property_returns_correct_value(mock_locator):
     chain = 'chain'
     class MockPO:

@@ -1,6 +1,3 @@
-from .pageobjectbase import PageObjectBase
-
-
 class Locator(object):
     """
     Locator provides representation of the locator of the page object.
@@ -15,7 +12,6 @@ class Locator(object):
             the Locator
         """
         self._value = value
-        assert isinstance(page_object, PageObjectBase)
         self._page_object = page_object
 
 
