@@ -97,7 +97,7 @@ class PageObjectList(PageObjectListBase):
         elif self._children_locator:
             return self._children_locator
         else:
-            return '({})[{}]'.format(self._locator, '{}')
+            return '({})[{}]'.format(self._locator_value, '{}')
 
 
     @property
@@ -128,5 +128,5 @@ class PageObjectList(PageObjectListBase):
         elif self._count_locator:
             return self._count_locator
         else:
-            return self._locator
+            return self._locator_value
 

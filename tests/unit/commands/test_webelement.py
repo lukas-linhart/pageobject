@@ -6,10 +6,9 @@ def test_webelement_calls_correct_wd_method_with_correct_parameter(monkeypatch, 
     class MockWebDriver:
         def find_element_by_xpath(self, xpath):
            self.xpath = xpath
-    class MockLocator:
-        value = "//body"
-    monkeypatch.setattr(mock_po.__class__, '_locator', MockLocator)
+    locator_value = "//body"
+    monkeypatch.setattr(mock_po.__class__, '_locator_value', locator_value)
     monkeypatch.setattr(mock_po.__class__, 'webdriver', MockWebDriver())
     mock_po.webelement
-    assert mock_po.webdriver.xpath == mock_po._locator.value
+    assert mock_po.webdriver.xpath == mock_po._locator_value
 

@@ -106,6 +106,16 @@ class PageObjectBase(object):
 
 
     @property
+    def _locator_value(self):
+        """
+        :returns: processed locator value ready to be passed
+            to a webdriver find method
+        :rtype: str
+        """
+        return self._locator.value
+
+
+    @property
     def webdriver(self):
         """
         Return the instance of WebDriver.
@@ -205,5 +215,5 @@ class PageObjectBase(object):
         :rtype: `str`
         """
         return 'full name path: "{}", element: "{}"'.format(
-                self.full_name, self._locator)
+                self.full_name, self._locator_value)
 

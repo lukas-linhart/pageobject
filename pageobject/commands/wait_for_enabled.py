@@ -10,7 +10,7 @@ def wait_for_enabled(self, timeout=None):
     self.logger.info('waiting until {} is enabled'.format(self._log_id_short))
     self.logger.debug('waiting until page object is enabled; {}'.format(self._log_id_long))
     error_msg = 'Element "{}" still not enabled after {} seconds'.format(
-        self._locator, timeout)
+        self._locator_value, timeout)
     self.wait_until(self.is_enabled, func_kwargs=dict(log=False),
         timeout=timeout, error_msg=error_msg)
     self.logger.info('finished waiting until {} is enabled'.format(self._log_id_short))

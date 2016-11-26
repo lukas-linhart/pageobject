@@ -10,7 +10,7 @@ def wait_for_visible(self, timeout=None):
     self.logger.info('waiting until {} is visible'.format(self._log_id_short))
     self.logger.debug('waiting until page object is visible; {}'.format(self._log_id_long))
     error_msg = 'Element "{}" still not visible after {} seconds'.format(
-        self._locator, timeout)
+        self._locator_value, timeout)
     self.wait_until(self.is_visible, func_kwargs=dict(log=False),
         timeout=timeout, error_msg=error_msg)
     self.logger.info('finished waiting until {} is visible'.format(self._log_id_short))

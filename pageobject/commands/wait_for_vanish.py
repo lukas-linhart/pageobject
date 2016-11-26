@@ -10,7 +10,7 @@ def wait_for_vanish(self, timeout=None):
     self.logger.info('waiting until page does not contain {}'.format(self._log_id_short))
     self.logger.debug('waiting until page does not contain page object; {}'.format(self._log_id_long))
     error_msg = 'Element "{}" still existing after {} seconds'.format(
-        self._locator, timeout)
+        self._locator_value, timeout)
     self.wait_until(self.is_existing, func_kwargs=dict(log=False),
         timeout=timeout, error_msg=error_msg, reverse=True)
     self.logger.info('finished waiting until page does not contain {}'.format(self._log_id_short))
