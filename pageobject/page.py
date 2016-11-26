@@ -1,4 +1,5 @@
 from .singlepageobjectbase import SinglePageObjectBase
+from .locator import Locator
 from . import commands
 
 
@@ -36,6 +37,8 @@ class Page(SinglePageObjectBase):
 
         """
         self._url = url
+        if not isinstance(locator, Locator):
+            locator = Locator(locator, page_object=self)
         self._locator = locator
         self._chain = chain
         self._webdriver = webdriver
