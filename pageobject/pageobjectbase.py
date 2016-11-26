@@ -31,7 +31,7 @@ class PageObjectBase(object):
         my_class = self.__class__.__name__
         base_class = self.__class__.__bases__[0].__name__
         try:
-            locator = self.locator
+            locator = self.locator.value
         except: # pragma: no cover
             locator = 'INVALID LOCATOR'
         return '<{}({}) (locator="{}")>'.format(
@@ -66,7 +66,7 @@ class PageObjectBase(object):
     @property
     def _default_locator(self):
         """
-        :returns: default locator converted wrapped in Locator
+        :returns: default locator string converted to Locator
             if it is defined, None otherwise
         :rtype: instance of Locator or None
         """
