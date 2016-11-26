@@ -51,7 +51,7 @@ def test_locator_returns_instantiated_value_when_default_not_provided(monkeypatc
             self.page_object = page_object
     monkeypatch.setattr(mock_po_base.__class__, '_locator_class', MockLocator)
     monkeypatch.setattr(mock_po_base.__class__, 'default_locator', None)
-    mock_po_base._provided_locator = locator_str
+    mock_po_base._initialized_locator = locator_str
     locator = mock_po_base.locator
     assert locator.value == locator_str
     assert locator.page_object == mock_po_base

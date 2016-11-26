@@ -13,7 +13,7 @@ def test_constructor_inits_parameters_correctly():
     page = Page(url=url, locator=locator, chain=chain, webdriver=webdriver,
             name=name)
     assert page._url == url
-    assert page._provided_locator == locator
+    assert page._initialized_locator == locator
     assert page._chain == chain
     assert page._webdriver == webdriver
     assert page._name == name

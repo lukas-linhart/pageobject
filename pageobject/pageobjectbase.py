@@ -96,7 +96,7 @@ class PageObjectBase(object):
         if self.default_locator:
             locator_string = self.default_locator
         else:
-            locator_string = self._provided_locator
+            locator_string = self._initialized_locator
         LocatorClass = self._locator_class
         return LocatorClass(locator_string, page_object=self)
 

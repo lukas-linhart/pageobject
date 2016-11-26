@@ -13,7 +13,7 @@ def test_constructor_inits_parameters_correctly():
     po_list = PageObjectList(locator, chain=chain,
             children_class=children_class, children_locator=children_locator,
             count_locator=count_locator)
-    assert po_list._provided_locator == locator
+    assert po_list._initialized_locator == locator
     assert po_list.parent == None
     assert po_list._chain == chain
     assert po_list._children_class == children_class

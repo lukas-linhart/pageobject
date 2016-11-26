@@ -23,7 +23,7 @@ class PageObjectList(PageObjectListBase):
             children, necessary for more deeply nested children.
         :type children_class: PageObjectBase
         """
-        self._provided_locator = locator
+        self._initialized_locator = locator
         self._chain = chain
         self._children_class = children_class
         self._children_locator = children_locator

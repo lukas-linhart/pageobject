@@ -11,7 +11,7 @@ def test_constructor_inits_parameters_correctly():
     webdriver = 'webdriver'
     name = 'name'
     po = PageObject(locator, chain=chain, webdriver=webdriver, name=name)
-    assert po._provided_locator == locator
+    assert po._initialized_locator == locator
     assert po._parent == None
     assert po._chain == chain
     assert po._webdriver == webdriver

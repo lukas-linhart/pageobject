@@ -37,7 +37,7 @@ class Page(SinglePageObjectBase):
 
         """
         self._url = url
-        self._provided_locator = locator
+        self._initialized_locator = locator
         self._chain = chain
         self._webdriver = webdriver
         self._name = name
