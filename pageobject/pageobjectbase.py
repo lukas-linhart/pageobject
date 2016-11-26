@@ -68,7 +68,7 @@ class PageObjectBase(object):
         :rtype: Locator or None
         """
         try:
-            return self.parent.locator
+            return self.parent._locator
         except AttributeError:
             return None
 
@@ -83,7 +83,7 @@ class PageObjectBase(object):
 
 
     @property
-    def locator(self):
+    def _locator(self):
         """
         Return the locator of the page object.
 
@@ -201,5 +201,5 @@ class PageObjectBase(object):
         :rtype: `str`
         """
         return 'full name path: "{}", element: "{}"'.format(
-                self.full_name, self.locator)
+                self.full_name, self._locator)
 

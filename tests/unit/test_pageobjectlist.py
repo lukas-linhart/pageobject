@@ -123,8 +123,8 @@ def test_children_locator_returns_initialized_value_if_provided(mock_po_list):
 
 def test_children_locator_returns_correct_value_if_not_initialized(monkeypatch, mock_po_list):
     mock_po_list._children_locator = None
-    monkeypatch.setattr(mock_po_list.__class__, 'locator', 'locator')
-    assert mock_po_list.children_locator == '({})[{}]'.format(mock_po_list.locator, '{}')
+    monkeypatch.setattr(mock_po_list.__class__, '_locator', 'locator')
+    assert mock_po_list.children_locator == '({})[{}]'.format(mock_po_list._locator, '{}')
 
 
 def test_default_count_locator_returns_None_when_not_provided():
@@ -142,6 +142,6 @@ def test_count_locator_returns_initialized_value_if_provided(mock_po_list):
 
 def test_count_locator_returns_correct_value_if_not_initialized(monkeypatch, mock_po_list):
     mock_po_list._count_locator = None
-    monkeypatch.setattr(mock_po_list.__class__, 'locator', 'locator')
-    assert mock_po_list.count_locator == mock_po_list.locator
+    monkeypatch.setattr(mock_po_list.__class__, '_locator', 'locator')
+    assert mock_po_list.count_locator == mock_po_list._locator
 

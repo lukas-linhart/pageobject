@@ -22,7 +22,7 @@ def test_default_locator_returns_None_when_not_provided():
 def test_parent_locator_returns_correct_value_when_parent_is_valid(monkeypatch, mock_po_base):
     parent_locator = '//body'
     class Parent:
-        locator = parent_locator
+        _locator = parent_locator
     monkeypatch.setattr(mock_po_base.__class__, 'parent', Parent())
     assert mock_po_base._parent_locator == parent_locator
 
@@ -39,7 +39,7 @@ def test_locator_inits_Locator_with_default_when_existing(monkeypatch, mock_po_b
             self.page_object = page_object
     monkeypatch.setattr(mock_po_base.__class__, '_locator_class', MockLocator)
     monkeypatch.setattr(mock_po_base.__class__, 'default_locator', locator_str)
-    locator = mock_po_base.locator
+    locator = mock_po_base._locator
     assert locator.value == locator_str
     assert locator.page_object == mock_po_base
 
@@ -52,7 +52,7 @@ def test_locator_returns_instantiated_value_when_default_not_provided(monkeypatc
     monkeypatch.setattr(mock_po_base.__class__, '_locator_class', MockLocator)
     monkeypatch.setattr(mock_po_base.__class__, 'default_locator', None)
     mock_po_base._initialized_locator = locator_str
-    locator = mock_po_base.locator
+    locator = mock_po_base._locator
     assert locator.value == locator_str
     assert locator.page_object == mock_po_base
 
