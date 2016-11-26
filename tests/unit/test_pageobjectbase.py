@@ -8,10 +8,10 @@ from selenium.webdriver import Remote as RemoteWebDriver
 
 
 def test_dunder_repr_returns_correct_string(monkeypatch, mock_po_base):
-    mock_po_base._locator = Locator('//body', page_object=mock_po_base)
-    mock_po_base._chain = False
-    assert repr(mock_po_base) == '<MockPoBase(MockPoBaseTemplate) (locator="{}")>'.format(
-            mock_po_base.locator.value)
+    full_po_name = 'full PO name'
+    monkeypatch.setattr(mock_po_base.__class__, 'full_name', full_po_name)
+    assert repr(mock_po_base) == '<MockPoBase(MockPoBaseTemplate) (full_name="{}")>'.format(
+            mock_po_base.full_name)
 
 
 def test_default_locator_returns_None_when_not_provided():
