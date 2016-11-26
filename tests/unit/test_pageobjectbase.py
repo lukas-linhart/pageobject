@@ -39,7 +39,7 @@ def test_locator_returns_default_locator_when_provided(monkeypatch, mock_po_base
 
 def test_locator_returns_instantiated_value_when_default_not_provided(mock_po_base):
     locator = 'locateor'
-    mock_po_base._locator = locator
+    mock_po_base._provided_locator = locator
     assert mock_po_base.locator == locator
 
 

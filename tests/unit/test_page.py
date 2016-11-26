@@ -1,5 +1,6 @@
 import pytest
 from pageobject import Page
+from pageobject.locator import Locator
 
 
 def test_constructor_inits_parameters_correctly():
@@ -12,7 +13,7 @@ def test_constructor_inits_parameters_correctly():
     page = Page(url=url, locator=locator, chain=chain, webdriver=webdriver,
             name=name)
     assert page._url == url
-    assert page._locator == locator
+    assert isinstance(page._provided_locator, Locator)
     assert page._chain == chain
     assert page._webdriver == webdriver
     assert page._name == name

@@ -32,7 +32,7 @@ class PageObject(SinglePageObjectBase):
         """
         if not isinstance(locator, Locator):
             locator = Locator(locator, page_object=self)
-        self._locator = locator
+        self._provided_locator = locator
         self._chain = chain
         self._webdriver = webdriver
         self._name = name

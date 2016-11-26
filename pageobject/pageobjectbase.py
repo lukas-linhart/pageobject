@@ -100,7 +100,7 @@ class PageObjectBase(object):
         if self.default_locator:
             return self._default_locator
         else:
-            return self._locator
+            return self._provided_locator
 
 
     @property
