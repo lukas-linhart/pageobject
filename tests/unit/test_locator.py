@@ -20,12 +20,9 @@ def test_chain_property_returns_correct_value(mock_locator):
 
 def test_parent_locator_value_returns_correct_value_when_parent_exists(monkeypatch, mock_locator):
     xpath = "//body"
-
     class MockPO:
-        _parent_locator = lambda: None
-        _parent_locator.value = xpath
+        _parent_locator_value = xpath
     mock_locator._page_object = MockPO
-
     assert mock_locator.parent_locator_value == xpath
 
 

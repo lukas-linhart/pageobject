@@ -31,6 +31,18 @@ def test_parent_locator_returns_None_when_parent_is_invalid(monkeypatch, mock_po
     assert mock_po_base._parent_locator == None
 
 
+def test_parent_locator_value_returns_correct_value_when_parent_locator_is_valid(monkeypatch, mock_po_base):
+    locator_value = "//body"
+    class MockParentLocator:
+        value = locator_value
+    monkeypatch.setattr(mock_po_base.__class__, '_parent_locator', MockParentLocator)
+    assert mock_po_base._parent_locator_value == locator_value
+
+def test_parent_locator_value_returns_empty_string_when_parent_is_None(monkeypatch, mock_po_base):
+    monkeypatch.setattr(mock_po_base.__class__, '_parent_locator', None)
+    assert mock_po_base._parent_locator_value == ''
+
+
 def test_provided_locator_returns_default_locator_when_provided(monkeypatch, mock_po_base):
     default_locator = "//default"
     monkeypatch.setattr(mock_po_base.__class__, 'default_locator', default_locator)

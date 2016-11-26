@@ -64,13 +64,25 @@ class PageObjectBase(object):
         """
         Return the locator of the parent page object.
 
-        :returns: locator of parent or None if parent does not exist
+        :returns: Locator of parent or None if parent does not exist
         :rtype: Locator or None
         """
         try:
             return self.parent._locator
         except AttributeError:
             return None
+
+
+    @property
+    def _parent_locator_value(self):
+        """
+        :returns: value of the parent locator
+        :rtype: str
+        """
+        try:
+            return self._parent_locator.value
+        except AttributeError:
+            return ''
 
 
     @property

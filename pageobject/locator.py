@@ -32,13 +32,9 @@ class Locator(object):
         Return value of the parent page object locator.
 
         :returns: value of the parent page object locator
-            if it exists, empty string otherwise
         :rtype: str
         """
-        try:
-            return self._page_object._parent_locator.value
-        except AttributeError:
-            return ''
+        return self._page_object._parent_locator_value
 
 
     @property
