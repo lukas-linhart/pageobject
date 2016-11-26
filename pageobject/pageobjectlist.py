@@ -1,5 +1,6 @@
 from .pageobjectlistbase import PageObjectListBase
 from .pageobject import PageObject
+from .locator import Locator
 
 
 class PageObjectList(PageObjectListBase):

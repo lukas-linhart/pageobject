@@ -31,16 +31,30 @@ def test_parent_locator_returns_None_when_parent_is_invalid(monkeypatch, mock_po
     assert mock_po_base._parent_locator == None
 
 
-def test_locator_returns_default_locator_when_provided(monkeypatch, mock_po_base):
-    locator = 'default'
-    monkeypatch.setattr(mock_po_base.__class__, 'default_locator', True)
-    monkeypatch.setattr(mock_po_base.__class__, '_default_locator', locator)
-    assert mock_po_base.locator == mock_po_base._default_locator
+def test_locator_inits_Locator_with_default_when_existing(monkeypatch, mock_po_base):
+    locator_str = '//body'
+    class MockLocator:
+        def __init__(self, value, page_object=None):
+            self.value = value
+            self.page_object = page_object
+    monkeypatch.setattr(mock_po_base.__class__, '_locator_class', MockLocator)
+    monkeypatch.setattr(mock_po_base.__class__, 'default_locator', locator_str)
+    locator = mock_po_base.locator
+    assert locator.value == locator_str
+    assert locator.page_object == mock_po_base
 
-def test_locator_returns_instantiated_value_when_default_not_provided(mock_po_base):
-    locator = 'locateor'
-    mock_po_base._provided_locator = locator
-    assert mock_po_base.locator == locator
+def test_locator_returns_instantiated_value_when_default_not_provided(monkeypatch, mock_po_base):
+    locator_str = '//body'
+    class MockLocator:
+        def __init__(self, value, page_object=None):
+            self.value = value
+            self.page_object = page_object
+    monkeypatch.setattr(mock_po_base.__class__, '_locator_class', MockLocator)
+    monkeypatch.setattr(mock_po_base.__class__, 'default_locator', None)
+    mock_po_base._provided_locator = locator_str
+    locator = mock_po_base.locator
+    assert locator.value == locator_str
+    assert locator.page_object == mock_po_base
 
 
 def test_webdriver_returns_webdriver_of_a_parent_if_available(monkeypatch, mock_po_base):

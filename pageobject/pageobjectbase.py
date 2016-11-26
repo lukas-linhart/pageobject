@@ -60,19 +60,6 @@ class PageObjectBase(object):
 
 
     @property
-    def _default_locator(self):
-        """
-        :returns: default locator string converted to Locator
-            if it is defined, None otherwise
-        :rtype: instance of Locator or None
-        """
-        if self.default_locator is None:
-            return None
-        elif not isinstance(self.default_locator, Locator):
-            return Locator(self.default_locator, page_object=self)
-
-
-    @property
     def _parent_locator(self):
         """
         Return the locator of the parent page object.
@@ -87,6 +74,15 @@ class PageObjectBase(object):
 
 
     @property
+    def _locator_class(self):
+        """
+        :returns: locator class
+        :rtype: Locator
+        """
+        return Locator
+
+
+    @property
     def locator(self):
         """
         Return the locator of the page object.
@@ -98,9 +94,11 @@ class PageObjectBase(object):
         :rtype: Locator
         """
         if self.default_locator:
-            return self._default_locator
+            locator_string = self.default_locator
         else:
-            return self._provided_locator
+            locator_string = self._provided_locator
+        LocatorClass = self._locator_class
+        return LocatorClass(locator_string, page_object=self)
 
 
     @property

@@ -30,8 +30,6 @@ class PageObject(SinglePageObjectBase):
             top_panel = PageObject("//*[@class='topPanel']")
 
         """
-        if not isinstance(locator, Locator):
-            locator = Locator(locator, page_object=self)
         self._provided_locator = locator
         self._chain = chain
         self._webdriver = webdriver

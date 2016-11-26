@@ -37,8 +37,6 @@ class Page(SinglePageObjectBase):
 
         """
         self._url = url
-        if not isinstance(locator, Locator):
-            locator = Locator(locator, page_object=self)
         self._provided_locator = locator
         self._chain = chain
         self._webdriver = webdriver
