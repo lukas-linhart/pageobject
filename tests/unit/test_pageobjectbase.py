@@ -31,29 +31,27 @@ def test_parent_locator_returns_None_when_parent_is_invalid(monkeypatch, mock_po
     assert mock_po_base._parent_locator == None
 
 
-def test_locator_inits_Locator_with_default_when_existing(monkeypatch, mock_po_base):
-    locator_str = '//body'
-    class MockLocator:
-        def __init__(self, value, page_object=None):
-            self.value = value
-            self.page_object = page_object
-    monkeypatch.setattr(mock_po_base.__class__, '_locator_class', MockLocator)
-    monkeypatch.setattr(mock_po_base.__class__, 'default_locator', locator_str)
-    locator = mock_po_base._locator
-    assert locator.value == locator_str
-    assert locator.page_object == mock_po_base
+def test_provided_locator_returns_default_locator_when_provided(monkeypatch, mock_po_base):
+    default_locator = "//default"
+    monkeypatch.setattr(mock_po_base.__class__, 'default_locator', default_locator)
+    assert mock_po_base._provided_locator == default_locator
 
-def test_locator_returns_instantiated_value_when_default_not_provided(monkeypatch, mock_po_base):
-    locator_str = '//body'
+def test_provided_locator_returns_initialized_locator_when_default_not_provided(monkeypatch, mock_po_base):
+    initialized_locator = "//initialized"
+    mock_po_base._initialized_locator = initialized_locator
+    assert mock_po_base._provided_locator == initialized_locator
+
+
+def test_locator_inits_Locator_with_correct_parameters(monkeypatch, mock_po_base):
+    provided_locator = "//provided"
     class MockLocator:
         def __init__(self, value, page_object=None):
             self.value = value
             self.page_object = page_object
     monkeypatch.setattr(mock_po_base.__class__, '_locator_class', MockLocator)
-    monkeypatch.setattr(mock_po_base.__class__, 'default_locator', None)
-    mock_po_base._initialized_locator = locator_str
+    monkeypatch.setattr(mock_po_base.__class__, '_provided_locator', provided_locator)
     locator = mock_po_base._locator
-    assert locator.value == locator_str
+    assert locator.value == provided_locator
     assert locator.page_object == mock_po_base
 
 

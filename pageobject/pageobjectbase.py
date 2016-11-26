@@ -74,6 +74,19 @@ class PageObjectBase(object):
 
 
     @property
+    def _provided_locator(self):
+        """
+        :returns: locator string provided either to the constructor
+            or as an overridden default_locator property
+        :rtype: str
+        """
+        if self.default_locator:
+            return self.default_locator
+        else:
+            return self._initialized_locator
+
+
+    @property
     def _locator_class(self):
         """
         :returns: locator class
@@ -85,20 +98,11 @@ class PageObjectBase(object):
     @property
     def _locator(self):
         """
-        Return the locator of the page object.
-
-        If default_locator is defined, return it instead
-        of the locator provided to constructor.
-
-        :returns: locator of the page object
-        :rtype: Locator
+        :returns: Locator of the page object
+        :rtype: Locator instance
         """
-        if self.default_locator:
-            locator_string = self.default_locator
-        else:
-            locator_string = self._initialized_locator
         LocatorClass = self._locator_class
-        return LocatorClass(locator_string, page_object=self)
+        return LocatorClass(self._provided_locator, page_object=self)
 
 
     @property
