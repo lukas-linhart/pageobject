@@ -26,7 +26,8 @@ class PageObjectList(PageObjectListBase):
         self._initialized_locator = locator
         self._chain = chain
         self._children_class = children_class
-        self._children_locator = children_locator
+        self._children_locator = children_locator # TODO: remove this once new children_locator mechanism is implemented
+        self._initialized_children_locator = children_locator
         self._initialized_count_locator = count_locator
         self._parent = None
 
@@ -82,6 +83,21 @@ class PageObjectList(PageObjectListBase):
             (if overridden)
         """
         return None
+
+
+    @property
+    def _provided_children_locator(self):
+        """
+        :returns: children locator string provided either as an overridden
+            default_children_locator or passed to the constructor
+        :rtype: str
+        """
+        if self.default_children_locator:
+            return self.default_children_locator
+        elif self._initialized_children_locator:
+            return self._initialized_children_locator
+        else:
+            return '({})[{}]'.format(self._initialized_locator, '{}')
 
 
     @property

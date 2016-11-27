@@ -113,6 +113,26 @@ def test_default_children_locator_returns_None_when_not_provided():
     assert po_list.default_children_locator == None
 
 
+def test_provided_children_locator_returns_default_children_locator_when_provided(monkeypatch, mock_po_list):
+    default_children_locator = "//default"
+    monkeypatch.setattr(mock_po_list.__class__, 'default_children_locator', default_children_locator)
+    assert mock_po_list._provided_children_locator == default_children_locator
+
+def test_provided_children_locator_returns_initialized_children_locator_when_default_not_provided(monkeypatch, mock_po_list):
+    initialized_children_locator = "//initialized"
+    monkeypatch.setattr(mock_po_list.__class__, 'default_children_locator', None)
+    mock_po_list._initialized_children_locator = initialized_children_locator
+    assert mock_po_list._provided_children_locator == initialized_children_locator
+
+def test_provided_children_locator_returns_correct_value_if_not_initialized(monkeypatch, mock_po_list):
+    initialized_locator = "//initialized"
+    monkeypatch.setattr(mock_po_list.__class__, 'default_children_locator', None)
+    mock_po_list._initialized_children_locator = None
+    mock_po_list._initialized_locator = initialized_locator
+    assert mock_po_list._provided_children_locator == '({})[{}]'.format(
+        mock_po_list._initialized_locator, '{}')
+
+
 def test_children_locator_returns_default_children_locator_if_provided(monkeypatch, mock_po_list):
     monkeypatch.setattr(mock_po_list.__class__, 'default_children_locator', 'default')
     assert mock_po_list.children_locator == mock_po_list.default_children_locator
