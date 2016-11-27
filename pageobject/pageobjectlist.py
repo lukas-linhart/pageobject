@@ -27,7 +27,8 @@ class PageObjectList(PageObjectListBase):
         self._chain = chain
         self._children_class = children_class
         self._children_locator = children_locator
-        self._count_locator = count_locator
+        self._count_locator = count_locator # TODO: delete this once the new count_locator mechanism is implemented
+        self._initialized_count_locator = count_locator
         self._parent = None
 
 
@@ -113,6 +114,21 @@ class PageObjectList(PageObjectListBase):
             (if overridden)
         """
         return None
+
+
+    @property
+    def _provided_count_locator(self):
+        """
+        :returns: count locator string provided either as an overridden
+            default_count_locator or passed to the constructor
+        :rtype: str
+        """
+        if self.default_count_locator:
+            return self.default_count_locator
+        elif self._initialized_count_locator:
+            return self._initialized_count_locator
+        else:
+            return self._initialized_locator
 
 
     @property

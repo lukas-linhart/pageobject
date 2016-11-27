@@ -18,7 +18,7 @@ def test_constructor_inits_parameters_correctly():
     assert po_list._chain == chain
     assert po_list._children_class == children_class
     assert po_list._children_locator == children_locator
-    assert po_list._count_locator == count_locator
+    assert po_list._initialized_count_locator == count_locator
 
 
 def test_dunder_bool_method_returns_True_if_len_is_nonzero(monkeypatch, mock_po_list):
@@ -130,6 +130,23 @@ def test_children_locator_returns_correct_value_if_not_initialized(monkeypatch, 
 def test_default_count_locator_returns_None_when_not_provided():
     po_list = PageObjectList('', None)
     assert po_list.default_count_locator == None
+
+
+def test_provided_count_locator_returns_default_count_locator_when_provided(monkeypatch, mock_po_list):
+    default_locator = "//default"
+    monkeypatch.setattr(mock_po_list.__class__, 'default_count_locator', default_locator)
+    assert mock_po_list._provided_count_locator == default_locator
+
+def test_provided_count_locator_returns_initialized_count_locator_when_provided(mock_po_list):
+    count_locator = "//count"
+    mock_po_list._initialized_count_locator = count_locator
+    assert mock_po_list._provided_count_locator == count_locator
+
+def test_provided_count_locator_returns_initialized_locator_as_fallback(mock_po_list):
+    locator = "//locator"
+    mock_po_list._initialized_count_locator = None
+    mock_po_list._initialized_locator = locator
+    assert mock_po_list._provided_count_locator == locator
 
 
 def test_count_locator_returns_default_count_locator_if_provided(monkeypatch, mock_po_list):
