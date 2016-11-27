@@ -26,7 +26,6 @@ class PageObjectList(PageObjectListBase):
         self._initialized_locator = locator
         self._chain = chain
         self._children_class = children_class
-        self._children_locator = children_locator # TODO: remove this once new children_locator mechanism is implemented
         self._initialized_children_locator = children_locator
         self._initialized_count_locator = count_locator
         self._parent = None
@@ -48,7 +47,7 @@ class PageObjectList(PageObjectListBase):
         children = []
         ChildrenClass = self.children_class
         for i in range(self._children_count):
-            locator = self.children_locator.format(i+1)
+            locator = self._children_locator_value.format(i+1)
             child = ChildrenClass(locator, chain=False)
             child.index = i
             child._parent = self
@@ -101,19 +100,23 @@ class PageObjectList(PageObjectListBase):
 
 
     @property
-    def children_locator(self):
+    def _children_locator(self):
         """
-        Return the locator of children page objects.
+        :returns: children Locator
+        :rtype: Locator instance
+        """
+        LocatorClass = self._locator_class
+        return LocatorClass(self._provided_children_locator, page_object=self)
 
-        :returns: locator of children page objects
-        :rtype: :py:obj:`str`
+
+    @property
+    def _children_locator_value(self):
         """
-        if self.default_children_locator:
-            return self.default_children_locator
-        elif self._children_locator:
-            return self._children_locator
-        else:
-            return '({})[{}]'.format(self._locator_value, '{}')
+        :returns: processed children locator value ready to be passed
+            to a webdriver find method
+        :rtype: str
+        """
+        return self._children_locator.value
 
 
     @property

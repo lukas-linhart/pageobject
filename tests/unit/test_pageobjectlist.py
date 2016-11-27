@@ -17,7 +17,7 @@ def test_constructor_inits_parameters_correctly():
     assert po_list.parent == None
     assert po_list._chain == chain
     assert po_list._children_class == children_class
-    assert po_list._children_locator == children_locator
+    assert po_list._initialized_children_locator == children_locator
     assert po_list._initialized_count_locator == count_locator
 
 
@@ -61,7 +61,7 @@ def test_children_property_returns_an_empty_list_if_children_count_is_zero(monke
 def test_children_property_returns_instances_of_children_class(monkeypatch, mock_po_list):
     monkeypatch.setattr(mock_po_list.__class__, 'children_class', PageObject)
     monkeypatch.setattr(mock_po_list.__class__, '_children_count', 1)
-    monkeypatch.setattr(mock_po_list.__class__, 'children_locator', 'locator')
+    monkeypatch.setattr(mock_po_list.__class__, '_children_locator_value', 'locator')
     assert isinstance(mock_po_list.children[0], mock_po_list.children_class)
 
 def test_children_property_inits_children_with_correct_locator_and_index(monkeypatch, mock_po_list):
@@ -72,7 +72,7 @@ def test_children_property_inits_children_with_correct_locator_and_index(monkeyp
     locator = 'locator[{}]'
     monkeypatch.setattr(mock_po_list.__class__, 'children_class', MockPageObject)
     monkeypatch.setattr(mock_po_list.__class__, '_children_count', children_count)
-    monkeypatch.setattr(mock_po_list.__class__, 'children_locator', locator)
+    monkeypatch.setattr(mock_po_list.__class__, '_children_locator_value', locator)
     for i in range(children_count):
         assert mock_po_list.children[i].test_locator == locator.format(i+1)
         assert mock_po_list.children[i].index == i
@@ -133,18 +133,25 @@ def test_provided_children_locator_returns_correct_value_if_not_initialized(monk
         mock_po_list._initialized_locator, '{}')
 
 
-def test_children_locator_returns_default_children_locator_if_provided(monkeypatch, mock_po_list):
-    monkeypatch.setattr(mock_po_list.__class__, 'default_children_locator', 'default')
-    assert mock_po_list.children_locator == mock_po_list.default_children_locator
+def test_children_locator_inits_Locator_with_correct_parameters(monkeypatch, mock_po_list):
+    provided_children_locator = "//provided"
+    class MockLocator:
+        def __init__(self, value, page_object=None):
+            self.value = value
+            self.page_object = page_object
+    monkeypatch.setattr(mock_po_list.__class__, '_locator_class', MockLocator)
+    monkeypatch.setattr(mock_po_list.__class__, '_provided_children_locator', provided_children_locator)
+    children_locator = mock_po_list._children_locator
+    assert children_locator.value == provided_children_locator
+    assert children_locator.page_object == mock_po_list
 
-def test_children_locator_returns_initialized_value_if_provided(mock_po_list):
-    mock_po_list._children_locator = 'children_locator'
-    assert mock_po_list.children_locator == mock_po_list._children_locator
 
-def test_children_locator_returns_correct_value_if_not_initialized(monkeypatch, mock_po_list):
-    mock_po_list._children_locator = None
-    monkeypatch.setattr(mock_po_list.__class__, '_locator_value', 'locator')
-    assert mock_po_list.children_locator == '({})[{}]'.format(mock_po_list._locator_value, '{}')
+def test_children_locator_value_returns_correct_attribute_of_locator(monkeypatch, mock_po_list):
+    children_locator_value = "//children"
+    class MockLocator:
+        value = children_locator_value
+    monkeypatch.setattr(mock_po_list.__class__, '_children_locator', MockLocator)
+    assert mock_po_list._children_locator_value == children_locator_value
 
 
 def test_default_count_locator_returns_None_when_not_provided():
