@@ -48,7 +48,7 @@ def test_children_count_property_returns_an_int(monkeypatch, mock_po_list):
     class MockWebDriver:
         def find_elements_by_xpath(self, dummy):
             return elements
-    monkeypatch.setattr(mock_po_list.__class__, 'count_locator', None)
+    monkeypatch.setattr(mock_po_list.__class__, '_count_locator_value', None)
     monkeypatch.setattr(mock_po_list.__class__, 'webdriver', MockWebDriver())
     assert isinstance(mock_po_list._children_count, int)
 
@@ -149,16 +149,23 @@ def test_provided_count_locator_returns_initialized_locator_as_fallback(mock_po_
     assert mock_po_list._provided_count_locator == locator
 
 
-def test_count_locator_returns_default_count_locator_if_provided(monkeypatch, mock_po_list):
-    monkeypatch.setattr(mock_po_list.__class__, 'default_count_locator', 'default')
-    assert mock_po_list.count_locator == mock_po_list.default_count_locator
+def test_count_locator_inits_locator_with_correct_parameters(monkeypatch, mock_po_list):
+    provided_count_locator = "//provided"
+    class MockLocator:
+        def __init__(self, value, page_object=None):
+            self.value = value
+            self.page_object = page_object
+    monkeypatch.setattr(mock_po_list.__class__, '_locator_class', MockLocator)
+    monkeypatch.setattr(mock_po_list.__class__, '_provided_count_locator', provided_count_locator)
+    count_locator = mock_po_list._count_locator
+    assert count_locator.value == provided_count_locator
+    assert count_locator.page_object == mock_po_list
 
-def test_count_locator_returns_initialized_value_if_provided(mock_po_list):
-    mock_po_list._count_locator = 'count_locator'
-    assert mock_po_list.count_locator == mock_po_list._count_locator
 
-def test_count_locator_returns_correct_value_if_not_initialized(monkeypatch, mock_po_list):
-    mock_po_list._count_locator = None
-    monkeypatch.setattr(mock_po_list.__class__, '_locator_value', 'locator')
-    assert mock_po_list.count_locator == mock_po_list._locator_value
+def test_count_locator_value_returns_correct_attribute_of_locator(monkeypatch, mock_po_list):
+    count_locator_value = "//body"
+    class MockLocator:
+        value = count_locator_value
+    monkeypatch.setattr(mock_po_list.__class__, '_count_locator', MockLocator)
+    assert mock_po_list._count_locator_value == count_locator_value
 

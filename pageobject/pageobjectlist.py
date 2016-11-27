@@ -27,14 +27,13 @@ class PageObjectList(PageObjectListBase):
         self._chain = chain
         self._children_class = children_class
         self._children_locator = children_locator
-        self._count_locator = count_locator # TODO: delete this once the new count_locator mechanism is implemented
         self._initialized_count_locator = count_locator
         self._parent = None
 
 
     @property
     def _children_count(self):
-        return len(self.webdriver.find_elements_by_xpath(self.count_locator))
+        return len(self.webdriver.find_elements_by_xpath(self._count_locator_value))
 
 
     @property
@@ -132,17 +131,21 @@ class PageObjectList(PageObjectListBase):
 
 
     @property
-    def count_locator(self):
+    def _count_locator(self):
         """
-        Return the locator determining the number of children.
+        :returns: count Locator
+        :rtype: Locator instance
+        """
+        LocatorClass = self._locator_class
+        return LocatorClass(self._provided_count_locator, page_object=self)
 
-        :returns: locator determining the number of children
-        :rtype: :py:obj:`str`
+
+    @property
+    def _count_locator_value(self):
         """
-        if self.default_count_locator:
-            return self.default_count_locator
-        elif self._count_locator:
-            return self._count_locator
-        else:
-            return self._locator_value
+        :returns: processed count locator value ready to be passed
+            to a webdriver find method
+        :rtype: str
+        """
+        return self._count_locator.value
 
