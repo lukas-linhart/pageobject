@@ -46,6 +46,20 @@ class Page(SinglePageObjectBase):
         self.init_children()
 
 
+        @property
+        def requested_url(self):
+            """
+            Return requested url, None by default.
+
+            May be overridden to take precedence over the url
+            provided to constructor.
+
+            :returns: requested url of the page
+            :rtype: str
+            """
+            return None
+
+
     # commands
     load = commands.load
 
