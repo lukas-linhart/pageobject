@@ -36,7 +36,7 @@ class Page(SinglePageObjectBase):
             python_org_page = Page(url="http://www.python.org", webdriver=wd)
 
         """
-        self._url_value = url
+        self._initialized_url = url
         self._initialized_locator = locator
         self._chain = chain
         self._webdriver = webdriver
@@ -46,18 +46,31 @@ class Page(SinglePageObjectBase):
         self.init_children()
 
 
-        @property
-        def requested_url(self):
-            """
-            Return requested url, None by default.
+    @property
+    def requested_url(self):
+        """
+        Return requested url, None by default.
 
-            May be overridden to take precedence over the url
-            provided to constructor.
+        May be overridden to take precedence over the url
+        provided to constructor.
 
-            :returns: requested url of the page
-            :rtype: str
-            """
-            return None
+        :returns: requested url of the page
+        :rtype: str
+        """
+        return None
+
+
+    @property
+    def _provided_url(self):
+        """
+        :returns: url string provided either as an overridden
+            requested_url attribute or passed to the constructor
+        :rtype: str
+        """
+        if self.requested_url:
+            return self.requested_url
+        else:
+            return self._initialized_url
 
 
     # commands

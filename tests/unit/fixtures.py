@@ -1,4 +1,5 @@
 from pageobject import PageObject
+from pageobject import Page
 from pageobject import PageObjectList
 from pageobject import Select
 from pageobject.pageobjectbase import PageObjectBase
@@ -24,6 +25,14 @@ def yet_another_mock_po():
     class YetAnotherMockPo(MockPoTemplate): pass
     return YetAnotherMockPo()
 
+
+class MockPageTemplate(Page):
+    def __init__(self): pass
+
+@pytest.fixture
+def mock_page():
+    class MockPage(MockPageTemplate): pass
+    return MockPage()
 
 
 class MockPoBaseTemplate(PageObjectBase):
