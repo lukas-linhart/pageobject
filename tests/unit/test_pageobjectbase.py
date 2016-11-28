@@ -48,7 +48,7 @@ def test_provided_locator_returns_default_locator_when_provided(monkeypatch, moc
     monkeypatch.setattr(mock_po_base.__class__, 'default_locator', default_locator)
     assert mock_po_base._provided_locator == default_locator
 
-def test_provided_locator_returns_initialized_locator_when_default_not_provided(monkeypatch, mock_po_base):
+def test_provided_locator_returns_initialized_locator_when_default_not_provided(mock_po_base):
     initialized_locator = "//initialized"
     mock_po_base._initialized_locator = initialized_locator
     assert mock_po_base._provided_locator == initialized_locator

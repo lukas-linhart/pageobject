@@ -18,7 +18,7 @@ def test_chain_property_returns_correct_value(mock_locator):
     assert mock_locator.chain == MockPO._chain
 
 
-def test_parent_locator_value_returns_correct_value_when_parent_exists(monkeypatch, mock_locator):
+def test_parent_locator_value_returns_correct_value_when_parent_exists(mock_locator):
     xpath = "//body"
     class MockPO:
         _parent_locator_value = xpath
