@@ -74,7 +74,7 @@ class PageObjectList(PageObjectListBase):
         """
         Return defualt children locator, None by default.
 
-        May be overridden to take precedence before the children_locator
+        May be overridden to take precedence over the children_locator
         provided to constructor.
 
         :returns: default children locator
@@ -124,7 +124,7 @@ class PageObjectList(PageObjectListBase):
         """
         Return default count locator, None by default.
 
-        May be overridden to take precedence before the count_locator
+        May be overridden to take precedence over the count_locator
         provided to constructor
 
         :returns: defualt count locator

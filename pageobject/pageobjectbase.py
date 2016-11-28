@@ -50,7 +50,7 @@ class PageObjectBase(object):
         """
         Return default locator, None by default.
 
-        May be overridden to take precedence before the locator
+        May be overridden to take precedence over the locator
         provided to constructor.
 
         :returns: default locator
