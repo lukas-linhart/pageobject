@@ -7,9 +7,9 @@ def load(self, log=True):
     :rtype: `PageObjectBase` instance
     """
     if log:
-        self.logger.info('loading page (url "{}")'.format(self._url))
-    self.webdriver.get(self._url)
+        self.logger.info('loading page (url "{}")'.format(self._url_value))
+    self.webdriver.get(self._url_value)
     if log:
-        self.logger.info('page loaded (url "{}")'.format(self._url))
+        self.logger.info('page loaded (url "{}")'.format(self._url_value))
     return self
 

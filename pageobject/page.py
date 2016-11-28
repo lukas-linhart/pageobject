@@ -36,7 +36,7 @@ class Page(SinglePageObjectBase):
             python_org_page = Page(url="http://www.python.org", webdriver=wd)
 
         """
-        self._url = url
+        self._url_value = url
         self._initialized_locator = locator
         self._chain = chain
         self._webdriver = webdriver
