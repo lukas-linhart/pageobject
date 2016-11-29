@@ -1,6 +1,6 @@
 """*pageobject*'s main module"""
 
-__version__ = '0.0.43'
+__version__ = '0.0.44'
 
 from .page import Page
 from .pageobject import PageObject
