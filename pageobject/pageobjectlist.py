@@ -96,7 +96,7 @@ class PageObjectList(PageObjectListBase):
         elif self._initialized_children_locator:
             return self._initialized_children_locator
         else:
-            return '({})[{}]'.format(self._initialized_locator, '{}')
+            return '({})[{}]'.format(self._locator_value, '{}')
 
 
     @property
@@ -116,7 +116,7 @@ class PageObjectList(PageObjectListBase):
             to a webdriver find method
         :rtype: str
         """
-        return self._children_locator.value
+        return self._provided_children_locator
 
 
     @property
