@@ -75,6 +75,11 @@ def test_locator_value_returns_correct_attribute_of_locator(monkeypatch, mock_po
     assert mock_po_base._locator_value == locator_value
 
 
+def test_locator_returns_locator_value(monkeypatch, mock_po_base):
+    monkeypatch.setattr(mock_po_base.__class__, '_locator_value', '//body')
+    assert mock_po_base.locator == mock_po_base._locator_value
+
+
 def test_webdriver_returns_webdriver_of_a_parent_if_available(monkeypatch, mock_po_base):
     parent_webdriver = 'parent_webdriver'
     class Parent:

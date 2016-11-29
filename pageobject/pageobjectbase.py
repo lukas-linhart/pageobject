@@ -128,6 +128,17 @@ class PageObjectBase(object):
 
 
     @property
+    def locator(self):
+        """
+        Publicly exposed locator value.
+
+        :returns: locator value
+        :rtype: str
+        """
+        return self._locator_value
+
+
+    @property
     def webdriver(self):
         """
         Return the instance of WebDriver.
