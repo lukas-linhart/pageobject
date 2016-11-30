@@ -146,7 +146,7 @@ class PageObjectList(PageObjectListBase):
         elif self._initialized_count_locator:
             return self._initialized_count_locator
         else:
-            return self._initialized_locator
+            return self._locator_value
 
 
     @property
@@ -166,5 +166,5 @@ class PageObjectList(PageObjectListBase):
             to a webdriver find method
         :rtype: str
         """
-        return self._count_locator.value
+        return self._provided_count_locator
 

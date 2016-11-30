@@ -166,11 +166,12 @@ def test_provided_count_locator_returns_initialized_count_locator_when_provided(
     mock_po_list._initialized_count_locator = count_locator
     assert mock_po_list._provided_count_locator == count_locator
 
-def test_provided_count_locator_returns_initialized_locator_as_fallback(mock_po_list):
-    locator = "//locator"
+def test_provided_count_locator_returns_initialized_locator_as_fallback(monkeypatch, mock_po_list):
+    count_locator = "//count_locator"
+    monkeypatch.setattr(mock_po_list.__class__, 'default_count_locator', None)
     mock_po_list._initialized_count_locator = None
-    mock_po_list._initialized_locator = locator
-    assert mock_po_list._provided_count_locator == locator
+    monkeypatch.setattr(mock_po_list.__class__, '_locator_value', count_locator)
+    assert mock_po_list._provided_count_locator == count_locator
 
 
 def test_count_locator_inits_locator_with_correct_parameters(monkeypatch, mock_po_list):
@@ -187,9 +188,7 @@ def test_count_locator_inits_locator_with_correct_parameters(monkeypatch, mock_p
 
 
 def test_count_locator_value_returns_correct_attribute_of_locator(monkeypatch, mock_po_list):
-    count_locator_value = "//body"
-    class MockLocator:
-        value = count_locator_value
-    monkeypatch.setattr(mock_po_list.__class__, '_count_locator', MockLocator)
+    count_locator_value = "//count"
+    monkeypatch.setattr(mock_po_list.__class__, '_provided_count_locator', count_locator_value)
     assert mock_po_list._count_locator_value == count_locator_value
 
