@@ -45,6 +45,7 @@ class PageObject(SinglePageObjectBase):
     is_interactive = commands.is_interactive
     wait_for_visible = commands.wait_for_visible
     wait_for_enabled = commands.wait_for_enabled
+    wait_for_interactive = commands.wait_for_interactive
     click = commands.click
     clear = commands.clear
     get_value = commands.get_value

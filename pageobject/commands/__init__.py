@@ -13,6 +13,7 @@ from .wait_for_exist import wait_for_exist
 from .wait_for_vanish import wait_for_vanish
 from .wait_for_visible import wait_for_visible
 from .wait_for_enabled import wait_for_enabled
+from .wait_for_interactive import wait_for_interactive
 from .click import click
 from .clear import clear
 from .get_value import get_value
