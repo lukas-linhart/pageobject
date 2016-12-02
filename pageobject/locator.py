@@ -11,7 +11,7 @@ class Locator(object):
         :param page_object: reference to the page object instantiating
             the Locator
         """
-        self._value = value
+        self._initialized_value = value
         self._page_object = page_object
 
 
@@ -48,7 +48,7 @@ class Locator(object):
         :rtype: str
         """
         if self.chain:
-            return '{}{}'.format(self.parent_locator_value, self._value)
+            return '{}{}'.format(self.parent_locator_value, self._initialized_value)
         else:
-            return self._value
+            return self._initialized_value
 
