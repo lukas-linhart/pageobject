@@ -143,3 +143,11 @@ that's different for each of them. This means that when you are
 locating a page object, you can safely disregard everything
 above its parent. That's huge.
 
+By the way, chaining the locator to its parent is optional for each
+page object individually, which means
+your page object tree can resemble the actual DOM structure as closely
+as you want (as in the above example), or not resemble it at all.
+This comes handy when a component logically and visually fits as
+a child of another page object, but is located somewhere else in the DOM
+(like all kinds of dropdown menus, tooltips, etc.).
+
