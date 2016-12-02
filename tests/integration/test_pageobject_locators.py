@@ -69,16 +69,30 @@ def test_POL_count_locator_when_provided_as_default_count_locator():
     assert rows._count_locator_value == "//default_rows"
 
 
-def test_PO_locator_value_is_correct_when_initialized_as_id_hashtag():
+def test_PO_locator_value_is_correct_when_initialized_with_id_hashtag():
     login_form = PageObject("//form")
     username = PageObject("#username")
     login_form.username = username
     assert username._locator_value == "//*[@id='username']"
 
 
-def test_PO_locator_value_is_correct_when_initialized_as_id_attribute():
+def test_PO_locator_value_is_correct_when_initialized_with_id_attribute():
     login_form = PageObject("//form")
     username = PageObject("id=username")
     login_form.username = username
     assert username._locator_value == "//*[@id='username']"
+
+
+def test_PO_locator_value_is_correct_when_parent_initialized_with_id_hashtag():
+    login_form = PageObject("#login_form")
+    username = PageObject("/username")
+    login_form.username = username
+    assert username._locator_value == "//*[@id='login_form']/username"
+
+
+def test_PO_locator_value_is_correct_when_parent_initialized_with_id_attribute():
+    login_form = PageObject("id=login_form")
+    username = PageObject("/username")
+    login_form.username = username
+    assert username._locator_value == "//*[@id='login_form']/username"
 
