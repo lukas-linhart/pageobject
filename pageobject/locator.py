@@ -23,7 +23,11 @@ class Locator(object):
         :returns: whether to chain to the parent locator
         :rtype: bool
         """
-        return self._page_object._chain
+        val = self._initialized_value
+        if val.startswith('#') or val.startswith('id='):
+            return False
+        else:
+            return self._page_object._chain
 
 
     @property
@@ -43,7 +47,13 @@ class Locator(object):
         :returns: xpath value
         :rtype: str
         """
-        return self._initialized_value
+        val = self._initialized_value
+        if val.startswith('#'):
+            return "//*[@id='{}']".format(val[1:].strip())
+        elif val.startswith('id='):
+            return "//*[@id='{}']".format(val[3:].strip())
+        else:
+            return self._initialized_value
 
 
     @property

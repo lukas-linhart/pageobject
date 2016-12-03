@@ -10,10 +10,19 @@ def test_constructor_inits_parameters_correctly():
     assert locator._initialized_value == xpath
 
 
-def test_chain_property_returns_correct_value(mock_locator):
+def test_chain_property_returns_false_when_locator_starts_with_hashtag(mock_locator):
+    mock_locator._initialized_value = "#spam"
+    assert mock_locator.chain == False
+
+def test_chain_property_returns_false_when_locator_starts_with_id(mock_locator):
+    mock_locator._initialized_value = "id=spam"
+    assert mock_locator.chain == False
+
+def test_chain_property_returns_correct_value_when_locator_is_xpath(mock_locator):
     chain = 'chain'
     class MockPO:
         _chain = chain
+    mock_locator._initialized_value = "//eggs"
     mock_locator._page_object = MockPO
     assert mock_locator.chain == MockPO._chain
 
@@ -25,6 +34,16 @@ def test_parent_locator_value_returns_correct_value_when_parent_exists(mock_loca
     mock_locator._page_object = MockPO
     assert mock_locator.parent_locator_value == xpath
 
+
+def test_xpath_returns_correct_value_for_locator_starting_with_hashtag(mock_locator):
+    value = "#spam"
+    mock_locator._initialized_value = value
+    assert mock_locator._xpath == "//*[@id='spam']"
+
+def test_xpath_returns_correct_value_for_locator_starting_with_id(mock_locator):
+    value = "id=spam"
+    mock_locator._initialized_value = value
+    assert mock_locator._xpath == "//*[@id='spam']"
 
 def test_xpath_returns_correct_value(mock_locator):
     value = "initialized"
