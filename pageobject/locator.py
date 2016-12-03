@@ -38,6 +38,15 @@ class Locator(object):
 
 
     @property
+    def _xpath(self):
+        """
+        :returns: xpath value
+        :rtype: str
+        """
+        return self._initialized_value
+
+
+    @property
     def value(self):
         """
         Return final value of the locator:
@@ -48,7 +57,7 @@ class Locator(object):
         :rtype: str
         """
         if self.chain:
-            return '{}{}'.format(self.parent_locator_value, self._initialized_value)
+            return '{}{}'.format(self.parent_locator_value, self._xpath)
         else:
-            return self._initialized_value
+            return self._xpath
 
