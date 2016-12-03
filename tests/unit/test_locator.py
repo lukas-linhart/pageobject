@@ -26,6 +26,12 @@ def test_parent_locator_value_returns_correct_value_when_parent_exists(mock_loca
     assert mock_locator.parent_locator_value == xpath
 
 
+def test_xpath_returns_correct_value(mock_locator):
+    value = "initialized"
+    mock_locator._initialized_value = value
+    assert mock_locator._xpath == value
+
+
 def test_value_property_return_correct_nonchained_value(monkeypatch, mock_locator):
     xpath = "//body"
     monkeypatch.setattr(mock_locator.__class__, '_xpath', xpath)
