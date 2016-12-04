@@ -40,8 +40,7 @@ class Locator(object):
         :returns: whether to chain to the parent locator
         :rtype: bool
         """
-        val = self._initialized_value
-        if val.startswith('#') or val.startswith('id='):
+        if self._initialized_type == 'id':
             return False
         else:
             return self._page_object._chain

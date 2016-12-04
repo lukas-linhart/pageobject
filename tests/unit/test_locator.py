@@ -43,19 +43,14 @@ def test_initialized_type_returns_unknown_by_default(mock_locator):
     assert mock_locator._initialized_type == 'unknown'
 
 
-def test_chain_property_returns_false_when_locator_starts_with_hashtag(mock_locator):
-    mock_locator._initialized_value = "#spam"
+def test_chain_property_returns_false_when_initialized_type_is_id(monkeypatch, mock_locator):
+    monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'id')
     assert mock_locator.chain == False
 
-def test_chain_property_returns_false_when_locator_starts_with_id(mock_locator):
-    mock_locator._initialized_value = "id=spam"
-    assert mock_locator.chain == False
-
-def test_chain_property_returns_correct_value_when_locator_is_xpath(mock_locator):
-    chain = 'chain'
+def test_chain_property_returns_correct_value_when_initialized_type_is_not_id(monkeypatch, mock_locator):
     class MockPO:
-        _chain = chain
-    mock_locator._initialized_value = "//eggs"
+        _chain = 'chain'
+    monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'not_an_id')
     mock_locator._page_object = MockPO
     assert mock_locator.chain == MockPO._chain
 
