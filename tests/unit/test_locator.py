@@ -60,7 +60,7 @@ def test_parent_locator_value_returns_correct_value_when_parent_exists(mock_loca
     class MockPO:
         _parent_locator_value = xpath
     mock_locator._page_object = MockPO
-    assert mock_locator.parent_locator_value == xpath
+    assert mock_locator._parent_locator_value == xpath
 
 
 def test_xpath_returns_correct_value_for_locator_starting_with_hashtag(mock_locator):
@@ -93,7 +93,7 @@ def test_value_property_returns_correct_chained_value(monkeypatch, mock_locator)
 
     monkeypatch.setattr(mock_locator.__class__, '_xpath', child_xpath)
     monkeypatch.setattr(mock_locator.__class__, '_chain', True)
-    monkeypatch.setattr(mock_locator.__class__, 'parent_locator_value', parent_xpath)
+    monkeypatch.setattr(mock_locator.__class__, '_parent_locator_value', parent_xpath)
 
     assert mock_locator.value == chained_xpath
 

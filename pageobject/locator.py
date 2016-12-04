@@ -47,7 +47,7 @@ class Locator(object):
 
 
     @property
-    def parent_locator_value(self):
+    def _parent_locator_value(self):
         """
         Return value of the parent page object locator.
 
@@ -83,7 +83,7 @@ class Locator(object):
         :rtype: str
         """
         if self._chain:
-            return '{}{}'.format(self.parent_locator_value, self._xpath)
+            return '{}{}'.format(self._parent_locator_value, self._xpath)
         else:
             return self._xpath
 
