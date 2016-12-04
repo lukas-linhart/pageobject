@@ -33,7 +33,7 @@ class Locator(object):
 
 
     @property
-    def chain(self):
+    def _chain(self):
         """
         Return whether to chain to the parent locator.
 
@@ -82,7 +82,7 @@ class Locator(object):
         :returns: final value of the locator
         :rtype: str
         """
-        if self.chain:
+        if self._chain:
             return '{}{}'.format(self.parent_locator_value, self._xpath)
         else:
             return self._xpath

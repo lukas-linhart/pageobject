@@ -45,14 +45,14 @@ def test_initialized_type_returns_unknown_by_default(mock_locator):
 
 def test_chain_property_returns_false_when_initialized_type_is_id(monkeypatch, mock_locator):
     monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'id')
-    assert mock_locator.chain == False
+    assert mock_locator._chain == False
 
 def test_chain_property_returns_correct_value_when_initialized_type_is_not_id(monkeypatch, mock_locator):
     class MockPO:
         _chain = 'chain'
     monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'not_an_id')
     mock_locator._page_object = MockPO
-    assert mock_locator.chain == MockPO._chain
+    assert mock_locator._chain == MockPO._chain
 
 
 def test_parent_locator_value_returns_correct_value_when_parent_exists(mock_locator):
@@ -82,7 +82,7 @@ def test_xpath_returns_correct_value(mock_locator):
 def test_value_property_return_correct_nonchained_value(monkeypatch, mock_locator):
     xpath = "//body"
     monkeypatch.setattr(mock_locator.__class__, '_xpath', xpath)
-    monkeypatch.setattr(mock_locator.__class__, 'chain', False)
+    monkeypatch.setattr(mock_locator.__class__, '_chain', False)
     assert mock_locator.value == xpath
 
 
@@ -92,7 +92,7 @@ def test_value_property_returns_correct_chained_value(monkeypatch, mock_locator)
     chained_xpath = '{}{}'.format(parent_xpath, child_xpath)
 
     monkeypatch.setattr(mock_locator.__class__, '_xpath', child_xpath)
-    monkeypatch.setattr(mock_locator.__class__, 'chain', True)
+    monkeypatch.setattr(mock_locator.__class__, '_chain', True)
     monkeypatch.setattr(mock_locator.__class__, 'parent_locator_value', parent_xpath)
 
     assert mock_locator.value == chained_xpath
