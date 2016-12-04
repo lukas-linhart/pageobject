@@ -16,6 +16,23 @@ class Locator(object):
 
 
     @property
+    def _initialized_type(self):
+        """
+        :returns: type representation of the initialized value
+        :rtype: str
+        """
+        val = self._initialized_value
+        if val.startswith('#') or val.startswith('id='):
+            return 'id'
+        elif (val.startswith('(') or val.startswith('/') or
+                val.startswith('./') or val.startswith('../') or
+                val.startswith('*/')):
+            return 'xpath'
+        else:
+            return 'unknown'
+
+
+    @property
     def chain(self):
         """
         Return whether to chain to the parent locator.

@@ -10,6 +10,39 @@ def test_constructor_inits_parameters_correctly():
     assert locator._initialized_value == xpath
 
 
+def test_initialized_type_returns_id_when_val_starts_with_hashtag(mock_locator):
+    mock_locator._initialized_value = '#some_id'
+    assert mock_locator._initialized_type == 'id'
+
+def test_initialized_type_returns_id_when_val_starts_with_id(mock_locator):
+    mock_locator._initialized_value = 'id=some_id'
+    assert mock_locator._initialized_type == 'id'
+
+def test_initialized_type_returns_xpath_when_val_starts_with_left_paren(mock_locator):
+    mock_locator._initialized_value = '(//div)[3]'
+    assert mock_locator._initialized_type == 'xpath'
+
+def test_initialized_type_returns_xpath_when_val_starts_with_slash(mock_locator):
+    mock_locator._initialized_value = '/div'
+    assert mock_locator._initialized_type == 'xpath'
+
+def test_initialized_type_returns_xpath_when_val_starts_with_dot_slash(mock_locator):
+    mock_locator._initialized_value = './div'
+    assert mock_locator._initialized_type == 'xpath'
+
+def test_initialized_type_returns_xpath_when_val_starts_with_doubledot_slash(mock_locator):
+    mock_locator._initialized_value = '../div'
+    assert mock_locator._initialized_type == 'xpath'
+
+def test_initialized_type_returns_xpath_when_val_starts_with_asterisk_slash(mock_locator):
+    mock_locator._initialized_value = '*/div'
+    assert mock_locator._initialized_type == 'xpath'
+
+def test_initialized_type_returns_unknown_by_default(mock_locator):
+    mock_locator._initialized_value = 'some_locator'
+    assert mock_locator._initialized_type == 'unknown'
+
+
 def test_chain_property_returns_false_when_locator_starts_with_hashtag(mock_locator):
     mock_locator._initialized_value = "#spam"
     assert mock_locator.chain == False
