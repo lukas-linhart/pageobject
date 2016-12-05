@@ -57,17 +57,26 @@ class Locator(object):
         return self._page_object._parent_locator_value
 
 
+    def _id_to_xpath(self, value):
+        """
+        :param str value: id value of the locator
+        :returns: id value converted to xpath
+        :rtype: str
+        """
+        if value.startswith('#'):
+            return "//*[@id='{}']".format(value[1:].strip())
+        elif value.startswith('id='):
+            return "//*[@id='{}']".format(value[3:].strip())
+
+
     @property
     def _xpath(self):
         """
         :returns: xpath value
         :rtype: str
         """
-        val = self._initialized_value
-        if val.startswith('#'):
-            return "//*[@id='{}']".format(val[1:].strip())
-        elif val.startswith('id='):
-            return "//*[@id='{}']".format(val[3:].strip())
+        if self._initialized_type == 'id':
+            return self._id_to_xpath(self._initialized_value)
         else:
             return self._initialized_value
 

@@ -63,17 +63,21 @@ def test_parent_locator_value_returns_correct_value_when_parent_exists(mock_loca
     assert mock_locator._parent_locator_value == xpath
 
 
-def test_xpath_returns_correct_value_for_locator_starting_with_hashtag(mock_locator):
-    value = "#spam"
-    mock_locator._initialized_value = value
-    assert mock_locator._xpath == "//*[@id='spam']"
+def test_id_to_xpath_returns_correct_value_for_id_starting_with_hashtag(mock_locator):
+    assert mock_locator._id_to_xpath('#spam') == "//*[@id='spam']"
 
-def test_xpath_returns_correct_value_for_locator_starting_with_id(mock_locator):
-    value = "id=spam"
-    mock_locator._initialized_value = value
-    assert mock_locator._xpath == "//*[@id='spam']"
+def test_id_to_xpath_returns_correct_value_for_id_starting_with_id(mock_locator):
+    assert mock_locator._id_to_xpath('id=spam') == "//*[@id='spam']"
 
-def test_xpath_returns_correct_value(mock_locator):
+
+def test_xpath_calls_id_to_xpath_with_correct_parameter(monkeypatch, mock_locator):
+    spam = 'spam'
+    monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'id')
+    mock_locator._initialized_value = spam
+    mock_locator._id_to_xpath = lambda value: spam
+    assert mock_locator._xpath == spam
+
+def test_xpath_returns_correct_value_for_non_id_locator(mock_locator):
     value = "initialized"
     mock_locator._initialized_value = value
     assert mock_locator._xpath == value
