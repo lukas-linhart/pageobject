@@ -53,3 +53,11 @@ def test_get_child_full_name_returns_correct_name(monkeypatch, mock_po_list_base
             mock_po_list_base.full_name, child_po.index)
 
 
+def test_descendants_returns_descendants_of_children_class_instance(monkeypatch, mock_po_list_base):
+    descendants = 'descendants'
+    class MockChildrenClass:
+        def __init__(self, dummy): pass
+        _descendants = descendants
+    mock_po_list_base.children_class = MockChildrenClass
+    assert mock_po_list_base._descendants == descendants
+
