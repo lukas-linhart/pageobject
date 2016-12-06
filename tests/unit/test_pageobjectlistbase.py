@@ -1,5 +1,13 @@
 import pytest
-from .fixtures import mock_po, mock_po_list
+from pageobject.pageobjectlistbase import PageObjectListBase
+
+
+class MockPoListBase(PageObjectListBase):
+    def __init__(self): pass
+
+@pytest.fixture
+def mock_po_list():
+    return MockPoListBase()
 
 
 def test_dunder_bool_method_returns_True_if_len_is_nonzero(monkeypatch, mock_po_list):
@@ -14,13 +22,13 @@ def test_dunder_bool_method_returns_False_if_len_is_zero(monkeypatch, mock_po_li
 def test_dunder_getitem_method_returns_correct_slice(monkeypatch, mock_po_list):
     children = list('spameggs')
     _slice = slice(0, len(children), 2)
-    monkeypatch.setattr(mock_po_list.__class__, 'children', children)
+    mock_po_list.children = children
     assert mock_po_list[_slice] == children[_slice]
 
 
 def test_dunder_len_method_returns_children_len(monkeypatch, mock_po_list):
     children = list('spameggs')
-    monkeypatch.setattr(mock_po_list.__class__, 'children', children)
+    mock_po_list.children = children
     assert len(mock_po_list) == len(children)
 
 
