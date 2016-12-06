@@ -21,28 +21,6 @@ def test_constructor_inits_parameters_correctly():
     assert po_list._initialized_count_locator == count_locator
 
 
-def test_dunder_bool_method_returns_True_if_len_is_nonzero(monkeypatch, mock_po_list):
-    monkeypatch.setattr(mock_po_list.__class__, '__len__', lambda self: 1)
-    assert bool(mock_po_list)
-
-def test_dunder_bool_method_returns_False_if_len_is_zero(monkeypatch, mock_po_list):
-    monkeypatch.setattr(mock_po_list.__class__, '__len__', lambda self: 0)
-    assert bool(mock_po_list) == False
-
-
-def test_dunder_getitem_method_returns_correct_slice(monkeypatch, mock_po_list):
-    children = list('spameggs')
-    _slice = slice(0, len(children), 2)
-    monkeypatch.setattr(mock_po_list.__class__, 'children', children)
-    assert mock_po_list[_slice] == children[_slice]
-
-
-def test_dunder_len_method_returns_children_len(monkeypatch, mock_po_list):
-    children = list('spameggs')
-    monkeypatch.setattr(mock_po_list.__class__, 'children', children)
-    assert len(mock_po_list) == len(children)
-
-
 def test_children_count_property_returns_an_int(monkeypatch, mock_po_list):
     elements = list('elements')
     class MockWebDriver:
@@ -76,27 +54,6 @@ def test_children_property_inits_children_with_correct_locator_and_index(monkeyp
     for i in range(children_count):
         assert mock_po_list.children[i].test_locator == locator.format(i+1)
         assert mock_po_list.children[i].index == i
-
-
-def test_get_child_name_returns_correct_name(monkeypatch, mock_po_list):
-    index = 2
-    class Child:
-        def __init__(self):
-            self.index = index
-    child_po = Child()
-    monkeypatch.setattr(mock_po_list.__class__, 'name', 'po_list_name')
-    assert mock_po_list._get_child_name(child_po) == '{}[{}]'.format(
-            mock_po_list.name, child_po.index)
-
-def test_get_child_full_name_returns_correct_name(monkeypatch, mock_po_list):
-    index = 2
-    class Child:
-        def __init__(self):
-            self.index = index
-    child_po = Child()
-    monkeypatch.setattr(mock_po_list.__class__, 'full_name', 'full_po_list_name')
-    assert mock_po_list._get_child_full_name(child_po) == '{}[{}]'.format(
-            mock_po_list.full_name, child_po.index)
 
 
 def test_children_class_property_returns_correct_value_if_initialized(mock_po_list):
