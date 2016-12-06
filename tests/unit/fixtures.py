@@ -7,6 +7,7 @@ from pageobject.locator import Locator
 import pytest
 
 
+# TODO - delete once all unit tests use their own fixtures
 class MockPoTemplate(PageObject):
     def __init__(self): pass
 
@@ -14,16 +15,6 @@ class MockPoTemplate(PageObject):
 def mock_po():
     class MockPo(MockPoTemplate): pass
     return MockPo()
-
-@pytest.fixture
-def another_mock_po():
-    class AnotherMockPo(MockPoTemplate): pass
-    return AnotherMockPo()
-
-@pytest.fixture
-def yet_another_mock_po():
-    class YetAnotherMockPo(MockPoTemplate): pass
-    return YetAnotherMockPo()
 
 
 class MockPageTemplate(Page):

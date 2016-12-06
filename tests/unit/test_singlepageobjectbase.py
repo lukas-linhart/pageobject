@@ -1,6 +1,25 @@
 import pytest
+from pageobject import PageObject
 from pageobject.pageobjectbase import PageObjectBase
-from .fixtures import mock_po, another_mock_po, yet_another_mock_po
+
+
+class MockPoTemplate(PageObject):
+    def __init__(self): pass
+
+@pytest.fixture
+def mock_po():
+    class MockPo(MockPoTemplate): pass
+    return MockPo()
+
+@pytest.fixture
+def another_mock_po():
+    class AnotherMockPo(MockPoTemplate): pass
+    return AnotherMockPo()
+
+@pytest.fixture
+def yet_another_mock_po():
+    class YetAnotherMockPo(MockPoTemplate): pass
+    return YetAnotherMockPo()
 
 
 def test_dunder_bool_method_returns_True_when_is_existing(monkeypatch, mock_po):
