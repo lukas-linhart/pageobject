@@ -136,3 +136,11 @@ def test_full_name_returns_name_when_po_is_a_root(monkeypatch, mock_po_base):
     monkeypatch.setattr(mock_po_base.__class__, 'parent', None)
     assert mock_po_base.full_name == mock_po_base.name
 
+
+def test_tree_returns_dict_with_correct_key_and_value(monkeypatch, mock_po_base):
+    name = 'po'
+    descendants = 'descendants'
+    monkeypatch.setattr(mock_po_base.__class__, 'name', name)
+    mock_po_base._descendants = descendants
+    assert mock_po_base.tree == {name: descendants}
+
