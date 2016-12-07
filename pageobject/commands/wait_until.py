@@ -30,7 +30,7 @@ def wait_until(self, func, func_args=[], func_kwargs={},
         timeout = self.DEFAULT_WAIT_TIMEOUT
     deadline = time.time() + timeout
     while time.time() < deadline:
-        if func(*func_args, **func_kwargs) is not reverse:
+        if bool(func(*func_args, **func_kwargs)) is not reverse:
             return self
         time.sleep(self.DEFAULT_POLL_INTERVAL)
     if error_msg is None:
