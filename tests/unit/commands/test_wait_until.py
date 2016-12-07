@@ -12,3 +12,17 @@ def test_wait_until_returns_self_when_func_returns_true_and_reverse_is_false(moc
 def test_wait_until_returns_self_when_func_returns_false_and_reverse_is_true(mock_po):
     assert mock_po.wait_until(lambda: False, reverse=True) == mock_po
 
+def test_wait_until_accepts_func_args(mock_po):
+    fargs = list('spam')
+    def f(s, p, a, m):
+        if [s, p, a, m] == fargs:
+            return True
+    mock_po.wait_until(f, func_args=fargs)
+
+def test_wait_until_accepts_func_kwargs(mock_po):
+    fkwargs = dict(a=1, b=2)
+    def f(a=None, b=None):
+        if [a, b] == [1, 2]:
+            return True
+    mock_po.wait_until(f, func_kwargs=fkwargs)
+
