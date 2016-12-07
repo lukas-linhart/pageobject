@@ -72,7 +72,6 @@ def test_provided_children_locator_returns_default_children_locator_when_provide
 
 def test_provided_children_locator_returns_initialized_children_locator_when_default_not_provided(monkeypatch, mock_po_list):
     initialized_children_locator = "//initialized"
-    monkeypatch.setattr(mock_po_list.__class__, 'default_children_locator', None)
     mock_po_list._initialized_children_locator = initialized_children_locator
     assert mock_po_list._provided_children_locator == initialized_children_locator
 
