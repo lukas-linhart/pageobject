@@ -68,6 +68,8 @@ def mock_commands_po():
             return NopLogger()
         _log_id_short = None
         _log_id_long = None
+        DEFAULT_WAIT_TIMEOUT = 0.00001
+        DEFAULT_POLL_INTERVAL = 0.000001
         webelement = MockWebElement()
 
     return MockCommandsPo()
