@@ -1,6 +1,6 @@
 import pytest
 from pageobject import PageObject
-from pageobject.pageobjectbase import PageObjectBase
+from pageobject.singlepageobjectbase import SinglePageObjectBase
 
 
 class MockPoTemplate(PageObject):
@@ -10,16 +10,6 @@ class MockPoTemplate(PageObject):
 def mock_po():
     class MockPo(MockPoTemplate): pass
     return MockPo()
-
-@pytest.fixture
-def another_mock_po():
-    class AnotherMockPo(MockPoTemplate): pass
-    return AnotherMockPo()
-
-@pytest.fixture
-def yet_another_mock_po():
-    class YetAnotherMockPo(MockPoTemplate): pass
-    return YetAnotherMockPo()
 
 
 def test_dunder_bool_method_returns_True_when_is_existing(monkeypatch, mock_po):
@@ -50,11 +40,10 @@ def test_children_property_returns_dict(monkeypatch, mock_po):
     monkeypatch.setattr(mock_po.__class__, 'children', dict())
     assert isinstance(mock_po.children, dict)
 
-def test_children_property_returns_correct_children(monkeypatch, mock_po, another_mock_po, yet_another_mock_po):
-    root_po = mock_po
-    child_po = another_mock_po
-    leaf_po = yet_another_mock_po
-    monkeypatch.setattr(child_po.__class__, 'parent', root_po)
+def test_children_property_returns_correct_children():
+    class MockPo(SinglePageObjectBase): pass
+    root_po, child_po, leaf_po = (MockPo() for x in range(3))
+    root_po.child_po = child_po
     child_po.leaf_po = leaf_po
     child_po.not_a_po = 'not a page object'
     assert 'leaf_po' in child_po.children
@@ -62,22 +51,26 @@ def test_children_property_returns_correct_children(monkeypatch, mock_po, anothe
     assert 'not_a_po' not in child_po.children
 
 
-def test_get_child_name_returns_correct_name(monkeypatch, mock_po, another_mock_po):
+def test_get_child_name_returns_correct_name(monkeypatch, mock_po):
     parent_po = mock_po
-    child_po = another_mock_po
+    class ChildPo:
+        name = 'child_po'
+    child_po = ChildPo()
     parent_po.child_po = child_po
     child_po_name = 'child_po'
     monkeypatch.setattr(parent_po.__class__, 'children', {child_po_name: child_po})
     assert parent_po._get_child_name(child_po) == child_po_name
 
 
-def test_get_child_full_name_returns_correct_name(monkeypatch, mock_po, another_mock_po):
+def test_get_child_full_name_returns_correct_name(monkeypatch, mock_po):
     parent_po = mock_po
-    child_po = another_mock_po
+    class ChildPo:
+        name = 'child_name'
+    child_po = ChildPo()
     parent_full_name = 'parent_full_name'
     monkeypatch.setattr(parent_po.__class__, 'full_name', parent_full_name)
     child_name = 'child_name'
     monkeypatch.setattr(child_po.__class__, 'name', child_name)
     assert parent_po._get_child_full_name(child_po) == '{}{}{}'.format(
-            parent_full_name, PageObjectBase.NAME_SEPARATOR, child_name)
+            parent_full_name, parent_po.NAME_SEPARATOR, child_name)
 
