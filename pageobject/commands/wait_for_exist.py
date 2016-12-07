@@ -6,7 +6,7 @@ def wait_for_exist(self, timeout=None):
         :py:obj:`PageObject.DEFAULT_WAIT_TIMEOUT` is used
     """
     if timeout is None:
-        timeout = self.__class__.DEFAULT_WAIT_TIMEOUT
+        timeout = self.DEFAULT_WAIT_TIMEOUT
     self.logger.info('waiting until page contains {}'.format(self._log_id_short))
     self.logger.debug('waiting until page contains page object; {}'.format(self._log_id_long))
     error_msg = 'Element "{}" still not existing after {} seconds'.format(

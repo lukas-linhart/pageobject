@@ -6,7 +6,7 @@ def wait_for_visible(self, timeout=None):
         :py:obj:`PageObject.DEFAULT_WAIT_TIMEOUT` is used
     """
     if timeout is None:
-        timeout = self.__class__.DEFAULT_WAIT_TIMEOUT
+        timeout = self.DEFAULT_WAIT_TIMEOUT
     self.logger.info('waiting until {} is visible'.format(self._log_id_short))
     self.logger.debug('waiting until page object is visible; {}'.format(self._log_id_long))
     error_msg = 'Element "{}" still not visible after {} seconds'.format(

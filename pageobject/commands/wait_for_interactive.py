@@ -6,7 +6,7 @@ def wait_for_interactive(self, timeout=None):
         PageObject.DEFAULT_WAIT_TIMEOUT is used
     """
     if timeout is None:
-        timeout = self.__class__.DEFAULT_WAIT_TIMEOUT
+        timeout = self.DEFAULT_WAIT_TIMEOUT
     self.logger.info('waiting until page object is interactive; {}'.format(
         self._log_id_long))
     error_msg = ('page object still not interactive after {} seconds;'

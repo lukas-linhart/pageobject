@@ -27,12 +27,12 @@ def wait_until(self, func, func_args=[], func_kwargs={},
     :raises TimeoutException: if the condition is not met in time
     """
     if timeout is None:
-        timeout = self.__class__.DEFAULT_WAIT_TIMEOUT
+        timeout = self.DEFAULT_WAIT_TIMEOUT
     deadline = time.time() + timeout
     while time.time() < deadline:
         if func(*func_args, **func_kwargs) is not reverse:
             return self
-        time.sleep(self.__class__.DEFAULT_POLL_INTERVAL)
+        time.sleep(self.DEFAULT_POLL_INTERVAL)
     if error_msg is None:
         error_msg = ('function {} called with args {} and kwargs '
                     + '{} still returns {} after {} seconds').format(
