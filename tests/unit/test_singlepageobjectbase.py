@@ -74,3 +74,17 @@ def test_get_child_full_name_returns_correct_name(monkeypatch, mock_po):
     assert parent_po._get_child_full_name(child_po) == '{}{}{}'.format(
             parent_full_name, parent_po.NAME_SEPARATOR, child_name)
 
+
+def test_descendants_returns_correct_value(monkeypatch, mock_po):
+    class ChildPo(SinglePageObjectBase): pass
+    child_po = ChildPo()
+    mock_po.child_po = child_po
+    class ChildPoList:
+        _descendants = None
+    child_po_list = ChildPoList()
+    mock_po.child_po_list = child_po_list
+    children = {'child_po': mock_po.child_po, 'child_po_list': mock_po.child_po_list}
+    monkeypatch.setattr(mock_po.__class__, 'children', children)
+    descendants = {child_po.name: child_po._descendants, 'child_po_list[i]': None}
+    assert mock_po._descendants == descendants
+
