@@ -54,6 +54,10 @@ def test_provided_locator_returns_initialized_locator_when_default_not_provided(
     assert mock_po_base._provided_locator == initialized_locator
 
 
+def test_locator_class_returns_correct_class(mock_po_base):
+    assert issubclass(mock_po_base._locator_class, Locator)
+
+
 def test_locator_inits_Locator_with_correct_parameters(monkeypatch, mock_po_base):
     provided_locator = "//provided"
     class MockLocator:
