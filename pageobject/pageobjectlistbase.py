@@ -60,5 +60,6 @@ class PageObjectListBase(PageObjectBase):
 
 
     # commands
+    text_values = commands.text_values
     index = commands.index
 

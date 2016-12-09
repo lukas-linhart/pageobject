@@ -23,5 +23,6 @@ from .move_to import move_to
 from .send_keys import send_keys
 
 # PageObjectList commands
+from .text_values import text_values
 from .index import index
 
