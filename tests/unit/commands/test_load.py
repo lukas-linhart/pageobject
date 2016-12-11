@@ -4,11 +4,11 @@ from pageobject import Page
 def test_load_delegates_to_weebelement_and_returns_self():
 
     class MockWebDriver:
-        def get(url): return None
+        def get(self, url): return None
 
     class MockPage(Page):
         def __init__(self): pass
-        webdriver = MockWebDriver
+        webdriver = MockWebDriver()
         _initialized_url = None
 
     mock_page = MockPage()
