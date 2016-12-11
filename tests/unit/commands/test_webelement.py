@@ -1,4 +1,3 @@
-import pytest
 from tests.unit.fixtures import mock_po
 
 

@@ -1,4 +1,3 @@
-import pytest
 from tests.unit.fixtures import mock_commands_po as mock_po
 from selenium.common.exceptions import WebDriverException
 

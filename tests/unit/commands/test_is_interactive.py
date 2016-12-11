@@ -1,4 +1,3 @@
-import pytest
 from tests.unit.fixtures import mock_commands_po as mock_po
 
 def test_is_interactive_returns_False_if_only_visible(mock_po):

@@ -1,4 +1,3 @@
-import pytest
 from pageobject import PageObjectList
 
 
