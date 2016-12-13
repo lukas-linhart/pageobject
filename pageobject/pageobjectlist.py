@@ -100,16 +100,6 @@ class PageObjectList(PageObjectListBase):
 
 
     @property
-    def _children_locator(self):
-        """
-        :returns: children Locator
-        :rtype: Locator instance
-        """
-        LocatorClass = self._locator_class
-        return LocatorClass(self._provided_children_locator, page_object=self)
-
-
-    @property
     def _children_locator_value(self):
         """
         :returns: processed children locator value ready to be passed
@@ -147,16 +137,6 @@ class PageObjectList(PageObjectListBase):
             return self._initialized_count_locator
         else:
             return self._locator_value
-
-
-    @property
-    def _count_locator(self):
-        """
-        :returns: count Locator
-        :rtype: Locator instance
-        """
-        LocatorClass = self._locator_class
-        return LocatorClass(self._provided_count_locator, page_object=self)
 
 
     @property

@@ -83,19 +83,6 @@ def test_provided_children_locator_returns_correct_value_if_not_initialized(monk
         mock_po_list._locator_value, '{}')
 
 
-def test_children_locator_inits_Locator_with_correct_parameters(monkeypatch, mock_po_list):
-    provided_children_locator = "//provided"
-    class MockLocator:
-        def __init__(self, value, page_object=None):
-            self.value = value
-            self.page_object = page_object
-    monkeypatch.setattr(mock_po_list.__class__, '_locator_class', MockLocator)
-    monkeypatch.setattr(mock_po_list.__class__, '_provided_children_locator', provided_children_locator)
-    children_locator = mock_po_list._children_locator
-    assert children_locator.value == provided_children_locator
-    assert children_locator.page_object == mock_po_list
-
-
 def test_children_locator_value_returns_correct_value(monkeypatch, mock_po_list):
     children_locator_value = "//children"
     monkeypatch.setattr(mock_po_list.__class__, '_provided_children_locator', children_locator_value)
@@ -118,19 +105,6 @@ def test_provided_count_locator_returns_initialized_locator_as_fallback(monkeypa
     mock_po_list._initialized_count_locator = None
     monkeypatch.setattr(mock_po_list.__class__, '_locator_value', count_locator)
     assert mock_po_list._provided_count_locator == count_locator
-
-
-def test_count_locator_inits_locator_with_correct_parameters(monkeypatch, mock_po_list):
-    provided_count_locator = "//provided"
-    class MockLocator:
-        def __init__(self, value, page_object=None):
-            self.value = value
-            self.page_object = page_object
-    monkeypatch.setattr(mock_po_list.__class__, '_locator_class', MockLocator)
-    monkeypatch.setattr(mock_po_list.__class__, '_provided_count_locator', provided_count_locator)
-    count_locator = mock_po_list._count_locator
-    assert count_locator.value == provided_count_locator
-    assert count_locator.page_object == mock_po_list
 
 
 def test_count_locator_value_returns_correct_attribute_of_locator(monkeypatch, mock_po_list):
