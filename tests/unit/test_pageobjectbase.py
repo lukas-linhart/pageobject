@@ -84,7 +84,14 @@ def test_locator_returns_locator_value(monkeypatch, mock_po_base):
     assert mock_po_base.locator == mock_po_base._locator_value
 
 
-def test_webdriver_returns_webdriver_of_a_parent_if_available(monkeypatch, mock_po_base):
+def test_webdriver_returns_parent_if_it_is_a_webdriver_instance(monkeypatch, mock_po_base):
+    class MockWebDriver(RemoteWebDriver):
+        def __init__(self): pass
+    parent = MockWebDriver()
+    monkeypatch.setattr(mock_po_base.__class__, 'parent', parent)
+    assert mock_po_base.webdriver == parent
+
+def test_webdriver_returns_webdriver_of_parent_po_if_available(monkeypatch, mock_po_base):
     parent_webdriver = 'parent_webdriver'
     class Parent:
         webdriver = parent_webdriver
