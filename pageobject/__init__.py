@@ -7,3 +7,5 @@ from .pageobject import PageObject
 from .pageobjectlist import PageObjectList
 from .select import Select
 
+from . import webdriver_monkey_patches
+

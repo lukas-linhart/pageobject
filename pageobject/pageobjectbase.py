@@ -151,7 +151,10 @@ class PageObjectBase(object):
         :raises AssertionError: if the webdriver is not a valid WebDriver
         """
         try:
-            return self.parent.webdriver
+            if isinstance(self.parent, WebDriver):
+                return self.parent
+            else:
+                return self.parent.webdriver
         except AttributeError:
             error_msg = ('webdriver should be an instance of selenium'
                         + ' WebDriver, instead is "{}"').format(self._webdriver)
