@@ -1,4 +1,3 @@
-import pytest
 from pageobject import PageObject
 from pageobject import PageObjectList
 from selenium.webdriver import Remote as WebDriver
