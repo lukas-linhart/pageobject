@@ -31,7 +31,7 @@ class Locator(object):
                 val.startswith('*/')):
             return 'xpath'
         else:
-            return 'unknown'
+            raise ValueError('Unknown locator type: {}'.format(val))
 
 
     @property

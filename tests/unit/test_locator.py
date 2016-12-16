@@ -42,9 +42,10 @@ def test_initialized_type_returns_attribute_when_val_starts_with_at_char(mock_lo
     mock_locator._initialized_value = '@test-id'
     assert mock_locator._initialized_type == 'attribute'
 
-def test_initialized_type_returns_unknown_by_default(mock_locator):
+def test_initialized_type_raises_ValueError_by_default(mock_locator):
     mock_locator._initialized_value = 'some_locator'
-    assert mock_locator._initialized_type == 'unknown'
+    with pytest.raises(ValueError):
+        mock_locator._initialized_type
 
 
 def test_chain_property_returns_false_when_initialized_type_is_id(monkeypatch, mock_locator):
