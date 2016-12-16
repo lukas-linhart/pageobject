@@ -90,6 +90,8 @@ class Locator(object):
         """
         if self._initialized_type == 'id':
             return self._id_to_xpath(self._initialized_value)
+        elif self._initialized_type == 'attribute':
+            return self._attribute_to_xpath(self._initialized_value)
         elif self._initialized_type == 'xpath':
             return self._initialized_value
         else:
