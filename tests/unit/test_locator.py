@@ -74,6 +74,10 @@ def test_id_to_xpath_returns_correct_value_for_id_starting_with_id(mock_locator)
     assert mock_locator._id_to_xpath('id=spam') == "//*[@id='spam']"
 
 
+def test_attribute_to_xpath_returns_correct_value(mock_locator):
+    assert mock_locator._attribute_to_xpath('@test-id=login_form') == "//*[@test-id='login_form']"
+
+
 def test_xpath_calls_id_to_xpath_with_correct_parameter(monkeypatch, mock_locator):
     spam = 'spam'
     monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'id')
