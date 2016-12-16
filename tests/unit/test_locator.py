@@ -85,10 +85,16 @@ def test_xpath_calls_id_to_xpath_with_correct_parameter(monkeypatch, mock_locato
     mock_locator._id_to_xpath = lambda value: spam
     assert mock_locator._xpath == spam
 
-def test_xpath_returns_correct_value_for_non_id_locator(mock_locator):
+def test_xpath_returns_correct_value_for_xpath_locator(monkeypatch, mock_locator):
     value = "initialized"
+    monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'xpath')
     mock_locator._initialized_value = value
     assert mock_locator._xpath == value
+
+def test_xpath_raises_ValueError_for_unsupported_types(monkeypatch, mock_locator):
+    monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'unsupported')
+    with pytest.raises(ValueError):
+        mock_locator._xpath
 
 
 def test_value_property_return_correct_nonchained_value(monkeypatch, mock_locator):

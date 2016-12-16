@@ -90,8 +90,11 @@ class Locator(object):
         """
         if self._initialized_type == 'id':
             return self._id_to_xpath(self._initialized_value)
-        else:
+        elif self._initialized_type == 'xpath':
             return self._initialized_value
+        else:
+            raise ValueError('Unsupported locator type: {}'.format(
+                self._initialized_type))
 
 
     @property
