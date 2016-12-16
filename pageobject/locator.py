@@ -24,6 +24,8 @@ class Locator(object):
         val = self._initialized_value
         if val.startswith('#') or val.startswith('id='):
             return 'id'
+        elif val.startswith('@'):
+            return 'attribute'
         elif (val.startswith('(') or val.startswith('/') or
                 val.startswith('./') or val.startswith('../') or
                 val.startswith('*/')):

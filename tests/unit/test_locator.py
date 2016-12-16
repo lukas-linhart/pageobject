@@ -38,6 +38,10 @@ def test_initialized_type_returns_xpath_when_val_starts_with_asterisk_slash(mock
     mock_locator._initialized_value = '*/div'
     assert mock_locator._initialized_type == 'xpath'
 
+def test_initialized_type_returns_attribute_when_val_starts_with_at_char(mock_locator):
+    mock_locator._initialized_value = '@test-id'
+    assert mock_locator._initialized_type == 'attribute'
+
 def test_initialized_type_returns_unknown_by_default(mock_locator):
     mock_locator._initialized_value = 'some_locator'
     assert mock_locator._initialized_type == 'unknown'

@@ -95,3 +95,17 @@ def test_PO_locator_value_is_correct_when_parent_initialized_with_id_attribute()
     login_form.username = username
     assert username._locator_value == "//*[@id='login_form']/username"
 
+
+def test_PO_locator_value_is_correct_when_initialized_as_attribute():
+    login_form = PageObject("//form")
+    username = PageObject("@test-id=username")
+    login_form.username = username
+    assert username._locator_value == "//form//*[@test-id='username']"
+
+
+def test_PO_locator_value_is_correct_when_parent_initialized_as_attribute():
+    login_form = PageObject("@test-id=login_form")
+    username = PageObject("//username")
+    login_form.username = username
+    assert username._locator_value == "//*[@test-id='login_form']//username"
+
