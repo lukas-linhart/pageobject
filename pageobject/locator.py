@@ -72,6 +72,16 @@ class Locator(object):
         return "//*[@id='{}']".format(id_value)
 
 
+    def _attribute_to_xpath(self, initialized_value):
+        """
+        :param str value: initialized value of the locator
+        :returns: attribute value converted to xpath
+        :rtype: str
+        """
+        attribute, value = initialized_value.split('=')
+        return "//*[{}='{}']".format(attribute.strip(), value.strip())
+
+
     @property
     def _xpath(self):
         """
