@@ -10,6 +10,10 @@ def test_constructor_inits_parameters_correctly():
     assert locator._initialized_value == xpath
 
 
+def test_initialized_type_returns_empty_when_val_is_empty_string(mock_locator):
+    mock_locator._initialized_value = ''
+    assert mock_locator._initialized_type == 'empty'
+
 def test_initialized_type_returns_id_when_val_starts_with_hashtag(mock_locator):
     mock_locator._initialized_value = '#some_id'
     assert mock_locator._initialized_type == 'id'
@@ -102,6 +106,12 @@ def test_xpath_calls_attribute_to_xpath_with_correct_parameter(monkeypatch, mock
 def test_xpath_returns_correct_value_for_xpath_locator(monkeypatch, mock_locator):
     value = "initialized"
     monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'xpath')
+    mock_locator._initialized_value = value
+    assert mock_locator._xpath == value
+
+def test_xpath_returns_correct_value_for_empty_locator(monkeypatch, mock_locator):
+    value = ""
+    monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'empty')
     mock_locator._initialized_value = value
     assert mock_locator._xpath == value
 

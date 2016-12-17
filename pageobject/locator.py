@@ -22,6 +22,8 @@ class Locator(object):
         :rtype: str
         """
         val = self._initialized_value
+        if val == '':
+            return 'empty'
         if val.startswith('#') or val.startswith('id='):
             return 'id'
         elif val.startswith('@'):
@@ -94,7 +96,7 @@ class Locator(object):
             return self._id_to_xpath(self._initialized_value)
         elif self._initialized_type == 'attribute':
             return self._attribute_to_xpath(self._initialized_value)
-        elif self._initialized_type == 'xpath':
+        elif self._initialized_type in {'xpath', 'empty'}:
             return self._initialized_value
         else:
             raise ValueError('Unsupported locator type: {}'.format(
