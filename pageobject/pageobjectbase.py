@@ -82,7 +82,7 @@ class PageObjectBase(object):
         try:
             return self._parent_locator.value
         except AttributeError:
-            return ''
+            return None
 
 
     @property
