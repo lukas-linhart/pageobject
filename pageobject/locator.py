@@ -42,6 +42,8 @@ class Locator(object):
         :returns: whether to chain to the parent locator
         :rtype: bool
         """
+        if self._parent_locator_value is None:
+            return False
         if self._initialized_type == 'id':
             return False
         else:

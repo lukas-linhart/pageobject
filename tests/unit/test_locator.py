@@ -48,11 +48,17 @@ def test_initialized_type_raises_ValueError_by_default(mock_locator):
         mock_locator._initialized_type
 
 
+def test_chain_property_returns_false_when_parent_locator_value_is_none(monkeypatch, mock_locator):
+    monkeypatch.setattr(mock_locator.__class__, '_parent_locator_value', None)
+    assert mock_locator._chain == False
+
 def test_chain_property_returns_false_when_initialized_type_is_id(monkeypatch, mock_locator):
+    monkeypatch.setattr(mock_locator.__class__, '_parent_locator_value', 'not_none')
     monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'id')
     assert mock_locator._chain == False
 
 def test_chain_property_returns_correct_value_when_initialized_type_is_not_id(monkeypatch, mock_locator):
+    monkeypatch.setattr(mock_locator.__class__, '_parent_locator_value', 'not_none')
     class MockPO:
         _chain = 'chain'
     monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'not_an_id')
