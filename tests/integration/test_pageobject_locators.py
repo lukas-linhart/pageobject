@@ -109,3 +109,19 @@ def test_PO_locator_value_is_correct_when_parent_initialized_as_attribute():
     login_form.username = username
     assert username._locator_value == "//*[@test-id='login_form']//username"
 
+
+def test_PO_locator_doesnt_chain_when_parent_locator_is_None():
+    login_form = PageObject(None)
+    username = PageObject("//username", chain=True)
+    login_form.username = username
+    assert username._locator_value == "//username"
+
+
+def test_PO_locator_chains_with_empty_string_descendant_locators():
+    main_panel = PageObject("//main_panel")
+    login_form = PageObject("")
+    username = PageObject("//username", chain=True)
+    main_panel.login_form = login_form
+    login_form.username = username
+    assert username._locator_value == "//main_panel//username"
+
