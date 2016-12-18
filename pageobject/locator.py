@@ -22,9 +22,11 @@ class Locator(object):
         :rtype: str
         """
         val = self._initialized_value
-        if val == '':
+        if val is None:
+            return None
+        elif val == '':
             return 'empty'
-        if val.startswith('#') or val.startswith('id='):
+        elif val.startswith('#') or val.startswith('id='):
             return 'id'
         elif val.startswith('@'):
             return 'attribute'
@@ -113,6 +115,8 @@ class Locator(object):
         :returns: final value of the locator
         :rtype: str
         """
+        if self._initialized_type is None:
+            return None
         if self._chain:
             return '{}{}'.format(self._parent_locator_value, self._xpath)
         else:

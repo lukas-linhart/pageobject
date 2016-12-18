@@ -121,18 +121,23 @@ def test_xpath_raises_ValueError_for_unsupported_types(monkeypatch, mock_locator
         mock_locator._xpath
 
 
+def test_value_property_returns_None_when_initialized_type_is_None(monkeypatch, mock_locator):
+    monkeypatch.setattr(mock_locator.__class__, '_initialized_type', None)
+    assert mock_locator.value == None
+
 def test_value_property_return_correct_nonchained_value(monkeypatch, mock_locator):
     xpath = "//body"
+    monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'not none')
     monkeypatch.setattr(mock_locator.__class__, '_xpath', xpath)
     monkeypatch.setattr(mock_locator.__class__, '_chain', False)
     assert mock_locator.value == xpath
-
 
 def test_value_property_returns_correct_chained_value(monkeypatch, mock_locator):
     parent_xpath = "//body"
     child_xpath = "//div"
     chained_xpath = '{}{}'.format(parent_xpath, child_xpath)
 
+    monkeypatch.setattr(mock_locator.__class__, '_initialized_type', 'not none')
     monkeypatch.setattr(mock_locator.__class__, '_xpath', child_xpath)
     monkeypatch.setattr(mock_locator.__class__, '_chain', True)
     monkeypatch.setattr(mock_locator.__class__, '_parent_locator_value', parent_xpath)
