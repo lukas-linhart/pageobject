@@ -228,9 +228,9 @@ class PageObjectBase(object):
     def _log_id_short(self): # pragma: no cover
         """
         :returns: String identifying the page object by its full name.
-        :rtype: `str`
+        :rtype: str
         """
-        return 'page object "{}"'.format(self.full_name)
+        return '"{}"'.format(self.full_name)
 
 
     @property
@@ -238,8 +238,8 @@ class PageObjectBase(object):
         """
         :returns: String identifying the page object
             by its full name and locator.
-        :rtype: `str`
+        :rtype: str
         """
-        return 'full name path: "{}", element: "{}"'.format(
+        return 'full name: "{}", locatort: "{}"'.format(
                 self.full_name, self._locator_value)
 
