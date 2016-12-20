@@ -8,8 +8,8 @@ def clear(self, log=True, press_enter=False):
     :param bool log: whether to log or not (defualt is True)
     :param bool press_enter: whether to press enter key after
         the element is cleared (defualt is False)
-    :returns: `self`
-    :rtype: `PageObjectBase` instance
+    :returns: self
+    :rtype: PageObjectBase instance
     :raises NoSuchElementException: if the element cannot be found
     :raises InvalidSelectorException: if the selector is invalid
         or doesn't select an element
