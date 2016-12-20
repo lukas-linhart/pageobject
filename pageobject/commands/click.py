@@ -2,8 +2,8 @@ def click(self):
     """
     Click the page object.
 
-    :returns: `self`
-    :rtype: `PageObjectBase` instance
+    :returns: self
+    :rtype: PageObjectBase instance
     :raises NoSuchElementException: if the element cannot be found
     :raises InvalidSelectorException: if the selector is invalid
         or doesn't select an element
