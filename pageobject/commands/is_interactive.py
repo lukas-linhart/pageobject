@@ -13,15 +13,19 @@ def is_interactive(self, log=True):
     :rtype: bool
     """
     if log:
-        self.logger.info(('determining whether page object is interactive'
-            + ' {};').format(self._log_id_long))
+        self.logger.info(('determining whether page object {} is interactive'
+            ).format(self._log_id_short))
+    self.logger.debug(('determining whether page object is interactive'
+        + '; {}').format(self._log_id_long))
 
     interactive = self.is_visible(log=False) and self.is_enabled(log=False)
 
+    msg_str = '' if interactive else ' not'
     if log:
-        msg_str = '' if interactive else ' not'
-        self.logger.info('page object is{} interactive; {}'.format(
+        self.logger.info('page object {} is{} interactive'.format(
             msg_str, self._log_id_long))
+    self.logger.debug('page object is{} interactive; {}'.format(
+        msg_str, self._log_id_long))
 
     return interactive
 
