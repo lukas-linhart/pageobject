@@ -5,7 +5,7 @@ def get_attribute(self, attribute, log=True):
     :param str attribute: attribute name
     :param bool log: whether to log or not (default is True)
     :returns: attribute value
-    :rtype: `str`
+    :rtype: str
     :raises NoSuchElementException: if the element cannot be found
     :raises InvalidSelectorException: if the selector is invalid
         or doesn't select an element
