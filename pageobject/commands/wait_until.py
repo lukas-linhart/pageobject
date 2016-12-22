@@ -14,11 +14,10 @@ def wait_until(self, func, func_args=[], func_kwargs={},
 
     :param func: function returning :py:obj:`bool` that is repeatedly
         invoked until it returns correct value
-    :param list func_args: list of args to be passed to `func`
-    :param dict func_kwargs: dict of kwargs to be passed to `func`
-    :param int timeout: number of seconds to try to call `func`,
-        if not provided, :py:obj:`PageObject.DEFAULT_WAIT_TIMEOUT`
-        is used
+    :param list func_args: list of args to be passed to func
+    :param dict func_kwargs: dict of kwargs to be passed to func
+    :param int timeout: number of seconds to try to call func,
+        if not provided, PageObject.DEFAULT_WAIT_TIMEOUT is used
     :param str error_msg: error message to attach to the exception
         raised when the condition is not met in time
     :param bool reverse: flag indicating whether to wait until
