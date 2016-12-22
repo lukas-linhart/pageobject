@@ -9,6 +9,7 @@ def test_text_values_return_text_attributes_of_children(monkeypatch):
 
     class MockPoList(PageObjectList):
         def __init__(self): pass
+        _log_id_short = None
         _log_id_long = None
 
     mock_po_list = MockPoList()
