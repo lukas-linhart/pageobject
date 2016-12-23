@@ -17,5 +17,6 @@ def is_displayed(self, log=True):
     return visible
 
 
-is_visible = is_displayed
+def is_visible(self, log=True):
+    return self.is_displayed(log=log)
 
