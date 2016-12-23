@@ -57,7 +57,7 @@ def mock_select():
 def mock_commands_po():
 
     class NopLogger(object):
-        info = debug = lambda *args, **kwargs: None
+        info = debug = warning = lambda *args, **kwargs: None
 
     class MockWebElement(object):
         pass

@@ -18,5 +18,6 @@ def is_displayed(self, log=True):
 
 
 def is_visible(self, log=True):
+    self.logger.warning('"is_visible" command is deprecated, use "is_displayed" instead!')
     return self.is_displayed(log=log)
 
