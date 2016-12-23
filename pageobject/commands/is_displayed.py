@@ -1,4 +1,4 @@
-def is_visible(self, log=True):
+def is_displayed(self, log=True):
     """
     Return True if page object is visible, False otherwise.
 
@@ -15,4 +15,7 @@ def is_visible(self, log=True):
         self.logger.info('page object {} is{} visible'.format(self._log_id_short, neg_str))
     self.logger.debug('page object is{} visible; {}'.format(neg_str, self._log_id_long))
     return visible
+
+
+is_visible = is_displayed
 
