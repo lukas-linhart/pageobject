@@ -5,6 +5,7 @@ from .load import load
 from .webelement import webelement
 from .text import text
 from .is_existing import is_existing
+from .is_displayed import is_displayed
 from .is_displayed import is_visible
 from .is_enabled import is_enabled
 from .is_interactive import is_interactive

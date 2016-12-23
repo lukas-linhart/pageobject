@@ -41,6 +41,7 @@ class PageObject(SinglePageObjectBase):
 
     # commands
     is_enabled = commands.is_enabled
+    is_displayed = commands.is_displayed
     is_visible = commands.is_visible
     is_interactive = commands.is_interactive
     wait_for_visible = commands.wait_for_visible
