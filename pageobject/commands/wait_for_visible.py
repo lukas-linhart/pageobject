@@ -16,7 +16,7 @@ def wait_for_visible(self, timeout=None):
     error_msg = ('page object still not visible after {} seconds; {}'
         ).format(timeout, self._log_id_long)
 
-    self.wait_until(self.is_visible, func_kwargs=dict(log=False),
+    self.wait_until(self.is_displayed, func_kwargs=dict(log=False),
         timeout=timeout, error_msg=error_msg)
 
     self.logger.info(('finished waiting until page object {} is visible'
