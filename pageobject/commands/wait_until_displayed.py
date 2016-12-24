@@ -1,4 +1,4 @@
-def wait_for_visible(self, timeout=None):
+def wait_until_displayed(self, timeout=None):
     """
     Wait for page object to be visible.
 
@@ -25,4 +25,7 @@ def wait_for_visible(self, timeout=None):
         ).format(self._log_id_long))
 
     return self
+
+
+wait_for_visible = wait_until_displayed
 
