@@ -27,5 +27,7 @@ def wait_until_displayed(self, timeout=None):
     return self
 
 
-wait_for_visible = wait_until_displayed
+def wait_for_visible(self, timeout=None):
+    self.wait_until_displayed(timeout=timeout)
+    return self
 
