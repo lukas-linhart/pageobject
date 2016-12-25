@@ -1,6 +1,6 @@
-def wait_for_exist(self, timeout=None):
+def wait_until_existing(self, timeout=None):
     """
-    Wait for page object to exist in the DOM.
+    Wait until page object is existing in the DOM.
 
     :param int timeout: number of seconds to wait, if not provided
         PageObject.DEFAULT_WAIT_TIMEOUT is used
@@ -25,4 +25,7 @@ def wait_for_exist(self, timeout=None):
         ).format(self._log_id_long))
 
     return self
+
+
+wait_for_exist = wait_until_existing
 
