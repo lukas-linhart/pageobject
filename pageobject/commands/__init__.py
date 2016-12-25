@@ -10,6 +10,7 @@ from .is_visible import is_visible
 from .is_enabled import is_enabled
 from .is_interactive import is_interactive
 from .wait_until import wait_until
+from .wait_until_existing import wait_until_existing
 from .wait_until_displayed import wait_until_displayed
 from .wait_for_visible import wait_for_visible
 from .wait_until_existing import wait_for_exist
