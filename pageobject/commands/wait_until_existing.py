@@ -26,6 +26,3 @@ def wait_until_existing(self, timeout=None):
 
     return self
 
-
-wait_for_exist = wait_until_existing
-
