@@ -103,6 +103,6 @@ class SinglePageObjectBase(PageObjectBase):
     is_existing = commands.is_existing
     wait_until = commands.wait_until
     wait_until_existing = commands.wait_until_existing
-    wait_for_exist = commands.wait_for_exist
+    wait_for_exist = commands.wait_for_exist # deprecated
     wait_for_vanish = commands.wait_for_vanish
 
