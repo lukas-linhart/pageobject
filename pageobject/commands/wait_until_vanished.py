@@ -1,6 +1,6 @@
-def wait_for_vanish(self, timeout=None):
+def wait_until_vanished(self, timeout=None):
     """
-    Wait fro page object to vanish from the DOM.
+    Wait until page object vanishes from the DOM.
 
     :param int timeout: number of seconds to wait, if not provided
         PageObject.DEFAULT_WAIT_TIMEOUT is used
@@ -25,4 +25,7 @@ def wait_for_vanish(self, timeout=None):
         + ' page object; {}').format(self._log_id_long))
 
     return self
+
+
+wait_for_vanish = wait_until_vanished
 
