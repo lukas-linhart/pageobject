@@ -46,7 +46,8 @@ class PageObject(SinglePageObjectBase):
     is_interactive = commands.is_interactive
     wait_until_displayed = commands.wait_until_displayed
     wait_for_visible = commands.wait_for_visible # deprecated
-    wait_for_enabled = commands.wait_for_enabled
+    wait_for_enabled = commands.wait_until_enabled
+    wait_for_enabled = commands.wait_for_enabled # deprecated
     wait_for_interactive = commands.wait_for_interactive
     click = commands.click
     clear = commands.clear
