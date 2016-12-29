@@ -1,6 +1,6 @@
-def wait_for_enabled(self, timeout=None):
+def wait_until_enabled(self, timeout=None):
     """
-    Wait for page object to be enabled.
+    Wait until page object is enabled.
 
     :param int timeout: number of seconds to wait, if not provided
         PageObject.DEFAULT_WAIT_TIMEOUT is used
@@ -25,4 +25,7 @@ def wait_for_enabled(self, timeout=None):
         ).format(self._log_id_long))
 
     return self
+
+
+wait_for_enabled = wait_until_enabled
 
