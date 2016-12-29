@@ -27,5 +27,11 @@ def wait_until_enabled(self, timeout=None):
     return self
 
 
-wait_for_enabled = wait_until_enabled
+def wait_for_enabled(self, timeout=None):
+    """
+    DEPRECATED! Use wait_until_enabled command instead.
+    """
+    self.logger.warning('"wait_for_enabled" command is deprecated, use "wait_until_enabled" instead!')
+    self.wait_until_existing(timeout=timeout)
+    return self
 
