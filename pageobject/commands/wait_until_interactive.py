@@ -1,6 +1,6 @@
-def wait_for_interactive(self, timeout=None):
+def wait_until_interactive(self, timeout=None):
     """
-    Wait for page object to be interactive.
+    Wait until page object is interactive.
 
     :param int timeout: number of seconds to wait, if not provided
         PageObject.DEFAULT_WAIT_TIMEOUT is used
@@ -25,4 +25,7 @@ def wait_for_interactive(self, timeout=None):
         ).format(self._log_id_long))
 
     return self
+
+
+wait_for_interactive = wait_until_interactive
 
