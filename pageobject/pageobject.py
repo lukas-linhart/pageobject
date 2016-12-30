@@ -48,7 +48,8 @@ class PageObject(SinglePageObjectBase):
     wait_for_visible = commands.wait_for_visible # deprecated
     wait_until_enabled = commands.wait_until_enabled
     wait_for_enabled = commands.wait_for_enabled # deprecated
-    wait_for_interactive = commands.wait_for_interactive
+    wait_until_interactive = commands.wait_until_interactive
+    wait_for_interactive = commands.wait_for_interactive # deprecated
     click = commands.click
     clear = commands.clear
     get_value = commands.get_value
