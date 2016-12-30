@@ -19,7 +19,7 @@ from .wait_for_exist import wait_for_exist # deprecated
 from .wait_for_visible import wait_for_visible # deprecated
 from .wait_for_vanish import wait_for_vanish # deprecated
 from .wait_for_enabled import wait_for_enabled # deprecated
-from .wait_until_interactive import wait_for_interactive # deprecated
+from .wait_for_interactive import wait_for_interactive # deprecated
 from .click import click
 from .clear import clear
 from .get_value import get_value
